@@ -199,7 +199,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562122_1863333386_1539952686">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562131_948800849_1539952693">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562146_1798195049_1539952711">
-<meta property="og:updated_time" content="2018-11-14T12:24:03.000Z">
+<meta property="og:updated_time" content="2018-11-14T16:30:39.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第二章 单变量线性回归(Linear Regression with One Variable)">
 <meta name="twitter:description" content="第二章: 单变量线性回归(Linear Regression with One Variable)Gradient Descennt 我们已经定义了代价函数J 而在这段视频中 我想向你们介绍梯度下降这种算法 这种算法可以将代价函数J最小化 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域 在后面课程中 为了解决其他线性回归问题 我们&amp;amp;&amp;amp;">
@@ -509,7 +509,7 @@
                 
               
 
-              <time title="创建时间：2018-11-14 20:22:59 / 修改时间：12:24:03" itemprop="dateCreated datePublished" datetime="2018-11-14T20:22:59Z">2018-11-14</time>
+              <time title="创建时间：2018-11-14 20:22:59 / 修改时间：16:30:39" itemprop="dateCreated datePublished" datetime="2018-11-14T20:22:59Z">2018-11-14</time>
             
 
             
@@ -626,11 +626,12 @@
 </blockquote>
 <ul>
 <li>在这里 我们有一个函数$J(\theta_0, \theta_1)$ 也许这是一个线性回归的代价函数 也许是一些其他函数 要使其最小化 我们需要用一个算法 来最小化函数$J(\theta_0, \theta_1)$ 就像刚才说的 事实证明 梯度下降算法可应用于 多种多样的函数求解 所以想象一下如果你有一个函数 J(θ0, θ1, θ2, …,θn ) 你希望可以通过最小化 θ0到θn 来最小化此代价函数J(θ0 到θn) 用n个θ是为了证明梯度下降算法可以解决更一般的问题 但为了简洁起见 为了简化符号 在接下来的视频中 我只用两个参数</li>
-<li>下面就是关于梯度下降的构想 我们要做的是 我们<strong>要开始对θ0和θ1 进行一些初步猜测</strong> 它们到底是什么其实并不重要 但<strong>通常的选择是将 θ0设为0 将θ1也设为0 将它们都初始化为0</strong> 我们在梯度下降算法中要做的 就是<strong>不停地一点点地改变 θ0和θ1 试图通过这种改变使得J(θ0, θ1)变小 直到我们找到 J 的最小值 或许是局部最小值</strong></li>
-</ul>
+<li><p>下面就是关于梯度下降的构想 我们要做的是 我们<strong>要开始对θ0和θ1 进行一些初步猜测</strong> 它们到底是什么其实并不重要 但<strong>通常的选择是将 θ0设为0 将θ1也设为0 将它们都初始化为0</strong> 我们在梯度下降算法中要做的 就是<strong>不停地一点点地改变 θ0和θ1 试图通过这种改变使得J(θ0, θ1)变小 直到我们找到 J 的最小值 或许是局部最小值</strong></p>
+<a id="more"></a>
 <p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560718_677839576_1539945526" alt="_1526560718_677839576_1539945526_1526560718_677839576.png"></p>
-<ul>
-<li>让我们通过一些图片来看看梯度下降法是如何工作的 我在试图让这个函数值最小 注意坐标轴 θ0和θ1在水平轴上 而函数 J在垂直坐标轴上 图形表面高度则是 J的值</li>
+</li>
+<li><p>让我们通过一些图片来看看梯度下降法是如何工作的 我在试图让这个函数值最小 注意坐标轴 θ0和θ1在水平轴上 而函数 J在垂直坐标轴上 图形表面高度则是 J的值</p>
+</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560743_1565219096_1539945560" alt="_1526560743_1565219096_1539945560_1526560743_1565219096.png"></p>
 <ul>
