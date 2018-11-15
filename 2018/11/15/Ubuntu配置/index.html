@@ -641,7 +641,7 @@
 <li>找到页面上以“ppa:”开头加粗的那一段英文，比如这次就是“ppa:damien-moore/codeblocks-stable”<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:damien-moore/codeblocks-stable</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install codeblocks  libwxgtk3.0-dev wx-common codeblocks-contrib</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h5 id="无法输入中文或终端中文出现乱码"><a href="#无法输入中文或终端中文出现乱码" class="headerlink" title="无法输入中文或终端中文出现乱码"></a>无法输入中文或终端中文出现乱码</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">Settings-&gt;</span>General Setting-&gt;Environment-Terminal to launch console programs下拉菜单改成gnome-terminal -t $TITLE -x</span><br></pre></td></tr></table></figure>
+<h5 id="无法输入中文或终端中文出现乱码"><a href="#无法输入中文或终端中文出现乱码" class="headerlink" title="无法输入中文或终端中文出现乱码"></a>无法输入中文或终端中文出现乱码</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">Settings-&gt;</span><span class="bash">General Setting-&gt;Environment-Terminal to launch console programs下拉菜单改成gnome-terminal -t <span class="variable">$TITLE</span> -x</span></span><br></pre></td></tr></table></figure>
 <h3 id="无法正常关机重启"><a href="#无法正常关机重启" class="headerlink" title="无法正常关机重启"></a>无法正常关机重启</h3><p>方法1：系统设置-&gt; 软件和更新-&gt;附加驱动-&gt;安装专有驱动-&gt;安装完后重启，笔者就是用这种方法解决的。</p>
 <p>方法2：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/modprobe.d/blacklist.conf</span><br><span class="line">最下面添加下列内容</span><br><span class="line">blacklist vga16fb</span><br><span class="line">blacklist nouveau</span><br><span class="line">blacklist rivafb</span><br><span class="line">blacklist nvidiafb</span><br><span class="line">blacklist rivatv</span><br></pre></td></tr></table></figure></p>
 <p>方法3：在关机或重启前用<code>sync</code>命令</p>
@@ -1062,7 +1062,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1085,7 +1085,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1120,7 +1122,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1214,7 +1218,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">86k</span>
+    <span title="站点总字数">88k</span>
   
 
   
@@ -1223,7 +1227,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">2:23</span>
+    <span title="站点阅读时长">2:26</span>
   
 </div>
 
