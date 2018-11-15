@@ -196,7 +196,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488042_674655632_1539944900">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488050_330535995_1539944915">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488073_471902153_1539944930">
-<meta property="og:updated_time" content="2018-11-14T16:36:29.383Z">
+<meta property="og:updated_time" content="2018-11-15T06:26:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一章: Model and Cost Function">
 <meta name="twitter:description" content="Model Representation:模型表示 我们的第一个学习算法是线性回归算法,了解监督学习过程完整的流程  例子 这个例子是预测住房价格的 我们要使用一个数据集 数据集包含俄勒冈州波特兰市的住房价格 在这里 我要根据不同房屋尺寸所售出的价格 画出我的数据集">
@@ -506,12 +506,24 @@
                 
               
 
-              <time title="创建时间：2018-11-14 20:17:43 / 修改时间：16:36:29" itemprop="dateCreated datePublished" datetime="2018-11-14T20:17:43Z">2018-11-14</time>
+              <time title="创建时间：2018-11-14 20:17:43" itemprop="dateCreated datePublished" datetime="2018-11-14T20:17:43Z">2018-11-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-15 06:26:51" itemprop="dateModified" datetime="2018-11-15T06:26:51Z">2018-11-15</time>
               
             
           </span>
@@ -656,8 +668,8 @@
 <ul>
 <li>那么为什么是一个线性函数呢? 有时候 我们会有更复杂的函数 也许是非线性函数 但是 由于线性方程是简单的形式 我们将先从线性方程的例子入手 当然 最终我们将会建立更复杂的模型 以及更复杂的学习算法 好吧 让我们也给这模型 起一个名字 这个模型被称为<code>线性回归(linear regression)模型</code> 另外 这实际上是关于单个变量的线性回归 这个变量就是x 根据x来预测所有的价格函数 同时 对于这种模型有另外一个名称 称作<code>单变量线性回归</code> 单变量是对一个变量的一种 特别的表述方式 总而言之 这就是线性回归 在接下来的视频中 我们将开始讨论如何去实现这种模型</li>
 </ul>
-<h3 id="笔记–Model-Representation模型表示"><a href="#笔记–Model-Representation模型表示" class="headerlink" title="笔记–Model Representation模型表示"></a>笔记–Model Representation模型表示</h3><ul>
-<li>为了建立将来使用的符号，我们将使用 <code>x^i</code>来表示<code>“输入”变量</code>（在这个例子中是居住区域），也被称为<code>输入要素</code>，而 <code>y^i</code> 表示我们试图<code>预测的“输出”或目标变量</code>（价格）。一对 <code>(x^i，y^i)</code>被称为<code>训练样例</code>，我们将用来学习的<code>数据集----m</code>个训练样例的列表<code>(x^i，y^i)</code>;i= 1，。 。 。 ，<code>m</code>—- 被称为<code>训练集</code>。请注意，符号中的上标“（<code>i</code>）”仅仅是训练集的<code>索引</code>，与幂运算无关。我们也将用<code>X</code>来表示<code>输入值的空间</code>，用<code>Y</code>来表示<code>输出值的空间</code>。在这个例子中，X = Y =ℝ。</li>
+<h3 id="笔记—Model-Representation模型表示"><a href="#笔记—Model-Representation模型表示" class="headerlink" title="笔记—Model Representation模型表示"></a>笔记—Model Representation模型表示</h3><ul>
+<li>为了建立将来使用的符号，我们将使用 <code>x^i</code>来表示<code>“输入”变量</code>（在这个例子中是居住区域），也被称为<code>输入要素</code>，而 <code>y^i</code> 表示我们试图<code>预测的“输出”或目标变量</code>（价格）。一对 <code>(x^i，y^i)</code>被称为<code>训练样例</code>，我们将用来学习的<code>数据集----m</code>个训练样例的列表<code>(x^i，y^i)</code>;i= 1，。 。 。 ，<code>m</code>—— 被称为<code>训练集</code>。请注意，符号中的上标“（<code>i</code>）”仅仅是训练集的<code>索引</code>，与幂运算无关。我们也将用<code>X</code>来表示<code>输入值的空间</code>，用<code>Y</code>来表示<code>输出值的空间</code>。在这个例子中，X = Y =ℝ。</li>
 <li>为了更形式化地描述监督学习问题，我们的目标是在给定训练集的情况下，去学习一个函数<code>h：X→Y</code>，使得<code>h（x）</code>是<code>y</code>的相应值的<code>“好”预测器</code>。由于历史原因，这个函数<code>h</code>被称为<code>假设</code>。从形象上看，这个过程是这样的：</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486547_637097161_1539943596" alt="_1526486547_637097161_1539943596_1526486547_637097161.png"></p>
@@ -1078,7 +1090,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Representation-模型表示"><span class="nav-number">1.</span> <span class="nav-text">Model Representation:模型表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记–Model-Representation模型表示"><span class="nav-number">1.2.</span> <span class="nav-text">笔记–Model Representation模型表示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-代价函数"><span class="nav-number">2.</span> <span class="nav-text">Cost Function(代价函数)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-代价函数-笔记"><span class="nav-number">2.1.</span> <span class="nav-text">Cost Function(代价函数)笔记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-I"><span class="nav-number">3.</span> <span class="nav-text">Cost Function - Intuition I</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-Intuition-I笔记"><span class="nav-number">3.1.</span> <span class="nav-text">Cost Function - Intuition I笔记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-II"><span class="nav-number">4.</span> <span class="nav-text">Cost Function - Intuition II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-代价函数-Intuition-II笔记"><span class="nav-number">4.1.</span> <span class="nav-text">Cost Function(代价函数) - Intuition II笔记</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Representation-模型表示"><span class="nav-number">1.</span> <span class="nav-text">Model Representation:模型表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记—Model-Representation模型表示"><span class="nav-number">1.2.</span> <span class="nav-text">笔记—Model Representation模型表示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-代价函数"><span class="nav-number">2.</span> <span class="nav-text">Cost Function(代价函数)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-代价函数-笔记"><span class="nav-number">2.1.</span> <span class="nav-text">Cost Function(代价函数)笔记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-I"><span class="nav-number">3.</span> <span class="nav-text">Cost Function - Intuition I</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-Intuition-I笔记"><span class="nav-number">3.1.</span> <span class="nav-text">Cost Function - Intuition I笔记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-II"><span class="nav-number">4.</span> <span class="nav-text">Cost Function - Intuition II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function-代价函数-Intuition-II笔记"><span class="nav-number">4.1.</span> <span class="nav-text">Cost Function(代价函数) - Intuition II笔记</span></a></li></ol></li></ol></div>
             
 
           </div>
