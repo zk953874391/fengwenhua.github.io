@@ -155,7 +155,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535036707.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535036535.jpg">
-<meta property="og:updated_time" content="2018-11-15T07:09:55.000Z">
+<meta property="og:updated_time" content="2018-11-15T07:30:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Qt遇到的一些坑">
 <meta name="twitter:description" content="记得重新构建所有项目  Could not determine which “make” command to run问题12321:48:20: Could not determine which &amp;quot;make&amp;quot; command to run. Check the &amp;quot;make&amp;quot; step in the build configuration.Error w">
@@ -465,7 +465,7 @@
                 
               
 
-              <time title="创建时间：2018-11-15 15:08:59 / 修改时间：07:09:55" itemprop="dateCreated datePublished" datetime="2018-11-15T15:08:59Z">2018-11-15</time>
+              <time title="创建时间：2018-11-15 15:08:59 / 修改时间：07:30:58" itemprop="dateCreated datePublished" datetime="2018-11-15T15:08:59Z">2018-11-15</time>
             
 
             
@@ -536,7 +536,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">761</span>
+                <span title="本文字数">762</span>
               
 
               
@@ -574,7 +574,8 @@
 <p>记得重新构建所有项目</p>
 </blockquote>
 <h3 id="Could-not-determine-which-“make”-command-to-run"><a href="#Could-not-determine-which-“make”-command-to-run" class="headerlink" title="Could not determine which “make” command to run"></a>Could not determine which “make” command to run</h3><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">21:48:20: Could not determine which &quot;make&quot; command to run. Check the &quot;make&quot; step in the build configuration.</span><br><span class="line">Error while building/deploying project MarkdownPic (kit: Desktop Qt 5.11.1 GCC 64bit)</span><br><span class="line">When executing step &quot;qmake&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install cmake g++ gcc gdb</span><br></pre></td></tr></table></figure>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install cmake g++ gcc gdb</span><br></pre></td></tr></table></figure>
 <p>然后打开<code>qtcreator</code>-&gt;<code>工具</code>-&gt;<code>选项</code>-&gt;<code>构建和运行</code>-&gt;<code>构建套件kit</code>-&gt;<code>自动检测的其中一项</code>-&gt;<code>编译器</code>，给C++也选择一个即可</p>
 <p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535036707.jpg" alt=""></p>
 <h3 id="cannot-find-IGL"><a href="#cannot-find-IGL" class="headerlink" title="cannot find -IGL"></a><code>cannot find -IGL</code></h3><h4 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libgl1-mesa-dev</span><br></pre></td></tr></table></figure>
