@@ -145,47 +145,40 @@
 
 
 
-  <meta name="description" content="Windows1. 安装Qt5 点击进入Qt官网下载Qt5,这里我下载的是最新版的Qt5.11,windows平台.">
-<meta name="keywords" content="Qt5安装">
+  <meta name="description" content="打包 例子使用pachonggui.py   正常执行一遍  1pyinstaller -Fw pachonggui.py  给脚本加一行代码1import PyQt5.sip   然后再执行同样的命令1pyinstaller -Fw pachonggui.py  删掉import PyQt5.sip，可以继续写代码了。如果要打包，从1开始  出现failed to execute script的">
+<meta name="keywords" content="pyinstaller,pyqt打包">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Qt5安装">
-<meta property="og:url" content="http://www.fengwenhua.top/2018/11/15/Qt5安装/index.html">
+<meta property="og:title" content="pyinstaller打包遇到的坑">
+<meta property="og:url" content="http://www.fengwenhua.top/2018/11/27/pyinstaller打包遇到的坑/index.html">
 <meta property="og:site_name" content="江南小虫虫的博客">
-<meta property="og:description" content="Windows1. 安装Qt5 点击进入Qt官网下载Qt5,这里我下载的是最新版的Qt5.11,windows平台.">
+<meta property="og:description" content="打包 例子使用pachonggui.py   正常执行一遍  1pyinstaller -Fw pachonggui.py  给脚本加一行代码1import PyQt5.sip   然后再执行同样的命令1pyinstaller -Fw pachonggui.py  删掉import PyQt5.sip，可以继续写代码了。如果要打包，从1开始  出现failed to execute script的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644391_16788_1537332597">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644458_5328_1537332616">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645555_9264_1537332632">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645589_21588_1537332640">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645789_26375_1537332648">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652433_18573_1537332689">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652386_4416_1537332701">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652808_10732_1537332710">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652869_13419_1537332720">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653121_31687_1537332728">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653495_12074_1537332742">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653444_22807_1537332751">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653727_2648_1537332766">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527654327_13331_1537332777">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653743_10827_1537332797">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653765_6383_1537332817">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653782_30909_1537332828">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527654005_20624_1537332840">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078798.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078672.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078710.jpg">
-<meta property="og:updated_time" content="2018-11-15T07:32:28.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799324.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799377.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799888.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799475.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800027.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800703.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800781.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800824.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801080.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801107.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801253.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801281.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801753.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801883.jpg">
+<meta property="og:updated_time" content="2018-11-27T04:47:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Qt5安装">
-<meta name="twitter:description" content="Windows1. 安装Qt5 点击进入Qt官网下载Qt5,这里我下载的是最新版的Qt5.11,windows平台.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644391_16788_1537332597">
+<meta name="twitter:title" content="pyinstaller打包遇到的坑">
+<meta name="twitter:description" content="打包 例子使用pachonggui.py   正常执行一遍  1pyinstaller -Fw pachonggui.py  给脚本加一行代码1import PyQt5.sip   然后再执行同样的命令1pyinstaller -Fw pachonggui.py  删掉import PyQt5.sip，可以继续写代码了。如果要打包，从1开始  出现failed to execute script的">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799324.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.fengwenhua.top/2018/11/15/Qt5安装/"/>
+  <link rel="canonical" href="http://www.fengwenhua.top/2018/11/27/pyinstaller打包遇到的坑/"/>
 
 
 
@@ -195,7 +188,7 @@
   };
 </script>
 
-  <title>Qt5安装 | 江南小虫虫的博客</title>
+  <title>pyinstaller打包遇到的坑 | 江南小虫虫的博客</title>
   
 
 
@@ -442,7 +435,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.fengwenhua.top/2018/11/15/Qt5安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.fengwenhua.top/2018/11/27/pyinstaller打包遇到的坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="冯文华">
@@ -459,7 +452,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Qt5安装
+          <h1 class="post-title" itemprop="name headline">pyinstaller打包遇到的坑
               
             
           </h1>
@@ -484,7 +477,7 @@
                 
               
 
-              <time title="创建时间：2018-11-15 15:07:16 / 修改时间：07:32:28" itemprop="dateCreated datePublished" datetime="2018-11-15T15:07:16Z">2018-11-15</time>
+              <time title="创建时间：2018-11-27 12:46:05 / 修改时间：04:47:08" itemprop="dateCreated datePublished" datetime="2018-11-27T12:46:05Z">2018-11-27</time>
             
 
             
@@ -521,8 +514,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/15/Qt5安装/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/15/Qt5安装/" itemprop="commentCount"></span>
+                <a href="/2018/11/27/pyinstaller打包遇到的坑/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/27/pyinstaller打包遇到的坑/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -530,7 +523,7 @@
 
           
           
-             <span id="/2018/11/15/Qt5安装/" class="leancloud_visitors" data-flag-title="Qt5安装">
+             <span id="/2018/11/27/pyinstaller打包遇到的坑/" class="leancloud_visitors" data-flag-title="pyinstaller打包遇到的坑">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -589,89 +582,68 @@
       
 
       
-        <h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h2 id="1-安装Qt5"><a href="#1-安装Qt5" class="headerlink" title="1. 安装Qt5"></a>1. 安装Qt5</h2><ol>
-<li><a href="http://download.qt.io/archive/qt/" target="_blank" rel="noopener">点击进入Qt官网</a>下载Qt5,这里我下载的是最新版的<code>Qt5.11</code>,windows平台.</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644391_16788_1537332597" alt=""><br><a id="more"></a><br><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644458_5328_1537332616" alt=""></p>
-<blockquote>
-<p>tips:由于文件比较大,最好<code>右键-&gt;复制链接地址-&gt;打开迅雷</code>,用迅雷下载</p>
+        <h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><blockquote>
+<p>例子使用<code>pachonggui.py</code></p>
 </blockquote>
 <ol>
-<li>下载完成后,双击安装</li>
-<li><p>有三个地方要注意</p>
-<ul>
-<li>让你注册登录的时候,可以<code>Skip</code>跳过</li>
-<li>自行修改<code>安装路径</code>最好是<code>英文</code>的</li>
-<li>选择安装组件的时候,要<code>Select All</code></li>
-<li>然后就是一路<code>Next</code>,最后<code>Install</code>了.<blockquote>
-<p>tips:博主在安装过程中,会弹出一个<code>Installer Error</code>的警告,本人是直接点<code>Ignore</code>的,忽略此警告</p>
-</blockquote>
+<li>正常执行一遍</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -Fw pachonggui.py</span><br></pre></td></tr></table></figure>
+<ol>
+<li>给脚本加一行代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import PyQt5.sip</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-</li>
-<li><p>最后,点击<code>Finish</code>完成</p>
-</li>
-<li>自此,Qt5的安装完毕</li>
 </ol>
-<h2 id="2-配置Qt5的环境"><a href="#2-配置Qt5的环境" class="headerlink" title="2. 配置Qt5的环境"></a>2. 配置Qt5的环境</h2><h3 id="2-1-安装windbg"><a href="#2-1-安装windbg" class="headerlink" title="2.1 安装windbg"></a>2.1 安装windbg</h3><blockquote>
-<p>默认情况下是没有<code>调试器</code>的，必须手动下载</p>
-</blockquote>
-<p><a href="https://developer.microsoft.com/zh-cn/windows/hardware/download-windbg" target="_blank" rel="noopener">下载调试器windbg</a>,在安装过程中,<strong>只勾选<code>Debugging Tools for Windows</code>,其他不选</strong></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645555_9264_1537332632" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645589_21588_1537332640" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645789_26375_1537332648" alt=""></p>
-<h3 id="2-2-验证"><a href="#2-2-验证" class="headerlink" title="2.2 验证"></a>2.2 验证</h3><ol>
-<li>打开 <code>Qt Creator</code>，<code>工具</code>-&gt;<code>选项</code>-&gt;<code>构建和运行</code>-&gt;<code>编译器</code>,进入编译器部分，可以看到 Qt 已经自动检测出来了，不需要手动配置</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652433_18573_1537332689" alt=""></p>
+<p>然后再执行同样的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -Fw pachonggui.py</span><br></pre></td></tr></table></figure></p>
 <ol>
-<li>而<code>构建套件(Kit)</code>中,已经自动检测出来调试器了</li>
+<li>删掉<code>import PyQt5.sip</code>，可以继续写代码了。如果要打包，从<code>1</code>开始</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652386_4416_1537332701" alt=""></p>
-<h2 id="3-VS2017配置"><a href="#3-VS2017配置" class="headerlink" title="3. VS2017配置"></a>3. VS2017配置</h2><h3 id="3-1-安装插件Qt-VIsual-Studio-Tools"><a href="#3-1-安装插件Qt-VIsual-Studio-Tools" class="headerlink" title="3.1 安装插件Qt VIsual  Studio Tools"></a>3.1 安装插件Qt VIsual  Studio Tools</h3><ol>
-<li>打开VS2017-&gt;<code>工具</code>-&gt;<code>扩展和更新</code></li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652808_10732_1537332710" alt=""></p>
-<ol>
-<li><code>联机</code>-&gt;搜索框输入<code>Qt</code>-&gt;<code>Qt Visual Studio Tools</code>-&gt;<code>下载</code>,然后就会自动安装了,安装完成会提示重启VS2017</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652869_13419_1537332720" alt=""></p>
-<ol>
-<li>重启vs2017后,就会看到<code>Qt VS Tools</code>菜单项了</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653121_31687_1537332728" alt=""></p>
-<h3 id="3-2-插件配置"><a href="#3-2-插件配置" class="headerlink" title="3.2 插件配置"></a>3.2 插件配置</h3><p><code>Qt VS Tools</code>-&gt;<code>Qt Options</code>-&gt;<code>Add</code>-&gt;</p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653495_12074_1537332742" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653444_22807_1537332751" alt=""></p>
-<h2 id="4-Helloworld"><a href="#4-Helloworld" class="headerlink" title="4. Helloworld"></a>4. Helloworld</h2><blockquote>
-<p>配置好vs和qt的环境之后,接下来就是测试了,入门第一课:<code>Hello World</code></p>
+<h2 id="出现failed-to-execute-script的排查方法"><a href="#出现failed-to-execute-script的排查方法" class="headerlink" title="出现failed to execute script的排查方法"></a>出现<code>failed to execute script</code>的排查方法</h2><h3 id="法一"><a href="#法一" class="headerlink" title="法一:"></a>法一:</h3><p>命令执行完毕之后 <code>build\pachonggui\warnpachonggui.txt</code>,上面会<strong>记载着错误</strong></p>
+<h3 id="法二"><a href="#法二" class="headerlink" title="法二:"></a>法二:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 使用完下面这条指令之后,打开exe,提示failed to execute script</span><br><span class="line">pyinstaller -Fw pachonggui.py</span><br><span class="line"># 然后执行下面这条执行,会在list下生成一个目录,进入该目录,用**命令行**执行该exe,就会看到错误了</span><br><span class="line">pyinstaller -D pachonggui.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller打包使用pyqt5模块的时候，在win平台下，由于pyinstaller无法准确获取QT动态库文件路径，会报错导致无法打开运行程序，并提示错误信息pyinstaller failed to execute script pyi_rth_qt5plugins此时我们需要在打包的时候直接告诉pyinstaller到哪里去找，这个路径分隔符需要是unix形式：</span><br><span class="line"></span><br><span class="line">pyinstaller --paths C:/****/Python/Python35-32/Lib/site-packages/PyQt5/Qt/bin -F -w ****.py</span><br></pre></td></tr></table></figure>
+<h1 id="pyqt5打包问题经过"><a href="#pyqt5打包问题经过" class="headerlink" title="pyqt5打包问题经过"></a>pyqt5打包问题经过</h1><blockquote>
+<p>这里用到的文件是<code>pachonggui.py</code>,里面使用了pyqt5 的库</p>
 </blockquote>
-<p>打开<code>vs2017</code>-&gt;<code>文件</code>-&gt;<code>新建</code>-&gt;<code>项目</code>-&gt;<code>Visual C++</code>-&gt;<code>Qt</code>-&gt;<code>Qt GUI Application</code>-&gt;修改项目名称和位置-&gt;<code>确定</code></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653727_2648_1537332766" alt=""></p>
-<blockquote>
-<p>tips: 要是发现自己没有<code>Visual C++</code>,右键<code>开始菜单</code>-&gt;<code>应用和功能</code>-&gt;<code>Visual Studio Professional 2017</code>-&gt;<code>修改</code>-&gt;找到<code>使用C++的桌面开发</code>-&gt;点击<code>修改</code>即可</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527654327_13331_1537332777" alt=""></p>
-<p>然后就是一路默认就行</p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653743_10827_1537332797" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653765_6383_1537332817" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653782_30909_1537332828" alt=""></p>
-<p>这时候,打开<code>main.cpp</code>,如下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"QtHelloWorld.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtWidgets/QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    QtHelloWorld w;</span><br><span class="line">    w.show();</span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因为我们要打印一个<code>hello world</code>,所以说,简单改一下<code>main.cpp</code>代码,如下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtWidgets/QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">QLabel <span class="title">label</span><span class="params">(<span class="string">"hello world"</span>)</span></span>;</span><br><span class="line">    label.show();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>安装好<code>pyinstaller</code>后,先使用下面的命令对脚本进行打包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller.exe -Fw .\pachonggui.py</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799324.jpg" alt=""></p>
+<p>执行完毕,生成两个目录</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799377.jpg" alt=""></p>
+<p><code>exe</code>文件在<code>dist</code>目录下</p>
+<p>双击运行出现<code>Failed to execute script pachonggui</code>错误</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799888.jpg" alt=""></p>
+<p>先去<code>build</code>目录那里,找到<code>warn***.txt</code>文件,里面会记录一些错误</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533799475.jpg" alt=""></p>
+<p>这里可以看到,<code>pyqt5</code>的库没有找到</p>
+<p><strong>分析</strong>:正常来说,如果<code>pyinstaller</code>是<code>pip3</code>安装好的,那么<code>pyqt5</code>应该也在同一个目录下,应该不会出现找不到路径的情况.所以说,有两种情况,一个是<code>pyinstaller</code>错了,一个是<code>pyqt5</code>错了,这里我先指定<code>pyqt5</code>的路径让它试试</p>
+<p>找到python3的安装路径,我的是如下</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800027.jpg" alt=""></p>
+<p>然后使用<code>--path</code> 指定库目录,有一点需要注意:这里用的是<code>/</code>作为目录分隔符,而不是<code>\</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller.exe --path E:/Python/Python36-32/Lib/site-packages/PyQt5/Qt/bin -Fw .\pachonggui.</span><br><span class="line">py</span><br></pre></td></tr></table></figure>
+<p>重新打包之后,再次运行,报同样的错误,看<code>build</code>目录下的<code>warn***.txt</code>文件,还是同样的,没有找到<code>PyQt5</code>的库</p>
+<p>因为本人安装了<code>python2.7</code>和<code>python3.6</code>,但是我只给python2.7配置了环境变量,所以说,命令行那里的<code>pyinstaller</code>是<code>python27</code>目录下的,而不是<code>python36-32</code>目录下的,所以说,接下来,我命令提示符那里指定使用<code>python36-32</code>下的<code>pyinstaller</code>试试</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800703.jpg" alt=""></p>
+<p>执行打包命令之后,看到命令提示符,多了一些东西<code>sip not found</code>,不管它先,先记下来,然后继续运行一下<code>exe</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800781.jpg" alt=""></p>
+<p>没错,还是这个错误… …</p>
+<p>看一下<code>warn***.txt</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533800824.jpg" alt=""></p>
+<p>发现pyqt5已经成功导入了,说明之前的错误原因真是因为调用了<code>python27</code>的<code>pyinstaller</code>,指定使用<code>python36-32</code>下的<code>pyinstaller</code>就没毛病了</p>
+<p>这时候的<code>warn***.txt</code>是一大堆的看不懂的东西… …怎么办?</p>
+<p>没关系,还有办法,使用<code>-D</code>指令,将这个exe弄成一个目录,然后使用命令行去运行新目录下的exe,然后你应该会看到报错误了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\Python\Python36-32\Scripts\pyinstaller.exe -D .\pachonggui.py</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801080.jpg" alt=""></p>
+<p>这时候<code>dist</code>目录下会多一个目录<code>pachonggui</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801107.jpg" alt=""></p>
+<p>然后,在这里,我需要使用<code>命令提示符</code>去运行这个<code>exe</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801253.jpg" alt=""></p>
 <p>结果如下:</p>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527654005_20624_1537332840" alt=""></p>
-<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><h2 id="1-安装pyqt5"><a href="#1-安装pyqt5" class="headerlink" title="1. 安装pyqt5"></a>1. 安装pyqt5</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install pyqt5*</span><br><span class="line">sudo apt install qt5-default</span><br><span class="line">sudo apt install qttools5-dev-tools</span><br></pre></td></tr></table></figure>
-<h2 id="2-设置QtDesigner"><a href="#2-设置QtDesigner" class="headerlink" title="2. 设置QtDesigner"></a>2. 设置QtDesigner</h2><ul>
-<li>打开pycharm后点击<code>File</code>- &gt; <code>setting</code> - &gt; <code>Tools</code>- &gt; <code>External Tools,</code> 点击 <code>+</code> 号添加两个文件</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078798.jpg" alt=""></p>
-<h3 id="第一个文件—-QtDesigner"><a href="#第一个文件—-QtDesigner" class="headerlink" title="第一个文件—-QtDesigner"></a>第一个文件—-<code>QtDesigner</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/designer  # 填入Program</span><br><span class="line">$FileDir$  # 填入Working directory</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078672.jpg" alt=""></p>
-<h3 id="第二个文件—-PyUIC"><a href="#第二个文件—-PyUIC" class="headerlink" title="第二个文件—-PyUIC"></a>第二个文件—-<code>PyUIC</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/python3  # 填入Program</span><br><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py  # 填入Arguments</span><br><span class="line">$FileDir$  # 填入Working direction</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078710.jpg" alt=""></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
-<p> 在pycharm中的下拉菜单<code>Tools</code>中的<code>Qt5</code>就能看到刚刚定义的两个工具</p>
-</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801281.jpg" alt=""></p>
+<p>… …<code>PyQt5.sip</code>是什么东东???我代码里面没有用到啊!!!~~~</p>
+<p>在这种情况下,我决定,手动在代码里面加入它,然后再执行一次打包命令</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801753.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801883.jpg" alt=""></p>
+<p>不明白为什么提示<code>sip not found</code>还在,但是,这时候,exe已经可以运行,没有bug了</p>
+<p>```</p>
 
       
     </div>
@@ -724,7 +696,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Qt5安装/" rel="tag"><i class="fa fa-tag"></i> Qt5安装</a>
+            <a href="/tags/pyinstaller/" rel="tag"><i class="fa fa-tag"></i> pyinstaller</a>
+          
+            <a href="/tags/pyqt打包/" rel="tag"><i class="fa fa-tag"></i> pyqt打包</a>
           
         </div>
       
@@ -737,8 +711,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/15/Qt打包/" rel="next" title="Qt打包">
-                <i class="fa fa-chevron-left"></i> Qt打包
+              <a href="/2018/11/15/Kali配置/" rel="next" title="Kali配置">
+                <i class="fa fa-chevron-left"></i> Kali配置
               </a>
             
           </div>
@@ -746,10 +720,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/15/Qt遇到的一些坑/" rel="prev" title="Qt遇到的一些坑">
-                Qt遇到的一些坑 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -966,7 +936,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows"><span class="nav-number">1.</span> <span class="nav-text">Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装Qt5"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装Qt5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置Qt5的环境"><span class="nav-number">1.2.</span> <span class="nav-text">2. 配置Qt5的环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装windbg"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 安装windbg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-验证"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-VS2017配置"><span class="nav-number">1.3.</span> <span class="nav-text">3. VS2017配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-安装插件Qt-VIsual-Studio-Tools"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 安装插件Qt VIsual  Studio Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-插件配置"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 插件配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Helloworld"><span class="nav-number">1.4.</span> <span class="nav-text">4. Helloworld</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu"><span class="nav-number">2.</span> <span class="nav-text">Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装pyqt5"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装pyqt5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-设置QtDesigner"><span class="nav-number">2.2.</span> <span class="nav-text">2. 设置QtDesigner</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个文件—-QtDesigner"><span class="nav-number">2.2.1.</span> <span class="nav-text">第一个文件—-QtDesigner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二个文件—-PyUIC"><span class="nav-number">2.2.2.</span> <span class="nav-text">第二个文件—-PyUIC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">1.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#出现failed-to-execute-script的排查方法"><span class="nav-number">1.1.</span> <span class="nav-text">出现failed to execute script的排查方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#法一"><span class="nav-number">1.1.1.</span> <span class="nav-text">法一:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法二"><span class="nav-number">1.1.2.</span> <span class="nav-text">法二:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pyqt5打包问题经过"><span class="nav-number">2.</span> <span class="nav-text">pyqt5打包问题经过</span></a></li></ol></div>
             
 
           </div>

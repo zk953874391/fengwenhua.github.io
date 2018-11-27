@@ -419,6 +419,245 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.fengwenhua.top/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冯文华">
+      <meta itemprop="description" content="记录日常学习与生活">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="江南小虫虫的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/" class="post-title-link" itemprop="http://www.fengwenhua.top/page/2/index.html">第二章 单变量线性回归(Linear Regression with One Variable)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-14 20:22:59" itemprop="dateCreated datePublished" datetime="2018-11-14T20:22:59Z">2018-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-15 06:52:13" itemprop="dateModified" datetime="2018-11-15T06:52:13Z">2018-11-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/机器学习入门/" itemprop="url" rel="index"><span itemprop="name">机器学习入门</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/" class="leancloud_visitors" data-flag-title="第二章 单变量线性回归(Linear Regression with One Variable)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">14 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Gradient-Descennt"><a href="#Gradient-Descennt" class="headerlink" title="Gradient Descennt"></a>Gradient Descennt</h2><blockquote>
+<p>我们已经定义了<code>代价函数J</code> 而在这段视频中 我想向你们介绍<code>梯度下降</code>这种算法 <strong>这种算法可以将代价函数J最小化</strong> 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域 在后面课程中 为了解决其他线性回归问题 我们&amp;&amp;<strong>也将使用梯度下降法 最小化其他函数</strong> 而不仅仅是只用在本节课的代价函数J 因此在这个视频中 我将讲解用梯度下降算法最小化函数 J 在后面的视频中 我们还会将此算法应用于具体的 代价函数J中来解决线性回归问题 下面是问题概述</p>
+</blockquote>
+<ul>
+<li>在这里 我们有一个函数$J(\theta_0, \theta_1)$ 也许这是一个线性回归的代价函数 也许是一些其他函数 要使其最小化 我们需要用一个算法 来最小化函数$J(\theta_0, \theta_1)$ 就像刚才说的 事实证明 梯度下降算法可应用于 多种多样的函数求解 所以想象一下如果你有一个函数 J(θ0, θ1, θ2, …,θn ) 你希望可以通过最小化 θ0到θn 来最小化此代价函数J(θ0 到θn) 用n个θ是为了证明梯度下降算法可以解决更一般的问题 但为了简洁起见 为了简化符号 在接下来的视频中 我只用两个参数</li>
+<li><p>下面就是关于梯度下降的构想 我们要做的是 我们<strong>要开始对θ0和θ1 进行一些初步猜测</strong> 它们到底是什么其实并不重要 但<strong>通常的选择是将 θ0设为0 将θ1也设为0 将它们都初始化为0</strong> 我们在梯度下降算法中要做的 就是<strong>不停地一点点地改变 θ0和θ1 试图通过这种改变使得J(θ0, θ1)变小 直到我们找到 J 的最小值 或许是局部最小值</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/11/15/第二章-单变量线性回归-Linear-Regression-with-One-Variable/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.fengwenhua.top/2018/11/15/第一章-Model-and-Cost-Function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -930,7 +1169,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1008,7 +1247,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1086,7 +1329,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">96k</span>
+    <span title="站点总字数">98k</span>
   
 
   
@@ -1095,7 +1338,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">2:40</span>
+    <span title="站点阅读时长">2:43</span>
   
 </div>
 
@@ -1630,6 +1873,8 @@
     
       
         
+      
+    
       
     
       
