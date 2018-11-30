@@ -19,7 +19,7 @@ categories:
 ```
 sudo gem install terminal-notifier
 ```
-
+<!--more-->
 #### Homebrew安装
 ```
 brew install terminal-notifier
