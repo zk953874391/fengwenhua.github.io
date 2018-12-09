@@ -9,7 +9,8 @@ categories:
 ---
 
 
-> 本文来探究一下Ubuntu和Deepin下sublime text 3的安装与配置
+
+> 本文来探究一下Ubuntu/Deepin/mac下sublime text 3的安装与配置
 
 ## 1. 安装
 ### 1.1 下载与安装
@@ -26,19 +27,28 @@ sudo apt update
 
 sudo apt install sublime-text
 ```
-<!-- more -->
+
 ### 1.2 激活
 
-> 注意:**先增加`Host 屏蔽`,然后输入秘钥才行**
+> 一般来说,直接输入下方秘钥即可激活成功,但是,sublime text 3会不定时的访问`license.sublimehq.com`,去检查秘钥的正确性,因此只能将该网址利用`hosts`屏蔽掉
 
-Windows : `c:/windows/system32/drivers/etc/hosts`
-
-Linux : `/etc/hosts`
+> 注意:**先增加`Host 屏蔽`,然后输入秘钥才行**,以下是`hosts`文件的位置
 
 ```
-#127.0.0.1       www.sublimetext.com
+* Windows : `c:/windows/system32/drivers/etc/hosts`
+* Linux/Mac : `/etc/hosts`
+```
+
+* 在`hosts`文件最下面增加如下一行内容
+
+```
 127.0.0.1       license.sublimehq.com
 ```
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209171310.png)
+
+* 保存退出`hosts`文件后,即可在sublime中输入秘钥,如下:
+
 ```
 ----- BEGIN LICENSE -----
 sgbteam
@@ -54,10 +64,8 @@ EA7E-1153259
 F913BE58 42FEA319 F954EFDD AE881E0B
 ------ END LICENSE ------
 ```
-```
-用户名：Caitingting，序列号：E8DD-289C-3F20-AA7D
-```
-## 2. 无法输入中文
+
+## 2. ubuntu/deepin下无法输入中文
 
 ### 法一
 > 以下方法是最快捷有效的方法,然而,可以输入中文了,但是,选择文件->右键->用`sublime text 3`打开,你会发现打不开文件了.但是先打开sublime,然后在里面选择文件又可以打开
@@ -85,11 +93,13 @@ sudo cp -f sublime_text.desktop /opt/sublime_text
 ```
 
 ### 法二:
+
 ```shell
 sudo apt update && sudo apt upgrade
 git clone https://github.com/lyfeyaj/sublime-text-imfix.git
 cd sublime-text-imfix && ./sublime-imfix
 ```
+
 完成！**重新启动**后就可以在Sublime Text 3中使用搜狗输入法输入中文了
 > 这里值得一提的是，博主用的是deepin，然后，一旦将st3固定在下面，然后，很快就又不能输入中文了，卸载重装即可
 
@@ -99,9 +109,11 @@ cd sublime-text-imfix && ./sublime-imfix
 
 1.  按`Ctrl+~`打开控制台
 2. 到 https://packagecontrol.io/installation#st3 获取安装代码,这里如下
+
 ```
 import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 ```
+
 3. 输入完了按`Enter`就行
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530636719.jpg)
@@ -156,6 +168,7 @@ import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe0
 
 2. 在`config`文件夹下新建`python3`文件夹,在里面新建`Default.sublime-commands`和`Menu.sublime-menu`两个文件(模仿Python文件夹),因为我们Python3目前只要**能打开shell运行，和运行这个脚本**，两个功能，因此就只要包含`Python3`和 `Python3 – Run current file`两项就好了
 3. `Default.sublime-commands`配置如下：
+
 ```
 [
     {
@@ -240,7 +253,7 @@ import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe0
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530641055.jpg)
 
 #### 设置key binding
-每次这样到菜单栏里去找，太慢，能不能像ctrl+B一样直接运行呢？可以的，只要设置快捷键就好了，在`Preference`->`key Bindings-User`里
+每次这样到菜单栏里去找，太慢，能不能像`ctrl+B`一样直接运行呢？可以的，只要设置快捷键就好了，在`Preference`->`key Bindings-User`里
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530641287.jpg)
 
@@ -300,7 +313,7 @@ import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe0
     "attr": {
         "author": "江南小虫虫",
         "email": "fwh13612265462@gmail.com",
-        "link": "http://www.jnxcc.top"
+        "link": "http://www.fengwenhua.top"
     }
 }
 
@@ -319,6 +332,9 @@ import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe0
 
 
 ### 3.5 SideBarEnhancements
+* 安装完后,可以在`View`->`Side Bar`->`Show Side Bar`打开
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209171421.png)
 
 ## 4. 配置
 ### 4.1 隐藏mipmap和打开packages所在目录
@@ -344,7 +360,8 @@ which python3`
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637688.jpg)
 
-将以下配置复制粘贴进去,如果发现pyqt5运行的时候啥也不显示，可将`"shell":"true"`删掉
+* ubuntu/deepin粘贴如下配置,如果发现pyqt5运行的时候啥也不显示，可将`"shell":"true"`删掉
+
 ```
 {
     "cmd": ["/usr/bin/python3", "-u", "$file"],
@@ -354,7 +371,7 @@ which python3`
 }
 ```
 
-windows粘贴下面的:
+* windows粘贴下面的:
 ```
 {
     "cmd":["E:\\Python\\Python36-32\\python.exe","-u","$file"],
@@ -366,6 +383,16 @@ windows粘贴下面的:
 }
 ```
 
+* mac粘贴下面的:
+
+```
+{
+    "cmd": ["/usr/local/bin/python3", "-u", "$file"],
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+    "selector": "source.python",
+}
+```
+
 记住,其中的python3运行路径要和你系统中的路径一致,然后按`Ctlr+S`保存文件,文件名改为为`python3.sublime-build`，**保存的路径就是`Crtl+S`后默认的路径**,然后你在`Tools`->`Build System`,可以看到`python3`了,选择它再运行python,就会使用python3而不是python2.7了
 
 ### 4.3 一些常用的配置
@@ -373,7 +400,9 @@ windows粘贴下面的:
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530638088.jpg)
 
-.将一下配置粘贴进去就行
+* 将一下配置粘贴进去就行
+> 当然,这里本人是安装了`Boxy`主题的
+
 ```
 {
     "font_size": 13,
@@ -402,7 +431,8 @@ windows粘贴下面的:
 }
 ```
 
-另一种的
+* 另一种的配置
+
 ```
 {
     "color_scheme": "Packages/Boxy Theme/schemes/Boxy Monokai.tmTheme",
@@ -469,6 +499,7 @@ Ctrl+//注释 这个比较厉害，如果是python,就是加#号的，想取消�
 ```
 
 ### mac sublime text C/C++
+
 ```
 {
     "cmd": ["bash", "-c", "g++ '${file}' -std=c++11 -stdlib=libc++ -o '${file_path}/${file_base_name}'"],
@@ -486,3 +517,44 @@ Ctrl+//注释 这个比较厉害，如果是python,就是加#号的，想取消�
 
 ```
 
+### mac php
+
+### 终端运行
+```
+{
+    "cmd": ["php", "$file"],
+    "file_regex": "php$",
+    "selector": "source.php"
+}
+
+```
+
+### 浏览器打开
+> 前提mac要开启php
+
+1. 安装`SidebarEnhancement`
+2. 如下图
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181205211354.png)
+
+3. 输入以下代码
+
+```
+{
+    "/Library/WebServer/Documents/":{
+        "url_testing":"http://localhost/",
+        "url_production":""
+    }
+}
+```
+
+4. **将你要编辑的php文件放在该目录下**:`/Library/WebServer/Documents/`编辑
+5. 设置快捷键:
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181205211635.png)
+
+6. 输入以下代码,以后按`Ctrl+R`即可运行
+
+```
+{ "keys":["ctrl+r"],"command":"side_bar_open_in_browser","args":{"paths":[],"type":"testing","browser":"chrome"}},
+```
