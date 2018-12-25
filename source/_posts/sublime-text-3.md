@@ -27,7 +27,7 @@ sudo apt update
 
 sudo apt install sublime-text
 ```
-
+<!-- more -->
 ### 1.2 激活
 
 > 一般来说,直接输入下方秘钥即可激活成功,但是,sublime text 3会不定时的访问`license.sublimehq.com`,去检查秘钥的正确性,因此只能将该网址利用`hosts`屏蔽掉
