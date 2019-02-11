@@ -3,8 +3,6 @@
 import sys
 
 # 读取post_file
-
-
 def load_post_file(md_file):
     _post_str = ''
     with open(md_file) as f1:
@@ -13,8 +11,6 @@ def load_post_file(md_file):
     return _post_str
 
 # 寻找$-$对或者$$-$$对
-
-
 def find_next_dollar_pair(md_str):
 
     if len(md_str) == 0:
@@ -50,15 +46,13 @@ def find_next_dollar_pair(md_str):
     return True, (head, real_end)
 
 # 写入新的post_file
-
-
 def write_post_file(md_file, u_post_str):
     f = open(md_file, 'w')
     f.write(u_post_str.encode('utf8'))
     f.close()
     return True
 
-
+# 主函数
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print >>sys.stderr, 'usage: python %s md_file target_file' % sys.argv[0]
