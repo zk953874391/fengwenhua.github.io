@@ -1,14 +1,11 @@
 # Hexo黑蓝主题
-![主题图片](http://o7kalf5h3.bkt.clouddn.com/blog-index.png)
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190301105019.png)
 
 ## 特性
-本主题由**SPFK**修改而成，具体改进如下：
-1. 颜色由黑色和蓝色为主，主题鲜明直观
-2. 压缩css和js（SPFK主题没有压缩css，js）
-3. seo优化，
-4. 增加站内搜索（根据title来搜索）
-5. 删除stylus，直接使用css
-6. 评论插件修改，删除多说，增加畅言,增加gitment评论插件
+本主题由 https://github.com/maochunguang/black-blue 修改而成，具体改进如下：
+1. 增加valine评论
+2. 修改一些间距
+3. 修复卜算子访问数的bug
 
 ## 注意1：
 大家使用主题的时候，把**主题配置文件_config.yml**以下几项必须修改，
