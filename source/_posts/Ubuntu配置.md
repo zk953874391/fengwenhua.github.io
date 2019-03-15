@@ -34,26 +34,26 @@ sudo apt -f install
 ```
 
 ### Ubuntu中软件包管理
- 1.下载的软件存放位置
-```
-/var/cache/apt/archives
-```
- 2.安装后软件默认位置
-```
-/usr/share
-```
+1.下载的软件存放位置
+  ```
+  /var/cache/apt/archives
+  ```
+2.安装后软件默认位置
+  ```
+  /usr/share
+  ```
 3.可执行文件位置
-```
-/usr/bin
-```
+  ```
+  /usr/bin
+  ```
 4.配置文件位置
-```
-/etc
-```
+  ```
+  /etc
+  ```
 5.lib文件位置
-```
-/usr/lib
-```
+  ```
+  /usr/lib
+  ```
 
 ---
 
@@ -694,59 +694,59 @@ sudo apt install dosemu
 
 ### 开机自动挂载Windows分区
 1. 前期准备
-* 查看系统磁盘号
-```shell
-sudo fdisk -l
-```
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530168282.jpg)
+  (1) 查看系统磁盘号
+  ```shell
+  sudo fdisk -l
+  ```
+  ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530168282.jpg)
 
-* 查看磁盘类型
-```shell
-sudo blkid
-```
+  (2) 查看磁盘类型
+  ```shell
+  sudo blkid
+  ```
 
 2. 修改配置文件
-```shell
-sudo gedit /etc/fstab
-```
-* 配置文件包括下面几项:
+  ```shell
+  sudo gedit /etc/fstab
+  ```
+  (1) 配置文件包括下面几项:
 
-|内容|例子|
-|-----|-----|
-|分区定位|可以给磁盘号，UUID或LABEL，例如：/dev/sda2，UUID=6E9ADAC29ADA85CD或LABEL=software |
-|具体挂载点的位置|例如：/media/C |
-|挂载磁盘类型|linux分区一般为ext4，windows分区一般为ntfs|
-|挂载参数|一般为defaults|
-|磁盘备份|默认为0，不备份|
-|磁盘检查|默认为0，不检查|
+  |内容|例子|
+  |-----|-----|
+  |分区定位|可以给磁盘号，UUID或LABEL，例如：/dev/sda2，UUID=6E9ADAC29ADA85CD或LABEL=software |
+  |具体挂载点的位置|例如：/media/C |
+  |挂载磁盘类型|linux分区一般为ext4，windows分区一般为ntfs|
+  |挂载参数|一般为defaults|
+  |磁盘备份|默认为0，不备份|
+  |磁盘检查|默认为0，不检查|
 
-* 配置图如下:
+  (2) 配置图如下:
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530168314.jpg)
+  ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530168314.jpg)
 
-```shell
-# disk for Window10
+  ```shell
+  # disk for Window10
 
-# c for Windows10
-UUID="3C5002DB50029BB0" /media/hua/3C5002DB50029BB0 ntfs    defaults    0   0
+  # c for Windows10
+  UUID="3C5002DB50029BB0" /media/hua/3C5002DB50029BB0 ntfs    defaults    0   0
 
-# d for Windows10
-UUID="1C963ACF963AA962" /media/hua/软件安装处    ntfs    defaults    0   0
+  # d for Windows10
+  UUID="1C963ACF963AA962" /media/hua/软件安装处    ntfs    defaults    0   0
 
-# e for Windows10
-UUID="5CA074DBA074BD58" /media/hua/资料与娱乐    ntfs    defaults    0   0
+  # e for Windows10
+  UUID="5CA074DBA074BD58" /media/hua/资料与娱乐    ntfs    defaults    0   0
 
-# f for Windows10
-UUID="4AD483BBD483A7B1" /media/hua/软件   ntfs    defaults    0   0
+  # f for Windows10
+  UUID="4AD483BBD483A7B1" /media/hua/软件   ntfs    defaults    0   0
 
-# g for Windows10
-UUID="32C290FDC290C68F" /media/hua/虚拟机及代码   ntfs    defaults    0   0
-```
+  # g for Windows10
+  UUID="32C290FDC290C68F" /media/hua/虚拟机及代码   ntfs    defaults    0   0
+  ```
 3. 检查并挂载新添加项:
-```shell
-sudo mount -a
-```
-* 改命令会在`/etc/fstab`中的项全部挂载,如果有错,则会提示错误,然后根据错误找出原因修改
+  ```shell
+  sudo mount -a
+  ```
+  * 改命令会在`/etc/fstab`中的项全部挂载,如果有错,则会提示错误,然后根据错误找出原因修改
 
 ### 安装wireshark
 * wireshark是一个网络抓包分析工具

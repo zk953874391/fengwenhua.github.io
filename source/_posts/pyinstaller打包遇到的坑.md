@@ -12,19 +12,18 @@ categories: Qt
 
 1. 正常执行一遍
 
-```
-pyinstaller -Fw pachonggui.py
-```
-
-<!--more-->
+    ```
+    pyinstaller -Fw pachonggui.py
+    ```
+    <!--more-->
 2. 给脚本加一行代码
-```python3
-import PyQt5.sip
-```
-然后再执行同样的命令
-```
-pyinstaller -Fw pachonggui.py
-```
+    ```python3
+    import PyQt5.sip
+    ```
+    然后再执行同样的命令
+    ```
+    pyinstaller -Fw pachonggui.py
+    ```
 
 3. 删掉`import PyQt5.sip`，可以继续写代码了。如果要打包，从`1`开始
 
@@ -137,8 +136,3 @@ E:\Python\Python36-32\Scripts\pyinstaller.exe -D .\pachonggui.py
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1533801883.jpg)
 
 不明白为什么提示`sip not found`还在,但是,这时候,exe已经可以运行,没有bug了
-
-
-
-
-```

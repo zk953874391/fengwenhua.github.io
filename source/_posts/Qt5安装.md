@@ -6,16 +6,13 @@ categories: Qt
 ---
 
 # Windows
-
-## 1. 安装Qt5
+## 安装Qt5
 1. [点击进入Qt官网](http://download.qt.io/archive/qt/)下载Qt5,这里我下载的是最新版的`Qt5.11`,windows平台.
 
-
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644391_16788_1537332597)
-<!-- more -->
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644458_5328_1537332616)
-> tips:由于文件比较大,最好`右键->复制链接地址->打开迅雷`,用迅雷下载
-
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644391_16788_1537332597)
+    <!-- more -->
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527644458_5328_1537332616)
+    > tips:由于文件比较大,最好`右键->复制链接地址->打开迅雷`,用迅雷下载
 
 2. 下载完成后,双击安装
 3. 有三个地方要注意
@@ -23,13 +20,13 @@ categories: Qt
     * 自行修改`安装路径`最好是`英文`的
     * 选择安装组件的时候,要`Select All`
     * 然后就是一路`Next`,最后`Install`了.
-> tips:博主在安装过程中,会弹出一个`Installer Error`的警告,本人是直接点`Ignore`的,忽略此警告
+    > tips:博主在安装过程中,会弹出一个`Installer Error`的警告,本人是直接点`Ignore`的,忽略此警告
 
-3. 最后,点击`Finish`完成
-4. 自此,Qt5的安装完毕
+4. 最后,点击`Finish`完成
+5. 自此,Qt5的安装完毕
 
-## 2. 配置Qt5的环境
-### 2.1 安装windbg
+## 配置Qt5的环境
+### 安装windbg
 > 默认情况下是没有`调试器`的，必须手动下载
 
 [下载调试器windbg](https://developer.microsoft.com/zh-cn/windows/hardware/download-windbg),在安装过程中,**只勾选`Debugging Tools for Windows`,其他不选**
@@ -40,35 +37,35 @@ categories: Qt
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527645789_26375_1537332648)
 
-### 2.2 验证
+### 验证
 1. 打开 `Qt Creator`，`工具`->`选项`->`构建和运行`->`编译器`,进入编译器部分，可以看到 Qt 已经自动检测出来了，不需要手动配置
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652433_18573_1537332689)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652433_18573_1537332689)
 
 2. 而`构建套件(Kit)`中,已经自动检测出来调试器了
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652386_4416_1537332701)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652386_4416_1537332701)
 
-## 3. VS2017配置
-### 3.1 安装插件Qt VIsual  Studio Tools
+## VS2017配置
+### 安装插件Qt VIsual  Studio Tools
 1. 打开VS2017->`工具`->`扩展和更新`
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652808_10732_1537332710)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652808_10732_1537332710)
 
 2. `联机`->搜索框输入`Qt`->`Qt Visual Studio Tools`->`下载`,然后就会自动安装了,安装完成会提示重启VS2017
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652869_13419_1537332720)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527652869_13419_1537332720)
 
 3. 重启vs2017后,就会看到`Qt VS Tools`菜单项了
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653121_31687_1537332728)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653121_31687_1537332728)
 
-### 3.2 插件配置
-`Qt VS Tools`->`Qt Options`->`Add`->
+### 插件配置
+* `Qt VS Tools`->`Qt Options`->`Add`->
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653495_12074_1537332742)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653495_12074_1537332742)
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653444_22807_1537332751)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527653444_22807_1537332751)
 
 ## 4. Helloworld
 > 配置好vs和qt的环境之后,接下来就是测试了,入门第一课:`Hello World`
@@ -124,14 +121,14 @@ int main(int argc, char *argv[])
 
 
 # Ubuntu
-## 1. 安装pyqt5
+## 安装pyqt5
 ```shell
 sudo apt install pyqt5*
 sudo apt install qt5-default
 sudo apt install qttools5-dev-tools
 ```
 
-## 2. 设置QtDesigner
+## 设置QtDesigner
 * 打开pycharm后点击`File `- > `setting` - > `Tools`- > `External Tools,` 点击 `+` 号添加两个文件
 
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1535078798.jpg)
