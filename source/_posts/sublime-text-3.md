@@ -558,3 +558,37 @@ Ctrl+//注释 这个比较厉害，如果是python,就是加#号的，想取消�
     ```
     { "keys":["ctrl+r"],"command":"side_bar_open_in_browser","args":{"paths":[],"type":"testing","browser":"chrome"}},
     ```
+
+### 安装boxy主题
+
+* 复制附件两个文件到指定目录即可
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209201301.png)
+
+### markdown
+* Markdown Editing
+* MarkdownPreview
+> 在`Preferences` -> `Key Bindings`打开的文件的右侧栏的中括号中添加一行代码,然后用`Alt+M`就可以用浏览器打开了
+
+```
+{ "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"}  }
+```
+
+* LiveReload
+> 安装成功后, 再次Ctrl+shift+p, 输入`LiveReload: Enable/disable plug-ins`, 回车, 选择 `Simple Reload with delay (400ms)`或者`Simple Reload`，两者的区别仅仅在于后者没有延迟。
+> 只要你的sublime保存一次，网页那边就会自动刷新预览
+
+* AdvanceNewFile
+> 找到`"default_root": "project_folder",`，把`project_folder`改为`current`
+
+![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209202442.png)
+
+## 5. 插件源被墙了
+* 国内 https://packagecontrol.io 无法访问
+* 解决办法链接: https://github.com/HBLong/channel_v3_daily
+* 如下
+
+```
+1. 点击 Preferences > Package Settings > Package Control > Settings - User
+2. 添加 "channels": ["https://raw.githubusercontent.com/HBLong/channel_v3_daily/master/channel_v3.json"],
+```
