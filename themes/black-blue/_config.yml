@@ -25,7 +25,7 @@ avatar: /img/avatar.png
 favicon: /img/favicon.png
 
 # 域名是否启用https，如果启用，js文件必须https加载
-isHttps: false
+isHttps: true
 
 # Social info. Bar | 社交信息展示
 ## Keep "mailto:" in Email | 设置 Email 时保留 "mailto:"
