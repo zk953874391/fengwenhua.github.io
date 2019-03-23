@@ -105,6 +105,19 @@ symbols_count_time:
   total_symbols: true
   total_time: true
 
+
+live2d:
+  enable: true
+  pluginModelPath: assets/
+  model:
+    use: live2d-widget-model-epsilon2_1  #模板目录，在node_modules里
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: false  #是否在手机进行显示
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
