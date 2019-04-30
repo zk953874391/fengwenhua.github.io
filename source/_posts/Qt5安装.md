@@ -1,6 +1,7 @@
 ---
 title: Qt5安装
 date: 2018-11-15 15:07:16
+mathjax: true
 tags: Qt5安装
 categories: Qt
 ---

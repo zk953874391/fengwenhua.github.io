@@ -1,6 +1,7 @@
 ---
 title: pyinstaller打包遇到的坑
 date: 2018-11-27 12:46:05
+mathjax: true
 tags:
 - pyinstaller
 - pyqt打包

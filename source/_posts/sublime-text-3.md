@@ -1,11 +1,13 @@
 ---
 title: sublime text 3
 date: 2018-11-15 15:01:57
+mathjax: true
 tags:
 - sublime text 3
 - st3
 categories:
 - 软件配置
+- sublime text 3
 ---
 
 

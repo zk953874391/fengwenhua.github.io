@@ -1,6 +1,7 @@
 ---
 title: ubuntu18.04安装ss-qt5
 date: 2018-11-15 14:59:55
+mathjax: true
 tags: ss-qt5
 categories:
 - Linux

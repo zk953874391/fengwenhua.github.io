@@ -1,6 +1,7 @@
 ---
 title: python调用通知中心
 date: 2018-11-30 21:18:18
+mathjax: true
 tags:
 - mac系统通知
 - 通知中心

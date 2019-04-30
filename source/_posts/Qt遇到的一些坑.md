@@ -1,6 +1,7 @@
 ---
 title: Qt遇到的一些坑
 date: 2018-11-15 15:08:59
+mathjax: true
 tags:
 - IGL
 - CURL_OPENSSL_3

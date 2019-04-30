@@ -13,7 +13,7 @@ timezone: UTC
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.fengwenhua.top
+url: https://www.fengwenhua.top
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -86,8 +86,8 @@ feed:
 sitemap:
   path: sitemap.xml
 ## Themes: https://hexo.io/themes/
-#theme: next
-theme: black-blue
+theme: next
+#theme: black-blue
 #表示站内搜索
 search:
     path: search.json

@@ -1,6 +1,7 @@
 ---
 title: PHP弱类型
 date: 2019-03-10 22:16:20
+mathjax: true
 tags: 
 - php弱类型
 categories: 

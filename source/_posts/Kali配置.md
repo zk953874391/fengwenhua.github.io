@@ -1,6 +1,7 @@
 ---
 title: Kali配置
 date: 2018-11-15 15:18:18
+mathjax: true
 tags:
 - kali显卡
 - kali系统安装

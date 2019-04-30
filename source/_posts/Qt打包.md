@@ -1,6 +1,7 @@
 ---
 title: Qt打包
 date: 2018-11-15 15:05:24
+mathjax: true
 tags:
 - Qt打包
 categories:

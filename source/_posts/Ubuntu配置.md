@@ -1,6 +1,7 @@
 ---
 title: Ubuntu配置
 date: 2018-11-15 14:57:15
+mathjax: true
 tags: ubuntu配置
 categories:
 - Linux
