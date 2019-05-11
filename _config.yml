@@ -86,15 +86,18 @@ feed:
 sitemap:
   path: sitemap.xml
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: cactus
 #theme: black-blue
-#表示站内搜索
-search:
-    path: search.json
-    field: post
+
+# 表示站内搜索
 # search:
-#   path: search.xml
-#   field: post
+#     path: search.json
+#     field: post
+#     content: true
+search:
+  path: search.xml
+  field: post
+  content: true
 #   format: html
 #   limit: 10000
 
@@ -107,7 +110,7 @@ symbols_count_time:
 
 
 live2d:
-  enable: true
+  enable: false
   pluginModelPath: assets/
   model:
     use: live2d-widget-model-koharu  #模板目录，在node_modules里 koharu
