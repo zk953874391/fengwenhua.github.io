@@ -9,15 +9,14 @@ categories:
 - sublime text 3
 ---
 
-## 1. 插件源被墙了
 * 国内 https://packagecontrol.io 无法访问
 * 解决办法链接: https://github.com/HBLong/channel_v3_daily
 
 ### 1.1. 安装`Package Control`
 1. 下载`Package Control.sublime-package`,放到`/Users/用户名/Library/Application Support/Sublime Text 3/Installed Packages`
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190328001858.png)
-<!--more-->
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190328001858.png)
+    <!--more-->
 2. 重启`Sublime Text 3`
 
 ### 1.2. 本地使用
@@ -25,7 +24,7 @@ categories:
 2. 打开`Sublime Text 3`点击 `Preferences > Package Settings > Package Control > Settings - User`
 3. 添加 `"channels": ["/User/用户名/channel_v3.json"],`
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190328001848.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190328001848.png)
 
 ### 1.3. 在线使用
 1. 打开`Sublime Text 3`点击 `Preferences > Package Settings > Package Control > Settings - User`
