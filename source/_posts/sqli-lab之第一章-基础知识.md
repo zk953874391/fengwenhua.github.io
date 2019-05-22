@@ -50,23 +50,23 @@ categories:
 
 1. `version()`——MySQL 版本
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220935.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220935.png)
 
 2. `user()`——数据库用户名
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220946.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220946.png)
 
 3. `database()`——数据库名
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220956.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220956.png)
 
 4. `@@datadir`——数据库路径
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221008.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221008.png)
 
 5. `@@version_compile_os`——操作系统版本
 
-![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221018.png)
+    ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221018.png)
 
 
 ### 0x03 字符串连接函数
