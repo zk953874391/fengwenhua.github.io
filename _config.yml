@@ -40,7 +40,7 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace:
 
@@ -86,7 +86,7 @@ feed:
 sitemap:
   path: sitemap.xml
 ## Themes: https://hexo.io/themes/
-theme: cactus
+theme: melody
 #theme: black-blue
 
 # 表示站内搜索
@@ -120,6 +120,16 @@ live2d:
     height: 300
   mobile:
     show: false  #是否在手机进行显示
+
+kramed:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

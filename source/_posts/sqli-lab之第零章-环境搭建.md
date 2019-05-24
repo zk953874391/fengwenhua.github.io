@@ -20,7 +20,7 @@ git clone https://github.com/Audi-1/sqli-labs
 
 接下来会从win10, docker下讨论该环境怎么搭建
 
-
+<!--more-->
 ## Windows
 > windows下推荐使用`phpstudy`,当然`wamp`也可以,只不过phpstudy更加方便,可以去这里下载安装: http://phpstudy.php.cn/
 

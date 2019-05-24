@@ -18,7 +18,7 @@ categories:
 ## 学习篇
 ### 0x01 注入的分类
 > 下面这个是阿德玛表哥的总结的，现在理解不了可以跳过
-
+<!--more-->
 ![](https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190523110728.png)
 
 ### 0x02 系统函数
