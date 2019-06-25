@@ -1,6 +1,8 @@
 ---
 title: 关于
 date: 2018-11-14 00:32:34
+type: "about"
+layout: "about"
 comments: false
 ---
 
