@@ -235,12 +235,12 @@ gitalk:
 # the Gitment config，default disabled
 # Gitment 评论模块的配置，默认为不激活
 gitment:
-  enable: false
-  owner:
-  repo:
+  enable: true
+  owner: fengwenhua
+  repo: fengwenhua.github.io
   oauth:
-    clientId:
-    clientSecret:
+    clientId: 487b675438c149b5818b
+    clientSecret: 501477eec1e2ed9f27751d02281b5834021d6c7b
 
 # disqus config, default disabled
 # Disqus评论模块的配置，默认为不激活
@@ -258,7 +258,7 @@ livere:
 # To use it, activate the configuration item and set appId and appKey.
 # Valine 评论模块的配置，默认为不激活，如要使用，就请激活该配置项，并设置 appId 和 appKey.
 valine:
-  enable: true
+  enable: false
   app_id: sDPAkIqXzfXIejgNvNYYQ1Ji-gzGzoHsz
   app_key: 3yyuJ2OpBOhCms7yzBmA0Xbq
   notify: false
