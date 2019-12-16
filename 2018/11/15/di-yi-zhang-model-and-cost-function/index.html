@@ -1,0 +1,1343 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="第一章: Model and Cost Function, 江南小虫虫的博客">
+    <meta name="description" content="第一章： Model and Cost FunctionModel Representation:模型表示
+我们的第一个学习算法是线性回归算法,了解监督学习过程完整的流程
+
+例子
+这个例子是预测住房价格的 我们要使用一个数据集 数据集包含俄">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>第一章: Model and Cost Function | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">第一章: Model and Cost Function</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Cost-Function/">
+                                <span class="chip bg-color">Cost Function</span>
+                            </a>
+                        
+                            <a href="/tags/代价函数/">
+                                <span class="chip bg-color">代价函数</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/机器学习/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                机器学习入门
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-11-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    28 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="第一章：-Model-and-Cost-Function"><a href="#第一章：-Model-and-Cost-Function" class="headerlink" title="第一章： Model and Cost Function"></a>第一章： Model and Cost Function</h1><h2 id="Model-Representation-模型表示"><a href="#Model-Representation-模型表示" class="headerlink" title="Model Representation:模型表示"></a>Model Representation:模型表示</h2><ul>
+<li>我们的第一个学习算法是<code>线性回归算法</code>,了解监督学习过程完整的流程</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul>
+<li>这个例子是预测住房价格的 我们要使用一个数据集 数据集包含俄勒冈州波特兰市的住房价格 在这里 我要根据不同房屋尺寸所售出的价格 画出我的数据集</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486337_877822591_1539943286" alt="_1526486337_877822591_1539943286_1526486337_877822591.png"></p>
+<ul>
+<li><p>比方说 我们来看这个数据集 你有一个朋友正想出售自己的房子 如果你朋友的房子是1250平方尺大小 你要告诉他们 这房子能卖多少钱 那么 你可以<strong>做的一件事就是 构建一个模型</strong> 也许是条直线 从这个数据模型上来看 也许你可以告诉你的朋友 他能以大约220000(美元)左右的价格 卖掉这个房子 那么这就是监督学习算法的一个例子</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486364_1763509138_1539943339" alt="_1526486364_1763509138_1539943339_1526486364_1763509138.png"></p>
+</li>
+<li><p>它被称作监督学习是因为对于每个数据来说 我们给出了 “<code>正确的答案</code>” 即告诉我们 根据我们的数据来说 房子实际的价格是多少 而且 更具体来说 这是一个<code>回归问题</code> <strong>回归一词指的是我们根据之前的数据预测出一个准确的输出值</strong> 对于这个例子就是<strong>价格</strong></p>
+</li>
+<li><p>同时 还有另一种最常见的监督学习方式 叫做<code>分类问题</code> <strong>当我们想要预测离散的输出值</strong> 例如 如果我们正在寻找 癌症肿瘤并想要确定 肿瘤是良性的还是恶性的 这就是0/1离散输出的问题</p>
+</li>
+<li><p>更进一步来说 <strong>在监督学习中我们有一个数据集 这个数据集被称</strong><code>训练集</code> 因此对于房价的例子 我们有一个训练集 包含不同的房屋价格 我们的任务就是从这个数据中学习预测房屋价格</p>
+</li>
+<li><p>现在我们给出这门课中经常使用的一些符号定义 我们要定义颇多符号 不过没关系 现在你记不住所有的符号也没关系 随着课程的进展 你会发现记住这些符号会很有用</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486393_1037348134_1539943381" alt="_1526486393_1037348134_1539943381_1526486393_1037348134.png"></p>
+<ul>
+<li><p><code>m</code>:<strong>来表示训练样本的数目</strong> 因此 在这个数据集中 如果表中有47行 那么我们就有47组训练样本 m就等于47</p>
+</li>
+<li><p><code>x</code><strong>来表示输入变量 往往也被称为特征量</strong> 这就是用x表示输入的特征</p>
+</li>
+<li><p><code>y</code><strong>来表示输出变量或者目标变量</strong> 也就是我的<strong>预测结果</strong> 那么这就是第二列</p>
+</li>
+<li><p>在这里使用<code>(x, y)</code>来表示一个<code>训练样本</code> 所以 在这个表格中的单独的一行对应于一个训练样本</p>
+</li>
+<li><p><code>表示某个训练样本</code> 我将使用<code>x上标(i)</code>与<code>y上标(i)</code>来表示 ,即<img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486414_196120304_1539943435" alt="_1526486414_196120304_1539943435_1526486414_196120304.png"></p>
+</li>
+<li><p>这就是一个监督学习算法的工作方式 我们可以看到这里有我们的训练集里房屋价格 我们把它喂给我们的学习算法 这就是学习算法的工作了 然后输出一个函数 按照惯例 通常表示为小写h <code>h代表hypothesis(假设)</code> <strong>h表示一个函数</strong> 输入是房屋尺寸大小 就像你朋友想出售的房屋 因此 h 根据输入的 x 值来得出 y 值 y值对应房子的价格 因此 <strong>h是一个从x到y的函数映射</strong></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486441_1477225763_1539943461" alt="_1526486441_1477225763_1539943461_1526486441_1477225763.png"></p>
+<ul>
+<li>人们经常问我为什么这个函数被称作<code>假设(hypothesis)</code>你们中有些人可能知道<code>hypothesis</code>的意思 从字典或者其它什么方式可以查到 其实在机器学习中 这是一个在早期被用于机器学习的名称 它有点绕口 对这类函数来说 这可能不是一个很恰当的名字 对表示从房屋的大小到价格的函数映射 我认为这个词”hypothesis” 可能不是最好的名称 但是这是人们在机器学习中使用的标准术语 所以不用太纠结人们为什么这么叫它</li>
+<li><strong>当设计学习算法的时候 我们接下来需要去思考的是 怎样得到这个假设h</strong></li>
+<li>对于这一点在接下来的学习中 我将选择最初的使用规则 h代表hypothesis 我们将会这么写<img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486475_1276561196_1539943500" alt="_1526486475_1276561196_1539943500_1526486475_1276561196.png">为了方便 有时非书面形式也可以这么写 <code>hθ(x)</code> 我就写成<code>h(x)</code> 这是缩写方式 但一般来说我会保留这个下标θ 从这个图片中 所有这一切意味着我们要预测一个关于x的 线性函数 y 对吧? 所以这就是<strong>数据集和函数的作用:<code>用来预测</code></strong> 这里是y关于x的线性函数 <code>hθ(x)=θ0+θ1*x</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486492_526471029_1539943529" alt="_1526486492_526471029_1539943529_1526486492_526471029.png"></p>
+<ul>
+<li>那么为什么是一个线性函数呢? 有时候 我们会有更复杂的函数 也许是非线性函数 但是 由于线性方程是简单的形式 我们将先从线性方程的例子入手 当然 最终我们将会建立更复杂的模型 以及更复杂的学习算法 好吧 让我们也给这模型 起一个名字 这个模型被称为<code>线性回归(linear regression)模型</code> 另外 这实际上是关于单个变量的线性回归 这个变量就是x 根据x来预测所有的价格函数 同时 对于这种模型有另外一个名称 称作<code>单变量线性回归</code> 单变量是对一个变量的一种 特别的表述方式 总而言之 这就是线性回归 在接下来的视频中 我们将开始讨论如何去实现这种模型</li>
+</ul>
+<h3 id="小小的总结–Model-Representation模型表示"><a href="#小小的总结–Model-Representation模型表示" class="headerlink" title="小小的总结–Model Representation模型表示"></a>小小的总结–Model Representation模型表示</h3><ul>
+<li>为了建立将来使用的符号，我们将使用 $x^i$ 来表示<code>“输入”变量</code>（在这个例子中是居住区域），也被称为<code>输入要素</code>，而 $y^i$  表示我们试图<code>预测的“输出”或目标变量</code>（价格）。一对 $(x^i,y^i)$ 被称为<code>训练样例</code>，我们将用来学习的<code>数据集----m</code>个训练样例的列表 $(x^i,y^i)$ ;i= 1，。 。 。 ， $m$ —- 被称为<code>训练集</code>。请注意，符号中的上标“（<code>i</code>）”仅仅是训练集的<code>索引</code>，与幂运算无关。我们也将用<code>X</code>来表示<code>输入值的空间</code>，用<code>Y</code>来表示<code>输出值的空间</code>。在这个例子中，X = Y =ℝ。</li>
+<li>为了更形式化地描述监督学习问题，我们的目标是在给定训练集的情况下，去学习一个函数<code>h：X→Y</code>，使得<code>h（x）</code>是<code>y</code>的相应值的<code>“好”预测器</code>。由于历史原因，这个函数<code>h</code>被称为<code>假设</code>。从形象上看，这个过程是这样的：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486547_637097161_1539943596" alt="_1526486547_637097161_1539943596_1526486547_637097161.png"></p>
+<ul>
+<li>当我们试图预测的目标变量是<code>连续的</code>，比如在我们的住房例子中，我们把学习问题称为<code>回归问题</code>。当y只能接受少量的<code>离散值</code>时（比如，如果考虑到居住面积，我们想要预测一个住宅是房子还是公寓），我们称之为<code>分类问题</code>。</li>
+</ul>
+<h2 id="Cost-Function-代价函数"><a href="#Cost-Function-代价函数" class="headerlink" title="Cost Function(代价函数)"></a>Cost Function(代价函数)</h2><ul>
+<li><p>这里将定义<code>代价函数</code>的概念 这有助于我们 <code>弄清楚如何把最有可能的直线与我们的数据相拟合</code></p>
+</li>
+<li><p>在线性回归中我们有一个像这样的训练集 记住<code>M代表了训练样本的数量</code> 所以 比如说<code>M = 47</code> 而我们的假设函数 也就是用来进行预测的函数 是这样的线性函数形式:  $h_\theta(x)=\theta_0+\theta_1x$</p>
+</li>
+<li><p>接下来我们会引入一些术语 这些$\theta_0$和$\theta_1$ 这些θi我把它们称为<code>模型参数</code> 在这个视频中 我们要做的就是<strong>谈谈如何选择这两个参数值$\theta_0$和$\theta_1$</strong></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486641_873314729_1539943679" alt="_1526486641_873314729_1539943679_1526486641_873314729.png"></p>
+<ul>
+<li>选择不同的参数$\theta_0$和$\theta_1$ 我们会得到不同的假设函数，如果$\theta_0$是1.5 $\theta_1$是0 那么假设函数会看起来是下图1这样， 因为你的假设函数是<code>h(x)=1.5+0*x</code> 是这样一个常数函数 恒等于1.5</li>
+<li>如果$\theta_0$=0并且$\theta_1$=0.5 那么假设会看起来像这样 它会通过点(2,1) 这样你又得到了h(x) 或者hθ(x) 但是有时我们为了简洁会省略θ 因此 h(x)将等于0.5倍的x 就像下图2这样</li>
+<li>最后 如果$\theta_0$=1并且$\theta_1$=0.5 我们最后得到的假设会看起来像下图3这样 让我们来看看 它应该通过点(2,2) 这是我的新的$h(x)$或者写作$h_\theta(x)$对吧？ 你还记得之前我们提到过$h_\theta(x)$的 但作为简写 我们通常只把它写作$h(x)$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486670_715550732_1539943705" alt="_1526486670_715550732_1539943705_1526486670_715550732.png"></p>
+<ul>
+<li>在线性回归中 我们有一个训练集 可能就像我在这里绘制的 <strong>我们要做的就是 得出θ0 θ1这两个参数的值 来让假设函数表示的直线 尽量地与这些数据点很好的拟合</strong> 也许就像这里的这条线一样</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486709_1177455732_1539943731" alt="_1526486709_1177455732_1539943731_1526486709_1177455732.png"></p>
+<ul>
+<li>那么我们如何得出θ0 θ1的值 来使它很好地拟合数据的呢？<strong>我们的想法是 我们要选择 能使 $h(x)$ 也就是 输入x时我们预测的值 最接近该样本对应的y值的参数$\theta_0$ $\theta_1$</strong> 所以 在我们的训练集中我们会得到一定数量的样本 我们知道x表示卖出哪所房子 并且知道这所房子的实际价格 所以 我们要尽量选择参数值 使得 在训练集中 给出训练集中的x值 我们能合理准确地预测y的值</li>
+<li>让我们给出标准的定义 <code>在线性回归中 我们要解决的是一个最小化问题 所以我要写出关于θ0 θ1的最小化 而且 我希望这个式子极其小 是吧 我想要h(x)和y之间的差异要小 我要做的事情是尽量减少假设的输出与房子真实价格 之间的差的平方</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486729_441195085_1539943756" alt="_1526486729_441195085_1539943756_1526486729_441195085.png"></p>
+<ul>
+<li>接下来我会详细的阐述 别忘了 我用符号 $(x^i,y^i)$  代表第i个样本 所以我想要做的是<strong>对所有训练样本进行一个求和</strong> 对i=1到i=M的样本 将对假设进行预测得到的结果 此时的输入是第i号房子的面积 对吧 将第i号对应的预测结果 减去第i号房子的实际价格 所得的差的平方相加得到总和 而我希望尽量减小这个值 也就是<code>预测值和实际值的差的平方误差和</code> 或者说预测价格和 实际卖出价格的差的平方 我说了这里的 $m$ 指的是训练集的样本容量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486765_95100177_1539943786" alt="_1526486765_95100177_1539943786_1526486765_95100177.png"></p>
+<ul>
+<li>而为了让表达式的数学意义 变得容易理解一点 我们实际上考虑的是 这个数的<code>1/m</code> 因此我们要尝试尽量减少我们的平均误差 也就是<strong>尽量减少其1/2m</strong> 通常是这个数的一半 前面的这些只是为了使数学更直白一点 因此对这个求和值的二分之一求最小值 应该得出相同的$\theta_0$值和相同的$\theta_1$值来 请大家一定弄清楚这个道理 没问题吧？在这里hθ(x)的这种表达 这是我们的假设 它等于θ0加上θ1与x(i)的乘积 而这个表达 表示关于θ0和θ1的最小化过程 这意味着我们要找到θ0和θ1 的值来使这个表达式的值最小 这个表达式因θ0和θ1的变化而变化对吧？ 因此 简单地说 我们正在把这个问题变成 <code>找到能使 我的训练集中预测值和真实值的差的平方的和 的1/2M最小的θ0和θ1的值</code> 因此 这将是我的线性回归的整体目标函数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486784_343575659_1539943825" alt="_1526486784_343575659_1539943825_1526486784_343575659.png"></p>
+<ul>
+<li>为了使它更明确一点 我们要改写这个函数 按照惯例 我要定义一个<code>代价函数</code> 正如屏幕中所示 这里的这个公式 我们想要做的就是<code>关于θ0和θ1 对函数J(θ0,θ1)求最小值</code> 这就是我的代价函数 <code>代价函数也被称作平方误差函数</code> 有时也被称为 <code>平方误差代价函数</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486807_2121076322_1539943869" alt="_1526486807_2121076322_1539943869_1526486807_2121076322.png"></p>
+<ul>
+<li>事实上 我们之所以要求出 误差的平方和 是因为<code>误差平方代价函数 对于大多数问题 特别是回归问题 都是一个合理的选择</code> 还有其他的代价函数也能很好地发挥作用 但是平方误差代价函数可能是解决回归问题最常用的手段了 在后续课程中 我们还会谈论其他的代价函数 但我们刚刚讲的选择是对于大多数线性回归问题非常合理的 好吧 所以这是代价函数 到目前为止 我们已经 介绍了代价函数的数学定义 也许这个函数<code>J(θ0,θ1)</code>有点抽象 可能你仍然不知道它的内涵 在接下来的几个视频里 我们要更进一步解释 代价函数J的工作原理 并尝试更直观地解释它在计算什么 以及我们使用它的目的</li>
+</ul>
+<h3 id="小小的总结-Cost-Function-代价函数"><a href="#小小的总结-Cost-Function-代价函数" class="headerlink" title="小小的总结-Cost Function(代价函数)"></a>小小的总结-Cost Function(代价函数)</h3><ul>
+<li>我们可以<code>通过使用代价函数来衡量我们的假设函数的准确性</code>。 这个假设的所有结果的平均差异（实际上是一个平均值的更漂亮的版本）与来自x的输入和实际输出y的输入。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486842_1687157529_1539943891" alt="_1526486842_1687157529_1539943891_1526486842_1687157529.png"></p>
+<ul>
+<li>To break it apart，结果是$\frac{1}{2}\bar{x}$，其中$\bar{x}$是 $h_\theta(x_i)-y_i$  平方的平均值，或<code>预测值与实际值之间的差值</code>。</li>
+<li>该函数被称为“<code>平方误差函数(Squared error function)</code>”或“<code>均方误差(Mean squared error)</code>”。 <strong>由于平方函数的导数项将抵消该项，平均值被减半以作为计算梯度下降的便利</strong>。 以下图片总结了成本函数的作用：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486916_672453545_1539944069" alt="_1526486916_672453545_1539944069_1526486916_672453545.png"></p>
+<h2 id="Cost-Function-Intuition-I"><a href="#Cost-Function-Intuition-I" class="headerlink" title="Cost Function - Intuition I"></a>Cost Function - Intuition I</h2><ul>
+<li>在上一个视频中 我们给了代价函数一个数学上的定义 在这个视频里 让我们通过一些例子来获取一些直观的感受 看看代价函数到底是在干什么 回顾一下 这是我们上次所讲过的内容 我们想找一条直线来拟合我们的数据 所以我们用 $\theta_0$  $\theta_1$等参数 得到了这个假设 而且通过选择不同的参数 我们会得到不同的直线拟合 所以拟合出的数据就像这样 然后我们还有一个代价函数 这就是我们的优化目标</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526486985_1746525095_1539944106" alt="_1526486985_1746525095_1539944106_1526486985_1746525095.png"></p>
+<ul>
+<li>在这个视频里 为了更好地 将代价函数可视化 我将使用一个简化的假设函数 就是下面这个函数 然后我将会用这个简化的假设 也就是 <code>θ1*x</code> 我们可以将这个函数看成是 把 <code>θ0 设为0</code> 所以我只有一个参数 也就是 <code>θ1</code> 代价函数看起来与之前的很像 唯一的区别是现在 h(x) 等于 <code>θ1*x</code> 只有一个参数 θ1 所以我的 优化目标是将 <code>J(θ1)</code>最小化 用图形来表示就是 如果 <code>θ0</code> 等于零 也就意味这我们选择的假设函数 会经过原点 也就是经过坐标 (0,0) 通过利用简化的假设得到的代价函数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487023_1285650805_1539944167" alt="_1526487023_1285650805_1539944167_1526487023_1285650805.png"></p>
+<ul>
+<li>我们可以试着更好地理解 代价函数这个概念 我们要理解的是这两个重要的函数 第一个是假设函数 第二个是代价函数 注意这个假设函数 h(x) 对于一个固定的 $\theta_1$ ，h(x)是关于 x 的函数 所以这个假设函数就是一个关于 x 这个房子大小的函数 与此不同的是 代价函数 J 是一个关于参数 $\theta_1$ 的函数 而 $\theta_1$ 控制着这条直线的斜率</li>
+<li>现在我们把这些函数都画出来 试着更好地理解它们 我们从假设函数开始 比如说这里是我的<strong>训练样本 它包含了三个点 (1,1) (2,2) 和 (3,3)</strong> 现在我们随便选择一个值 $\theta_1$ ，这里<strong>选择 θ1 等于1</strong> ，选择 $\theta_1$=1之后， 那么我的假设函数看起来就会像是这条直线 我将要指出的是 <strong>当我想要描绘出我的假设函数时， 我的横轴被标定为X轴 X轴是表示房子大小的量 现在暂时把 $\theta_1$ 定为1 我想要做的就是 算出在 $\theta_1$ 等于 1 的时候 $J(\theta_1)$ 等于多少</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487060_1394238758_1539944241" alt="_1526487060_1394238758_1539944241_1526487060_1394238758.png"></p>
+<ul>
+<li>所以我们 按照这个思路来计算代价函数的大小 和之前一样 代价函数定义如下 是吧 对这个误差平方项进行求和 这就等于 这样一个形式 简化以后就等于 三个0的平方和 当然还是0</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487093_1136770439_1539944268" alt="_1526487093_1136770439_1539944268_1526487093_1136770439.png"></p>
+<ul>
+<li>现在 在代价函数里 我们发现所有这些值都等于0 因为<strong>对于我所选定的这三个训练样本 ( 1 ,1 ) (2,2) 和 (3,3) 如果 $\theta_1$ 等于 1 那么 $h(x^{(i)})$ 就会正好等于 $y^{(i)}$ 所以 <code>h(x) - y</code> 所有的这些值都会等于零</strong> 这也就是为什么<strong>J(1) 等于零</strong></li>
+<li>所以 我们现在知道了 J(1) 是0 让我把这个画出来 我将要在屏幕右边画出我的代价函数 J 要注意的是 因为我的代价函数是关于参数 $\theta_1$ 的函数 当我描绘我的<strong>代价函数时 X轴就是 θ1</strong> 现在我有 <strong>J(1) 等于零</strong> 让我们继续把函数画出来 结果我们会得到这样一个点</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487138_631239648_1539944315" alt="_1526487138_631239648_1539944315_1526487138_631239648.png"></p>
+<ul>
+<li>现在我们来看其它一些样本 $\theta_1$ 可以被设定为 某个范围内各种可能的取值 所以 $\theta_1$ 可以取负数 ,0 或者正数 所以如果 <code>θ1 等于0.5</code>会发生什么呢 继续把它画出来 现在要把 $\theta_1$ 设为0.5 在这个条件下 我的假设函数看起来就是这样 这条线的斜率等于0.5 现在让我们计算 $J(0.5)$ 所以这将会等于1除以2m 乘以那一块 其实我们不难发现后面的求和 就是这条线段的高度的平方 加上这条线段高度的平方 再加上这条线段高度的平方 三者求和 对吗？ 就是 $y^{(i)}$ 与预测值 $h(x^{(i)})$ 的差 对吗 所以第一个样本将会是0.5减去1的平方 因为我的假设函数预测的值是0.5 而实际值则是1 第二个样本 我得到的是1减去2的平方 因为我的假设函数预测的值是1 但是实际房价是2 最后 加上 1.5减去3的平方 那么这就等于1除以2乘以3 因为训练样本有三个点所以 $m$ 等于3 对吧 然后乘以括号里的内容 简化后就是3.5 所以这就等于3.5除以6 也就约等于0.58</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487160_1122698449_1539944357" alt="_1526487160_1122698449_1539944357_1526487160_1122698449.png"></p>
+<ul>
+<li>让我们把这个点画出来 不好意思 有一个计算错误 <code>这实际上该是0.58</code> 所以我们把点画出来 大约会是在这里 对吗</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487174_936519972_1539944425" alt="_1526487174_936519972_1539944425_1526487174_936519972.png"></p>
+<ul>
+<li>现在 让我们再多做一个点 让我们试试 $\theta_1$ 等于0, $J(0)$ 会等于多少呢 如果 $\theta_1$等于0 那么 h(x) 就会等于一条水平的线 对了 就会像这样是水平的 所以 测出这些误差 我们将会得到 J(0) 等于 1除以 2m 乘以1的平方 加上2的平方 加上3的平方 也就是 1除以6乘以14 也就是2.3左右 所以让我们接着把这个点也画出来 所以这个点最后是2.3</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487181_1047071511_1539944461" alt="_1526487181_1047071511_1539944461_1526487181_1047071511.png"></p>
+<ul>
+<li>当然我们可以接着设定  $\theta_1$ 等于别的值 进行计算 你也可以把  $\theta_1$ 设定成一个负数 所以如果  $\theta_1$ 是负数  打个比方说 －0.5 乘以x 然后  $\theta_1$ 就是 -0.5 那么这将会 对应着一个斜率为-0.5的假设函数 而且你可以 继续计算这些误差 结果你会发现 对于0.5 结果会是非常大的误差 最后会得到一个较大的数值 类似于5.25 等等 对于不同的  $\theta_1$ 你可以计算出这些对应的值 对吗 结果你会发现 你算出来的这些值 你得到一条这样的曲线 通过计算这些值 你可以慢慢地得到这条线 这就是 $J(θ)$ 的样子了</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487193_1227128932_1539944492" alt="_1526487193_1227128932_1539944492_1526487193_1227128932.png"></p>
+<ul>
+<li>我们来回顾一下 <strong>任何一个  $\theta_1$ 的取值对应着一个不同的 假设函数 或者说对应着左边一条不同的拟合直线。 对于任意的 $\theta_1$ 你可以算出一个不同的  $J(\theta_1)$ 的取值</strong> 举个例子 你知道的  $\theta_1$ 等于1时对应着穿过这些数据的这条浅蓝色直线 当  $\theta_1$ 等于0.5 也就是这个玫红色的点 也许对应着这条线 然后  $\theta_1$ 等于0 也就是深蓝色的这个点 对应着 这条水平的线 对吧</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487236_2027776779_1539944521" alt="_1526487236_2027776779_1539944521_1526487236_2027776779.png"></p>
+<ul>
+<li>所以对于任意一个  $\theta_1$ 的取值 我们会得到 一个不同的  $J(\theta_1)$ 而且我们可以利用这些来描出右边的这条曲线 现在你还记得 <strong>学习算法的优化目标 是我们想找到一个  $\theta_1$ 的值 来将 $J(\theta_1)$ 最小化</strong> 对吗 这是我们线性回归的目标函数 嗯 看这条曲线(上图左边浅蓝色) <strong>让 $J(\theta_1)$ 最小化的值 是  $\theta_1$ 等于1 然后你看 这个确实就对应着最佳的通过了数据点的拟合直线 这条直线就是由  $\theta_1=1$ 的设定而得到的 然后 对于这个特定的训练样本 我们最后能够完美地拟合 这就是为什么最小化 $J(\theta_1)$ 对应着寻找一个最佳拟合直线的目标</strong></li>
+<li>总结一下 在这个视频里 我们看到了一些图形 来理解代价函数 要做到这个 我们简化了算法 让这个函数只有一个参数  $\theta_1$ 也就是说我们把  $\theta_0$ 设定为0 在下一个视频里 我们将回到原来的问题的公式 然后看一些 带有  $\theta_0$ 和  $\theta_1$ 的图形 也就是说不把  $\theta_0$ 设置为0了 希望这会让你更好地理解在原来的线性回归公式里 代价函数 $J$ 的意义</li>
+</ul>
+<h3 id="小小的总结-Cost-Function-Intuition-I笔记"><a href="#小小的总结-Cost-Function-Intuition-I笔记" class="headerlink" title="小小的总结-Cost Function - Intuition I笔记"></a>小小的总结-Cost Function - Intuition I笔记</h3><ul>
+<li>如果我们试图用视觉术语来思考它，我们的训练数据集就散布在<code>x-y平面</code>上。 我们试图做一条直线（由$h_\theta(x)$定义）来穿过这些散布的数据点。</li>
+<li>我们的目标是获得最佳线路。 尽可能最好的线是这样的，以便<strong>线上散射点的平均垂直距离将是最小的</strong>。 理想情况下，该线应该通过我们训练数据集的所有点。 在这种情况下，$J(\theta_0,\theta_1)$值将为0.以下示例显示了代价函数为0的理想情况。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487322_1703355374_1539944559" alt="_1526487322_1703355374_1539944559_1526487322_1703355374.png"></p>
+<ul>
+<li>当$\theta_1=1$我们得到1的斜率时，它会经历我们模型中的每个单一数据点。 相反，当$\theta_1=0.5$我们看到从适合度到数据点的垂直距离增加时。</li>
+<li>这使我们的代价函数增加到0.58。 绘制几个其他点产生到以下图表：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487533_1540848643_1539944572" alt="_1526487533_1540848643_1539944572_1526487533_1540848643.png"></p>
+<ul>
+<li>因此，<strong>作为一个目标，我们应该尽量减少代价函数</strong>。 在这种情况下，$\theta_1=1$是我们整体最低的。</li>
+</ul>
+<h2 id="Cost-Function-Intuition-II"><a href="#Cost-Function-Intuition-II" class="headerlink" title="Cost Function - Intuition II"></a>Cost Function - Intuition II</h2><ul>
+<li>这节课中 我们将更深入地学习代价函数的作用 这段视频的内容假设你已经认识轮廓图 如果你对轮廓图不太熟悉的话 这段视频中的某些内容你可能会听不懂 但不要紧 如果你跳过这段视频的话 也没什么关系 不听这节课对后续课程理解影响不大</li>
+<li>和之前一样 这是我们的几个重要公式 包括了假设$h$、参数$\theta$、代价函数$J$ 以及优化目标 跟前一节视频不同的是 我还是把$\theta$写成$\theta_0$,$\theta_1$的形式 便于这里我们要对代价函数进行的可视化</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487815_1577285052_1539944607" alt="_1526487815_1577285052_1539944607_1526487815_1577285052.png"></p>
+<ul>
+<li>和上次一样 首先来理解假设函数$h$和代价函数$J$ 这是<strong>房价数据组成的训练集数据</strong> 让我们来构建某种假设 就像这条线一样 很显然这不是一个很好的假设 但不管怎样 如果我<strong>假设$\theta_0$等于50,  $\theta_1$等于0.06的话 那么我将得到这样一个假设函数</strong> 对应于这条直线 给出 $\theta_0$ 和 $\theta_1$ 的值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487858_570681900_1539944661" alt="_1526487858_570681900_1539944661_1526487858_570681900.png"></p>
+<ul>
+<li>我们要在右边画出代价函数的图像 上一次 我们是只有一个 $\theta_1$ 也就是说 画出的代价函数是关于 $\theta_1$ 的函数 但现在我们有两个参数 $\theta_0$ 和$\theta_1$ 因此图像就会复杂一些了 当只有一个参数$\theta_1$的时候 我们画出来是这样一个弓形函数 而现在我们有了两个参数 那么代价函数 仍然呈现类似的某种弓形 实际上这取决于训练样本</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487889_1193089078_1539944694" alt="_1526487889_1193089078_1539944694_1526487889_1193089078.png"></p>
+<ul>
+<li>你可能会得到这样的图形 因此这是一个三维曲面图 两个轴分别表示 $\theta_0$ 和 $\theta_1$ 随着你改变 $\theta_0$ 和 $\theta_1$ 的大小 你便会得到不同的代价函数 $J(\theta_0,\theta_1)$ 对于某个特定的点 $(\theta_0,\theta_1)$  这个曲面的高度 也就是竖直方向的高度 就表示代价函数 $J(\theta_0,\theta_1)$ 的值 不难发现这是一个弓形曲面</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487921_1156596403_1539944720" alt="_1526487921_1156596403_1539944720_1526487921_1156596403.png"></p>
+<ul>
+<li>我们来看看三维图 这是这个曲面的三维图 水平轴是$\theta_0$、$\theta_1$ 竖直方向表示 $J(\theta_0,\theta_1)$ 旋转一下这个图 你就更能理解这个弓形曲面所表示的代价函数了 在这段视频的后半部分 为了描述方便 我将不再像这样给你用三维曲面图的方式解释代价函数J 而还是<strong>用轮廓图来表示</strong> .<code>contour plot</code> 或 <code>contour figure</code> 意思一样</li>
+<li>下图就是一个轮廓图 两个轴分别表示 $\theta_0$ 和 $\theta_1$ 而这些一圈一圈的椭圆形 <strong>每一个圈就表示  $J(\theta_0,\theta_1)$ 相同的所有点的集合</strong> 具体举例来说 我们选三个点出来 这三个桃红色的点 都表示相同的  $J(\theta_0,\theta_1)$ 的值 对吧 横纵坐标分别是$\theta_0$ 和 $\theta_1$   这三个点的 $J(\theta_0,\theta_1)$ 值是相同的 如果你之前没怎么接触轮廓图的话 你就这么想 你就想象一个弓形的函数从屏幕里冒出来  因此<strong><code>最小值</code> 也就是这个弓形的最低点就是这个点 对吧 也就是这一系列同心椭圆的<code>中心点</code></strong> 想象一下这个弓形从屏幕里冒出来 所以这些椭圆形 都从我的屏幕上冒出相同的高度 弓形的最小值点是这个位置 因此轮廓图是一种很方便的方法 能够直观地观察 代价函数$J$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487962_306972773_1539944750" alt="_1526487962_306972773_1539944750_1526487962_306972773.png"></p>
+<ul>
+<li>接下来让我们看几个例子 在这里有一点 这个点表示 <strong>$\theta_0$等于800 $\theta_1$大概等于-0.15</strong>  那么这个 <strong>红色的点 代表了某个 $(\theta_0,\theta_1)$ 组成的数值组</strong> 而这个点也对应于左边这样一条线 对吧 $\theta_0$等于800 也就是跟纵轴相交于大约800 斜率大概是-0.15 当然 这条线并不能很好地拟合数据 对吧 以这组 $\theta_0$ 和 $\theta_1$ 为参数的这个假设 $h(x)$ 并不是数据的较好拟合 并且你也发现了 这个代价值 就是这里的这个值 距离最小值点还很远 也就是说这个代价值还是算比较大的 因此不能很好拟合数据</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526487994_1194723141_1539944788" alt="_1526487994_1194723141_1539944788_1526487994_1194723141.png"></p>
+<ul>
+<li>让我们再来看几个例子 这是另一个假设 你不难发现 这依然不是一个好的拟合 但比刚才稍微好一点 这是我的 $\theta_0$ 和 $\theta_1$ 点 这是 <strong>$\theta_0$ 的值 大约为360 $\theta_1$ 的值为0</strong> 我们把它写下来 $\theta_0$=360 $\theta_1$=0 因此这组$\theta$值对应的假设是 这条水平的直线 也就是 $h(x)=360+0<em>x$  这就是<code>假设</code> 这个假设同样也有某个<code>代价值</code> 而这个*</em>代价值就对应于这个代价函数在这一点的高度**</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488011_1542676591_1539944816" alt="_1526488011_1542676591_1539944816_1526488011_1542676591.png"></p>
+<ul>
+<li>最后一个例子 这个点其实不是最小值 但已经非常靠近最小值点了 这个点对数据的拟合就很不错 它对应这样两个$\theta_0$  和 $\theta_1$ 的值 同时也对应这样一个 $h(x)$ 这个点虽然不在最小值点 但非常接近了 因此误差平方和 或者说 <strong>训练样本和假设的距离的平方和 这个距离值的平方和 非常接近于最小值</strong> 尽管它还不是最小值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488021_554234801_1539944853" alt="_1526488021_554234801_1539944853_1526488021_554234801.png"></p>
+<ul>
+<li>好的 通过这些图形 我希望你能更好地 理解这些<code>代价函数 J</code> 所表达的值 它们是什么样的 它们对应的假设是什么样的 以及什么样的假设对应的点 更接近于代价函数J的最小值 当然 我们真正需要的是一种有效的算法 能够自动地找出这些使代价函数$J$取最小值的参数$\theta_0$和$\theta_1$来 对吧 我想我们也不希望编个程序 把这些点画出来 然后人工的方法来读出这些点的数值 这很明显不是一个好办法 事实上 我们后面就会学到 我们会遇到更复杂、更高维度、更多参数的情况 这在我们在后面的视频中很快就会遇到 而这些情况是很难画出图的 因此更无法将其可视化 因此<strong>我们真正需要的 是编写程序来找出这些最小化代价函数的$\theta_0$和$\theta_1$的值</strong> 在下一节视频中 我们将介绍一种算法 能够自动地找出能使代价函数 $J$ 最小化的参数$\theta_0$和$\theta_1$的值</li>
+</ul>
+<h3 id="小小的总结–Cost-Function-代价函数-Intuition-II"><a href="#小小的总结–Cost-Function-代价函数-Intuition-II" class="headerlink" title="小小的总结–Cost Function(代价函数) - Intuition II"></a>小小的总结–Cost Function(代价函数) - Intuition II</h3><ul>
+<li><code>轮廓图（或者叫等值线图）</code>是包含许多等高线的图。<strong>两个变量函数的轮廓线在同一行的所有点上具有恒定值</strong>。这种图的一个例子就是下面的图。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488042_674655632_1539944900" alt="_1526488042_674655632_1539944900_1526488042_674655632.png"></p>
+<ul>
+<li>采取任何颜色并沿着“圆”走，人们会期望获得相同的成本函数值。例如，上面绿线上的三个绿色点对于 $J(\theta_0,\theta_1)$具有相同的值，因此它们沿着同一条线发现。带圆圈的x显示 $\theta_0=800$ 和$\theta_1=-0.15$时左侧图形的成本函数值。再取一个$h(x)$ 并绘制其轮廓图（等值线图），可以得到以下图表：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488050_330535995_1539944915" alt="_1526488050_330535995_1539944915_1526488050_330535995.png"></p>
+<ul>
+<li>当 $\theta_0=360$ 且 $\theta_1=0$ 时，等值线图中 $J(\theta_0,\theta_1)$ 的值<strong>更靠近中心，从而降低了代价函数误差</strong>。现在给我们的假设函数一个稍微正向的斜率会导致更好的数据拟合。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526488073_471902153_1539944930" alt="_1526488073_471902153_1539944930_1526488073_471902153.png"></p>
+<ul>
+<li>上面的图尽可能地降低了成本函数，因此，$\theta_1$和$\theta_0$的结果分别趋于0.12和250左右。将我们图上的这些值绘制在右侧似乎将我们的观点<strong>置于最内层“圈子”的中心</strong>。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2018/11/15/di-yi-zhang-model-and-cost-function/">https://www.fengwenhua.top/2018/11/15/di-yi-zhang-model-and-cost-function/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Cost-Function/">
+                                    <span class="chip bg-color">Cost Function</span>
+                                </a>
+                            
+                                <a href="/tags/代价函数/">
+                                    <span class="chip bg-color">代价函数</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Wed Nov 14 2018 20:17:43 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/11/15/di-er-zhang-dan-bian-liang-xian-xing-hui-gui-linear-regression-with-one-variable/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="第二章 单变量线性回归(Linear Regression with One Variable)">
+                        
+                        <span class="card-title">第二章 单变量线性回归(Linear Regression with One Variable)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Gradient Descennt
+我们已经定义了代价函数J 而在这段视频中 我想向你们介绍梯度下降这种算法 这种算法可以将代价函数$J$最小化 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/单变量线性回归/">
+                        <span class="chip bg-color">单变量线性回归</span>
+                    </a>
+                    
+                    <a href="/tags/Linear-Regression/">
+                        <span class="chip bg-color">Linear-Regression</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/11/15/ling-ji-qi-xue-xi-jie-shao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="零:机器学习介绍">
+                        
+                        <span class="card-title">零:机器学习介绍</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+视频地址
+
+定义定义1给予计算机学习能力的领域。
+Samuel的定义可以回溯到50年代，他编写了一个西洋棋程序。 这程序神奇之处在于，编程者自己并不是个下棋高手。 但因为他太菜了，于是就通过编程， 让西洋棋程序自己跟自己下了上万盘棋。通过
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/机器学习简介/">
+                        <span class="chip bg-color">机器学习简介</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

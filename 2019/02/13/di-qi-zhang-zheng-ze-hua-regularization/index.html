@@ -1,0 +1,1487 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="第七章-正则化-Regularization, 江南小虫虫的博客">
+    <meta name="description" content="第七章 正则化(Regularization)7.1 过拟合的问题
+到现在为止 你已经见识了 几种不同的学习算法 包括线性回归和逻辑回归 它们能够有效地解决许多问题 但是当将它们应用到 某些特定的机器学习应用时 会遇到过度拟合(over-f">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>第七章-正则化-Regularization | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">第七章-正则化-Regularization</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/正则化/">
+                                <span class="chip bg-color">正则化</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/机器学习/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                机器学习入门
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-02-12
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    11.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    41 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="第七章-正则化-Regularization"><a href="#第七章-正则化-Regularization" class="headerlink" title="第七章 正则化(Regularization)"></a>第七章 正则化(Regularization)</h1><h2 id="7-1-过拟合的问题"><a href="#7-1-过拟合的问题" class="headerlink" title="7.1 过拟合的问题"></a>7.1 过拟合的问题</h2><ul>
+<li><p>到现在为止 你已经见识了 几种不同的学习算法 包括线性回归和逻辑回归 它们能够有效地解决许多问题 但是当将它们应用到 某些特定的机器学习应用时 会遇到<code>过度拟合(over-fitting)</code>的问题 可能会导致它们效果很差</p>
+</li>
+<li><p>在这段视频中 我将为你解释 什么是过度拟合问题 并且 在此之后接下来的几个视频中 我们将谈论一种 称为<code>正则化(regularization)</code>的技术 它可以改善或者 减少过度拟合问题 以使学习算法更好实现 那么什么是过度拟合呢？</p>
+</li>
+<li><p>让我们继续使用 那个用线性回归 来预测房价的例子 我们通过建立 以住房面积为自变量的函数来预测房价 我们可以 对该数据做线性回归 如果这么做 我们也许能够获得 拟合数据的这样一条直线 但是 这不是一个很好的模型 我们看看这些数据 很明显 随着房子面积增大 住房价格的变化趋于稳定 或者越往右越平缓 因此该算法 没有很好拟合训练数据 我们把这个问题称为<code>欠拟合(underfitting)</code> 这个问题的另一个术语叫做 <code>高偏差(High bias)</code> 这两种说法大致相似 意思是它只是没有很好地拟合训练数据 这个词是 过去传下来的一个专业名词 它的意思是 如果拟合一条直线 到训练数据 就好像算法 有一个很强的偏见 或者说非常大的偏差 因为该算法认为房子价格与面积仅仅线性相关 尽管与该数据的事实相反 尽管相反的证据 被事前定义为 偏差 它还是接近于 拟合一条直线 而此法最终导致拟合数据效果很差</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131171932.png" alt></p>
+</li>
+<li><p>我们现在可以在中间 加入一个二次项 在这组数据中 我们用二次函数来拟合它 然后可以拟合出一条曲线 事实证明这个拟合效果很好</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172016.png" alt></p>
+<ul>
+<li>另一个极端情况是 如果我们拟合一个四次多项式 因此在这里我们有五个参数 $\theta_0$到$\theta_4$ 这样我们可以拟合一条曲线 通过我们的五个训练样本 你可以得到看上去如此的一条曲线</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172106.png" alt></p>
+<ul>
+<li>一方面 似乎 对训练数据 做了一个很好的拟合 因为这条曲线通过了所有的训练实例 但是 这仍然是一条扭曲的曲线 对吧？ 它不停上下波动 因此事实上 我们并不认为它是一个预测房价的好模型 所以 这个问题我们把他叫做 <code>过度拟合</code>或<code>过拟合(overfitting)</code> 另一个描述该问题的术语是 <code>高方差(variance)</code> 高方差是另一个 历史上的叫法 但是 从第一印象上来说 如果我们拟合一个 高阶多项式 那么 这个函数能很好的拟合训练集 能拟合几乎所有的 训练数据 这就面临可能函数太过庞大的问题 变量太多 同时如果我们没有足够的数据 去约束这个变量过多的模型 那么这就是过度拟合</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172204.png" alt></p>
+<ul>
+<li>在两者之间的情况 叫”刚好合适” 这并不是一个真正的名词 我只是把它写在这里 这个二次多项式 二次函数 可以说是恰好拟合这些数据</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172235.png" alt></p>
+<ul>
+<li>概括地说 过度拟合的问题 将会在变量过多的时候 发生 这种时候训练出的方程总能很好的拟合训练数据 所以 你的代价函数 实际上可能非常接近于0 或者 就是0 但是 这样的曲线 它千方百计的拟合于训练数据 这样导致 它无法泛化到 新的数据样本中 以至于无法预测新样本价格 在这里 术语”<code>泛化</code>“ 指的是<strong>一个假设模型能够应用到新样本的能力</strong> 新样本数据是 没有出现在训练集中的房子</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172427.png" alt></p>
+<ul>
+<li>在这张幻灯片上 我们看到了 线性回归情况下的过拟合 类似的方法同样可以应用到逻辑回归 这里是一个以x1与x2为变量的 逻辑回归</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172541.png" alt></p>
+<ul>
+<li>我们可以做的就是 用这样一个简单的假设模型 来拟合逻辑回归 和以前一样 字母$g$代表<code>S型函数</code> 如果这样做 你会得到一个假设模型 这个假设模型是一条直线 它直接分开了正样本和负样本 但这个模型并不能够很好的拟合数据 因此 这又是一个<code>欠拟合</code>的例子 或者说假设模型具有高偏差</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172650.png" alt></p>
+<ul>
+<li>相比之下 如果 如果再加入一些变量 比如这些二次项 那么你可以得到一个判定边界 像这样 这样就很好的拟合了数据 这很可能 是训练集的最好拟合结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172744.png" alt></p>
+<ul>
+<li>最后 在另一种极端情况下 如果你用高阶多项式来拟合数据 你加入了很多 高阶项 那么逻辑回归可能发生自身扭曲 它千方百计的 形成这样一个 判定边界 来拟合你的训练数据 以至于成为一条扭曲的曲线 使其能够拟合每一个训练集中的样本 而且 如果x1和x2 能够预测 癌症 你知道 癌症是一种恶性肿瘤 同时肿瘤也可能是良性 确实 这个假设模型不是一个很好的预测 因此 这又是一个过拟合例子 是一个 有高方差的假设模型 并且不能够很好泛化到新样本</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131172845.png" alt></p>
+<ul>
+<li>在今后课程中 我们会讲到调试和诊断 诊断出导致学习算法故障的东西 我们告诉你如何用 专门的工具来识别 过拟合 和可能发生的欠拟合 但是 现在 让我们谈谈 过拟合 的问题 我们怎么样解决呢</li>
+<li>在前面的例子中 当我们使用一维或二维数据时 我们可以通过绘出假设模型的图像来研究问题所在 再选择合适的多项式来拟合数据 因此 以之前的房屋价格为例 我们可以 绘制假设模型的图像 就能看到 模型的曲线 非常扭曲并通过所有样本房价 我们可以通过绘制这样的图形 来选择合适的多项式阶次 因此<strong>绘制假设模型曲线 可以作为决定多项式阶次 的一种方法</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131173050.png" alt></p>
+<ul>
+<li>但是这并不是总是有用的 而且事实上更多的时候我们 会遇到有很多变量的假设模型 并且 这不仅仅是选择多项式阶次的问题 事实上 当我们 有这么多的特征变量 这也使得绘图变得更难 并且 更难使其可视化 因此并不能通过这种方法决定保留哪些特征变量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131173127.png" alt></p>
+<ul>
+<li>具体地说 如果我们试图 预测房价 同时又拥有这么多特征变量 这些变量看上去都很有用 但是 如果我们有 <strong>过多的变量 同时 只有非常少的训练数据 就会出现过度拟合的问题</strong></li>
+<li>为了解决过度拟合 有两个办法 来解决问题 <strong>第一个办法是要尽量 减少选取变量的数量</strong> 具体而言 我们可以人工检查 变量的条目 并以此决定哪些变量更为重要 然后 决定保留哪些特征变量 哪些应该舍弃</li>
+<li>在今后的课程中 我们会提到<strong>模型选择算法</strong> 这种算法是为了自动选择 采用哪些特征变量 自动舍弃不需要的变量 这种减少特征变量 的做法是非常有效的 并且可以减少过拟合的发生 当我们今后讲到模型选择时 我们将深入探讨这个问题 但是其缺点是 舍弃一部分特征变量 你也舍弃了 问题中的一些信息 例如 也许所有的 特征变量 对于预测房价都是有用的 我们实际上并不想 舍弃一些信息 或者舍弃这些特征变量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131173423.png" alt></p>
+<ul>
+<li>第二个选择 我们将在接下来的视频中讨论 就是<code>正则化regularization</code> 正则化中我们将保留 所有的特征变量 但是减少参数 $\theta_j$ 的大小  这个方法非常有效</li>
+<li>当我们有很多特征变量时 其中每一个变量 都能对预测产生一点影响 y的值 正如我们在房价的例子中看到的那样 在那里我们可以有很多特征变量 其中每一个变量 都是有用的 因此我们不希望把它们删掉 这就导致了 正则化概念的发生</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190131173639.png" alt></p>
+<ul>
+<li>我知道 这些东西你们现在可能还听不懂 但是在接下来的视频中 我们将开始详细讲述 怎样应用正则化和什么叫做正则化均值 然后我们将开始 讲解怎样使用正则化 怎样使学习算法正常工作 并避免过拟合</li>
+</ul>
+<h3 id="小小的总结–接下来是别人的笔记"><a href="#小小的总结–接下来是别人的笔记" class="headerlink" title="小小的总结–接下来是别人的笔记"></a>小小的总结–接下来是别人的笔记</h3><p>到现在为止，我们已经学习了几种不同的学习算法，包括<code>线性回归</code>和<code>逻辑回归</code>，它们能够有效地解决许多问题，但是当将它们应用到某些特定的机器学习应用时，会遇到<code>过度拟合(over-fitting)</code>的问题，可能会导致它们效果很差。</p>
+<p>在这段视频中，我将为你解释什么是过度拟合问题，并且在此之后接下来的几个视频中，我们将谈论一种称为<code>正则化(regularization)</code>的技术，它可以<strong>改善或者减少过度拟合问题</strong>。</p>
+<p>如果我们有非常多的特征，我们通过学习得到的<strong>假设可能能够非常好地适应训练集（代价函数可能几乎为0），但是可能会不能推广到新的数据</strong>。</p>
+<p>下图是一个回归问题的例子：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215009.png" alt></p>
+<p>第一个模型是一个线性模型，欠拟合，不能很好地适应我们的训练集,我们把这个问题称为<code>欠拟合(underfitting)</code>或<code>高偏差(high bias)</code>；第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。我们可以看出，若给出一个新的值使之预测，它将表现的很差，是<code>过拟合(overfitting)</code>或<code>高方差(variance)</code>，<strong>虽然能非常好地适应我们的训练集但在新输入变量进行预测时可能会效果不好</strong>；而中间的模型似乎最合适。</p>
+<p>分类问题中也存在这样的问题：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215019.png" alt></p>
+<p>就以多项式理解，$x$ 的次数越高，拟合的越好，但相应的预测的能力就可能变差。</p>
+<p>问题是，如果我们<strong>发现了过拟合问题，应该如何处理</strong>？</p>
+<ol>
+<li><p>丢弃一些不能帮助我们正确预测的特征。可以是手工选择保留哪些特征，或者使用一些模型选择的算法来帮忙（例如PCA）</p>
+</li>
+<li><p>正则化。 保留所有的特征，但是减少参数$\theta_j$的大小（magnitude）。</p>
+</li>
+</ol>
+<h2 id="7-2-代价函数"><a href="#7-2-代价函数" class="headerlink" title="7.2 代价函数"></a>7.2 代价函数</h2><ul>
+<li>在这段视频中 传达给你一个直观的感受 告诉你正规化是如何进行的 而且 我们还要写出 我们使用正规化时 需要使用的代价函数 根据我们幻灯片上的 这些例子 我想我可以给你一个直观的感受 但是 一个更好的 让你自己去理解正规化 如何工作的方法是 你自己亲自去实现它 并且看看它是如何工作的 如果在这节课后 你进行一些适当的练习 你就有机会亲自体验一下 正规化到底是怎么工作的 那么 这里就是一些直观解释</li>
+<li>在前面的视频中 我们看到了 如果说我们要 用一个二次函数来 拟合这些数据 它给了我们一个对数据很好的拟合 然而 如果我们 用一个更高次的 多项式去拟合 我们最终 可能得到一个曲线 能非常好地拟合训练集 但是 这真的不是一个好的结果 它过度拟合了数据 因此 一般性并不是很好</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192408.png" alt></p>
+<ul>
+<li>让我们考虑下面的假设 我们想要加上惩罚项 从而使 参数 $\theta_3$ 和 $\theta_4$ 足够的小</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192455.png" alt></p>
+<ul>
+<li>这里我的意思就是 这是我们的优化目标 或者客观的说 这就是我们需要 优化的问题 我们需要尽量减少 代价函数的均方误差 对于这个函数 我们对它进行一些 添加一些项 加上 1000 乘以 $\theta_3$ 的平方 再加上 1000 乘以 $\theta_4$ 的平方 1000 只是我随便写的某个较大的数字而已</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192503.png" alt></p>
+<ul>
+<li>现在 如果我们要 最小化这个函数 为了使这个 新的代价函数最小化 我们要让 $\theta_3$ 和 $\theta_4$ 尽可能小 对吧？ 因为 如果你有 1000 乘以 $\theta_3$ 这个 新的代价函数将会是很大的 所以 当我们最小化 这个新的函数时 我们将使 $\theta_3$ 的值 接近于0 $\theta_4$ 的值也接近于0 就像我们忽略了 这两个值一样</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192513.png" alt></p>
+<ul>
+<li>如果我们做到这一点 如果 $\theta_3$ 和 $\theta_4$ 接近0 那么我们 将得到一个近似的二次函数 所以 我们最终 恰当地拟合了数据 你知道 二次函数加上一些项 这些很小的项 贡献很小 因为 $\theta_3$ $\theta_4$ 它们是非常接近于0的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192523.png" alt></p>
+<ul>
+<li>所以 我们最终得到了 实际上 很好的一个二次函数 因为这是一个 更好的假设 在这个具体的例子中 我们看到了 惩罚这两个 大的参数值的效果 更一般地 这里给出了正规化背后的思路</li>
+<li>这种思路就是 如果我们 的参数值 对应一个较小值的话 就是说 参数值比较小 那么往往我们会得到一个 形式更简单的假设 所以 我们最后一个例子中 我们惩罚的只是 $\theta_3$ 和 $\theta_4$ 使这两个 值均接近于零 我们得到了一个更简单的假设 也即这个假设大抵上是一个二次函数 但更一般地说 如果我们就像这样 惩罚的其它参数 通常我们 可以把它们都想成是 得到一个更简单的假设 因为你知道 当这些参数越接近这个例子时 假设的结果越接近 一个二次函数 但更一般地 可以表明 这些参数的值越小 通常对应于越光滑的函数 也就是更加简单的函数 因此 就不易发生过拟合的问题</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192538.png" alt></p>
+<ul>
+<li>我知道 为什么要所有的部分参数变小的这些原因 为什么越小的参数对应于一个简单的假设 我知道这些原因 对你来说现在不一定完全理解 但现在解释起来确实比较困难 除非你自己实现一下 自己亲自运行了这部分 但是我希望 这个例子中 使 $\theta_3$ 和 $\theta_4$ 很小 并且这样做 能给我们一个更加简单的 假设 我希望这个例子 有助于解释原因 至少给了 我们一些直观感受 为什么这应该是这样的</li>
+<li>来让我们看看具体的例子 对于房屋价格预测我们 可能有上百种特征 我们谈到了一些可能的特征 比如说 x1 是房屋的尺寸 x2 是卧室的数目 x3 是房屋的层数等等 那么我们可能就有一百个特征 跟前面的多项式例子不同 我们是不知道的 对吧 我们不知道 θ3 θ4 是高阶多项式的项 所以 如果我们有一个袋子 如果我们有一百个特征 在这个袋子里 我们是很难 提前选出那些 关联度更小的特征的 也就是说如果我们有一百或一百零一个参数 我们不知道 挑选哪一个 我们并不知道 如何选择参数 如何缩小参数的数目</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192549.png" alt></p>
+<ul>
+<li>因此在正规化里 我们要做的事情 就是把我们的 代价函数 这里就是线性回归的代价函数 接下来我来修改这个代价函数 从而 <strong>缩小我所有的参数值</strong> 因为你知道 我不知道是哪个 哪一个或两个要去缩小 所以我就修改我的 代价函数 在这后面添加一项 就像我们在方括号里的这项 当我添加一个额外的 正则化项的时候 我们收缩了每个 参数 并且因此 我们会使 我们所有的参数 θ1 θ2 θ3 直到 θ100 的值变小</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192559.png" alt></p>
+<ul>
+<li>顺便说一下 按照惯例来讲 我们从第一个这里开始 所以我实际上没有去惩罚 $\theta_0$ 因此 $\theta_0$ 的值是大的 这就是一个约定 <strong>从1到 n 的求和</strong> 而不是从0到 n 的求和 但其实在实践中 这只会有非常小的差异 无论你是否包括这项 就是 $\theta_0$这项 实际上 结果只有非常小的差异 但是按照惯例 通常情况下我们还是只 从 $\theta_1$ 到 $\theta_{100}$ 进行正规化</li>
+<li>这里我们写下来 我们的正规化优化目标</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192609.png" alt></p>
+<ul>
+<li>我们的正规化后的代价函数 就是这样的 $J(\theta)$ 这个项 右边的这项就是一个正则化项 并且 $\lambda$ 在这里我们称做<code>正规化参数</code>  $\lambda$ 要做的就是<strong>控制 在两个不同的目标中 的一个平衡关系</strong> 第一个目标 第一个需要抓住的目标 就是我们想要训练 <strong>使假设更好地拟合训练数据</strong> 我们希望假设能够很好的适应训练集 而第二个目标是 <strong>我们想要保持参数值较小</strong> 这就是第二项的目标 通过正则化目标函数 这就是 $\lambda$ 这个正则化 参数需要控制的 它会这两者之间的平衡 目标就是平衡拟合训练的目的 和 保持参数值较小的目的 从而来保持假设的形式相对简单 来避免过度的拟合</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192617.png" alt></p>
+<ul>
+<li>对于我们的房屋价格预测来说 这个例子 尽管我们之前有 我们已经用非常高的 高阶多项式来拟合 我们将会 得到一个 非常弯曲和复杂的曲线函数 就像这个 如果你还是用高阶多项式拟合 就是用这里所有的多项式特征来拟合的话 但现在我们不这样了 你只需要确保使用了 正规化目标的方法 那么你就可以得到 实际上是一个曲线 但这个曲线不是 一个真正的二次函数 而是更加的流畅和简单 也许就像这条紫红色的曲线一样 那么 你知道的 这样就得到了对于这个数据更好的假设</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192628.png" alt></p>
+<ul>
+<li>再一次说明下 我了解这部分有点难以明白 为什么加上 参数的影响可以具有 这种效果 但如果你 亲自实现了正规化 你将能够看到 这种影响的最直观的感受</li>
+<li>在正规化线性回归中 如果 正规化参数值 被设定为非常大 那么将会发生什么呢？ 我们将会非常大地惩罚 参数$\theta_1$ $\theta_2$ $\theta_3$ $\theta_4$ 也就是说 如果我们的假设是底下的这个</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192642.png" alt></p>
+<ul>
+<li>如果我们最终惩罚 $\theta_1$ $\theta_2$ $\theta_3$ $\theta_4$ 在一个非常大的程度 那么我们 会使所有这些参数接近于零的 对不对？ $\theta_1$ 将接近零 $\theta_2$ 将接近零 $\theta_3$ 和$\theta_4$ 最终也会接近于零 如果我们这么做 那么就是 我们的假设中 相当于去掉了这些项 并且使 我们只是留下了一个简单的假设 这个假设只能表明 那就是 房屋价格 就等于 $\theta_0$ 的值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192657.png" alt></p>
+<ul>
+<li>那就是类似于拟合了 一条水平直线 对于数据来说 这就是一个 <code>欠拟合 (underfitting)</code> 这种情况下这一假设 它是条失败的直线 对于训练集来说 这只是一条平滑直线 它没有任何趋势 它不会去趋向大部分训练样本的任何值 这句话的另​​一种方式来表达就是 这种假设有 过于强烈的”偏见” 或者 过高的<code>偏差 (bais)</code> 认为预测的价格只是 等于 $\theta_0$ 并且 尽管我们的数据集 选择去拟合一条 扁平的直线 仅仅是一条 扁平的水平线 我画得不好 对于数据来说 这只是一条水平线</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192826.png" alt></p>
+<ul>
+<li>因此 为了使正则化运作良好 我们应当注意一些方面 应该去选择一个不错的 正则化参数 $\lambda$ 并且当我们以后讲到多重选择时 在后面的课程中 我们将讨论 一种方法 一系列的方法来自动选择 正则化参数 $\lambda$ 所以 这就是高度正则化的思路 回顾一下代价函数 为了使用正则化 在接下来的两段视频中 让我们 把这些概念 应用到 到线性回归和 逻辑回归中去 那么我们就可以让他们 避免过度拟合了</li>
+</ul>
+<h3 id="小小的总结–代价函数"><a href="#小小的总结–代价函数" class="headerlink" title="小小的总结–代价函数"></a>小小的总结–代价函数</h3><p>上面的回归问题中如果我们的模型是：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215029.png" alt></p>
+${h_\theta}\left( x \right)={\theta_{0}}+{\theta_{1}}{x_{1}}+{\theta_{2}}{x_{2}}+{\theta_{3}}{x_{3}}+{\theta_{4}}{x_{4}}$
+<p>我们可以从之前的事例中看出，正是那些高次项导致了过拟合的产生，所以如果我们能让这些高次项的系数接近于0的话，我们就能很好的拟合了。<br>所以<strong>我们要做的就是在一定程度上减小这些参数$\theta$ 的值，这就是正则化的基本方法</strong>。我们决定要减少${\theta_{3}}$和${\theta_{4}}$的大小，我们要做的便是修改代价函数，在其中${\theta_{3}}$和${\theta_{4}}$ 设置一点<code>惩罚</code>。这样做的话，我们在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的${\theta_{3}}$和${\theta_{4}}$。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215052.png" alt></p>
+<p>修改后的代价函数如下：$\underset{\theta }{\mathop{\min }}\,\frac{1}{2m}[\sum\limits_{i=1}^{m}{{{\left( {{h}_{\theta }}\left( {{x}^{(i)}} \right)-{{y}^{(i)}} \right)}^{2}}+1000\theta _{3}^{2}+10000\theta _{4}^{2}]}$</p>
+<p>通过这样的代价函数选择出的${\theta_{3}}$和${\theta_{4}}$ 对预测结果的影响就比之前要小许多。假如我们有非常多的特征，<strong>我们并不知道其中哪些特征我们要惩罚，我们将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设</strong>：$J\left( \theta  \right)=\frac{1}{2m}[\sum\limits_{i=1}^{m}{{{({h_\theta}({{x}^{(i)}})-{{y}^{(i)}})}^{2}}+\lambda \sum\limits_{j=1}^{n}{\theta_{j}^{2}}]}$</p>
+<p>其中$\lambda$又称为<code>正则化参数（Regularization Parameter）</code>。 注：<strong>根据惯例，我们不对${\theta_{0}}$ 进行惩罚</strong>。经过正则化处理的模型与原模型的可能对比如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215108.png" alt></p>
+<p>如果选择的正则化参数λ过大，则会把所有的参数都最小化了，导致模型变成 ${h_\theta}\left( x \right)={\theta_{0}}$，也就是上图中红色直线所示的情况，造成<code>欠拟合</code>。<br>那为什么增加的一项$\lambda =\sum\limits_{j=1}^{n}{\theta_j^{2}}$ 可以使$\theta$的值减小呢？<br>因为<strong>如果我们令 $\lambda$ 的值很大的话，为了使Cost Function 尽可能的小，所有的 $\theta$ 的值（不包括${\theta_{0}}$）都会在一定程度上减小</strong>。<br><strong>但若λ的值太大了，那么$\theta$（不包括${\theta_{0}}$）都会趋近于0，这样我们所得到的只能是一条平行于$x$轴的直线</strong>。<br>所以对于正则化，我们要取一个合理的 $\lambda$ 的值，这样才能更好的应用正则化。<br>回顾一下代价函数，为了使用正则化，让我们把这些概念应用到到线性回归和逻辑回归中去，那么我们就可以让他们避免过度拟合了。</p>
+<h2 id="7-3-正则化线性回归"><a href="#7-3-正则化线性回归" class="headerlink" title="7.3 正则化线性回归"></a>7.3 正则化线性回归</h2><ul>
+<li>对于线性回归的求解 我们之前 推导了两种学习算法 一种基于梯度下降 一种基于正规方程 在这段视频中 我们将继续学习 这两个算法 并把它们推广 到<code>正则化线性回归</code>中去</li>
+<li>这是我们上节课推导出的 正则化线性回归的 优化目标</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192933.png" alt></p>
+<ul>
+<li>前面的第一部分是 一般线性回归的目标函数 而现在我们有这个额外的 正则化项 其中 $\lambda$ 是<code>正则化参数</code> 我们想找到参数 $\theta$ 能最小化代价函数 即这个正则化代价函​​数 $J(\theta)$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212192942.png" alt></p>
+<ul>
+<li>之前 我们使用 梯度下降求解原来 没有正则项的代价函数 我们用 下面的算法求解常规的 没有正则项的线性回归 我们会如此反复更新 参数 $\theta_j$ 其中 $j=0, 1, 2...n$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193007.png" alt></p>
+<ul>
+<li>让我 照这个把 $j=0$ 即 $\theta_0$ 的情况单独写出来 我只是把 $\theta_0$ 的更新 分离出来 剩下的这些参数$\theta_1$, $\theta_2$ 到$\theta_n$的更新 作为另一部分 所以 这样做其实没有什么变化 对吧？  这只是把 $\theta_0$的更新 和 $\theta_1$ $\theta_2$ 到 $\theta_n$ 的更新分离开来  我这样做的原因是 你可能还记得 对于正则化的线性回归<br>1:32<br>我们惩罚参数$\theta_1$  $\theta_2$…一直到 $\theta_n$ 但是我们不惩罚$\theta_0$ 所以 当我们修改这个 正则化线性回归的算法时 我们将对 $\theta_0$ 的方式将有所不同</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193024.png" alt></p>
+<ul>
+<li>具体地说 如果我们 要对这个算法进行 修改 并用它 求解正则化的目标函数 我们 需要做的是 把下边的这一项做如下的修改 我们要在这一项上添加一项: $\lambda$ 除以 $m$ 再乘以 $\theta_j$ 如果这样做的话 那么你就有了 用于最小化 正则化代价函数 $J(\theta)$ 的梯度下降算法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193037.png" alt></p>
+<ul>
+<li>我不打算用 微积分来证明这一点 但如果你看这一项 方括号里的这一项 如果你知道微积分 应该不难证明它是  $J(\theta)$ 对 $\theta_j$ 的偏导数 这里的 $J(\theta)$ 是用的新定义的形式 它的定义中 包含正则化项</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193047.png" alt></p>
+<ul>
+<li>而另一项 上面的这一项 我用青色的方框 圈出来的这一项 这也一个是偏导数 是  $J(\theta)$对 $\theta_0$ 的偏导数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193103.png" alt></p>
+<ul>
+<li>如果你仔细看 $\theta_j$ 的更新 你会发现一些 有趣的东西 具体来说$\theta_j$的每次更新 都是 $\theta_j$ 自己减去 $\alpha$ 乘以原来的无正则项 然后还有这另外的一项 这一项的大小也取决于 $\theta_j$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193117.png" alt></p>
+<ul>
+<li>所以 如果你 把所有这些 取决于 $\theta_j$ 的合在一起的话 可以证明 这个更新 可以等价地写为 如下的形式</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193128.png" alt></p>
+<ul>
+<li>具体来讲 上面的 $\theta_j$ 对应下面的 $\theta_j$ 乘以括号里的1 而这一项是 $\frac{\lambda}{m}$ 还有一个$\alpha$ 把它们合在一起 所以你最终得到 $\alpha\frac{\lambda}{m}$ 然后合在一起 乘以 $\theta_j$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193137.png" alt></p>
+<ul>
+<li>而这一项  $1-\alpha\frac{\lambda}{m}$ 很有意思 具体来说 这一项 $1-\alpha\frac{\lambda}{m}$ 这一项的值 通常 <strong>是一个具体的实数 而且小于1</strong>  对吧？由于 $\alpha\frac{\lambda}{m}$ 通常情况下是正的 如果你的学习速率小 而 $m$ 很大的话 $1-\alpha\frac{\lambda}{m}$  这一项通常是很小的 所以这里的一项 一般来说将是一个比1小一点点的值 所以我们可以把它想成 一个像0.99一样的数字</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193149.png" alt></p>
+<ul>
+<li>所以 对 $\theta_j$ 更新的结果 我们可以看作是 被替换为 $\theta_j$  的0.99倍 也就是  $\theta_j$ 乘以0.99 把  $\theta_j$ 向 0 压缩了一点点 所以这使得  $\theta_j$小了一点 更正式地说  $\theta_j$ 的平方 更小了</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193208.png" alt></p>
+<ul>
+<li>另外 这一项后边的第二项 这实际上 与我们原来的 梯度下降更新完全一样 跟我们加入了正则项之前一样</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193221.png" alt></p>
+<ul>
+<li>好的 现在你应该对这个 梯度下降的更新没有疑问了 当我们使用正则化线性回归时 我们需要做的就是 在每一个被正规化的参数 $\theta_j$ 上 乘以了一个 比1小一点点的数字 也就是把参数压缩了一点 然后 我们执行跟以前一样的更新</li>
+</ul>
+<p>当然 这仅仅是 从直观上认识 这个更新在做什么 从数学上讲 它就是带有正则化项的 $J(\theta)$ 的梯度下降算法 我们在之前的幻灯片 给出了定义</p>
+<ul>
+<li>梯度下降只是 我们拟合线性回归模型的两种算法 的其中一个 第二种算法是 使用<code>正规方程</code> 我们的做法 是建立这个 设计矩阵 X 其中每一行 对应于一个单独的训练样本 然后创建了一个向量 y  是一个  m 维的向量 包含了所有训练集里的标签 所以 X 是一个 m × (n+1) 维矩阵 y 是一个 m 维向量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193231.png" alt></p>
+<ul>
+<li>为了最小化代价函数 $J$ 我们发现 一个办法就是 一个办法就是 让 $\theta$ 等于这个式子 即 X 的转置乘以 X 再对结果取逆 再乘以 X 的转置乘以Y 我在这里留点空间 等下再填满</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193241.png" alt></p>
+<ul>
+<li>这个 $\theta$ 的值 其实就是最小化 代价函数 $J(\theta)$ 的$\theta$值 这时的代价函数J(θ)没有正则项 现在如果我们用了是正则化 我们想要得到最小值   我们来看看应该怎么得到</li>
+<li>推导的方法是 取 $J$ 关于各个参数的偏导数 并令它们 等于0 然后做些 数学推导 你可以 得到这样的一个式子 它使得代价函数最小</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193252.png" alt></p>
+<ul>
+<li>具体的说 如果你 使用正则化 那么公式要做如下改变 括号里结尾添这样一个矩阵 0 1 1 1 等等 直到最后一行 所以这个东西在这里是 一个矩阵 它的左上角的元素是0 其余对角线元素都是1 剩下的元素也都是 0</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193309.png" alt></p>
+<ul>
+<li>可以举一个例子 如果 n 等于2 那么这个矩阵 将是一个3 × 3 矩阵 更一般地情况 该矩阵是 一个 (n+1) × (n+1) 维的矩阵</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193317.png" alt></p>
+<ul>
+<li><p>因此 n 等于2时 矩阵看起来会像这样 左上角是0 然后其他对角线上是1 其余部分都是0 同样地 我不打算对这些作数学推导 坦白说这有点费时耗力 但可以证明 如果你采用新定义的 $J(\theta)$  包含正则项的目标函数 那么这个计算 $\theta$ 的式子 能使你的 $J(\theta)$ 达到全局最小值</p>
+</li>
+<li><p>所以最后 我想快速地谈一下不可逆性的问题 这部分是比较高阶的内容 所以这一部分还是作为选学 你可以跳过去 或者你也可以听听 如果听不懂的话 也没有关系 之前当我讲正规方程的时候 我们也有一段选学视频 讲不可逆的问题 所以这是另一个选学内容 可以作为上次视频的补充 可以作为上次视频的补充</p>
+</li>
+<li><p>现在考虑 <strong>m 即样本总数 小与或等于特征数量 n</strong> 如果你的样本数量 比特征数量小的话 那么这个矩阵 X 转置乘以 X 将是 <code>不可逆或奇异的(singluar)</code> 或者用另一种说法是 这个矩阵是<code>退化(degenerate)的</code></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193328.png" alt></p>
+<ul>
+<li>如果你在 Octave 里运行它 无论如何 你用函数 pinv 取伪逆矩阵 这样计算 理论上方法是正确的 但实际上 你不会得到一个很好的假设 尽管 Ocatve 会 用 pinv 函数 给你一个数值解 看起来还不错 但是 如果你是在一个不同的编程语言中 如果在 Octave 中 你用 inv 来取常规逆 也就是我们要对 X 转置乘以 X 取常规逆 然后在这样的情况下 你会发现 X 转置乘以 X 是奇异的 是不可逆的 即使你在不同的 编程语言里计算 并使用一些 线性代数库 试图计算这个矩阵的逆矩阵 都是不可行的 因为这个矩阵是不可逆的或奇异的</li>
+<li>幸运的是 正规化也 为我们解决了这个问题 具体地说 只要<strong><code>正则参数</code>是严格大于0的</strong> 实际上 可以 证明该矩阵 X 转置 乘以 X 加上 λ 乘以 这里这个矩阵 可以证明 这个矩阵将不是奇异的 即该矩阵将是可逆的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193342.png" alt></p>
+<ul>
+<li>因此 使用正则化还可以 照顾一些 X 转置乘以 X 不可逆的问题  好的 你现在知道了如何实现正则化线性回归 利用它 你就可以 避免过度拟合 即使你在一个相对较小的训练集里有很多特征 这应该可以让你 在很多问题上更好地运用线性回归 在接下来的视频中 我们将 把这种正则化的想法应用到逻辑回归 这样你就可以 让逻辑回归也避免过度拟合 并让它表现的更好</li>
+</ul>
+<h3 id="小小的总结–正则化线性回归"><a href="#小小的总结–正则化线性回归" class="headerlink" title="小小的总结–正则化线性回归"></a>小小的总结–正则化线性回归</h3><p>对于线性回归的求解，我们之前推导了两种学习算法：<strong>一种基于梯度下降，一种基于正规方程</strong>。</p>
+<p>正则化线性回归的代价函数为：</p>
+$J\left( \theta  \right)=\frac{1}{2m}\sum\limits_{i=1}^{m}{[({{({h_\theta}({{x}^{(i)}})-{{y}^{(i)}})}^{2}}+\lambda \sum\limits_{j=1}^{n}{\theta _{j}^{2}})]}$
+
+<p>如果我们要使用梯度下降法令这个代价函数最小化，因为我们未对进行正则化，所以梯度下降算法将分两种情形：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215119.png" alt></p>
+<p>对上面的算法中$j=1,2,...,n$ 时的更新式子进行调整可得：</p>
+${\theta_j}:={\theta_j}(1-a\frac{\lambda }{m})-a\frac{1}{m}\sum\limits_{i=1}^{m}{({h_\theta}({{x}^{(i)}})-{{y}^{(i)}})x_{j}^{\left( i \right)}}$
+<p>可以看出，正则化线性回归的梯度下降算法的变化在于，<strong>每次都在原有算法更新规则的基础上令$\theta$值减少了一个额外的值</strong>。</p>
+<p>我们同样也可以利用<code>正规方程</code>来求解正则化线性回归模型，方法如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215128.png" alt></p>
+<p>图中的矩阵尺寸为$(n+1)*(n+1)$。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215136.png" alt></p>
+<h2 id="7-4-正则化的逻辑回归模型"><a href="#7-4-正则化的逻辑回归模型" class="headerlink" title="7.4 正则化的逻辑回归模型"></a>7.4 正则化的逻辑回归模型</h2><ul>
+<li>针对逻辑回归问题  我们在之前的课程已经学习过两种优化算法 我们首先学习了 使用梯度下降法来优化代价函数 $J(\theta)$ 接下来学习了 更高级的优化算法 这些高级优化算法 需要你自己设计 代价函数  $J(\theta)$ 自己计算导数 在本节课中 我们将展示 如何改进梯度下降法和 高级优化算法 使其能够应用于 正则化的逻辑回归 接下来我们来学习其中的原理</li>
+<li>在之前的课程中我们注意到 对于逻辑回归问题 有可能会出现过拟合的现象 如果你使用了 类似这样的高阶多项式 g 是 S 型函数 具体来说 最后你会得到这样的结果  分类边界看起来是一个 过于复杂并且 十分扭曲的函数 针对这个训练集 这显然不是一个好的结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193420.png" alt></p>
+<ul>
+<li>通常情况下 如果要解决的逻辑回归问题有很多参数 并且又用了过多的多项式项 这些项大部分都是没有必要的 最终都可能出现过拟合的现象</li>
+<li>这是逻辑回归问题的代价函数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193400.png" alt></p>
+<ul>
+<li>为了将其修改为正则化形式  我们只需要在后面增加一项  加上 $\frac{\lambda}{2m}$ 再跟过去一样 这个求和将 j 从1开始 而不是从0开始 累积 $\theta_j$的平方 增加的这一项 将惩罚参数 θ1, θ2 等等 一直到 θn 防止这些参数取值过大</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193411.png" alt></p>
+<ul>
+<li>增加了这一项之后 产生的效果是 即使用有很多参数的 高阶多项式来拟合 只要使用了正则化方法 约束这些参数使其取值很小 你仍有可能得到一条 看起来是这样的分类边界 显然  这条边界更合理地 分开了正样本和负样本</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193431.png" alt></p>
+<ul>
+<li>因此  在使用了正则化方法以后 即使你的问题有很多参数 正则化方法可以帮你 避免过拟合的现象 这到底是怎样实现的呢？</li>
+<li>首先看看以前学过的梯度下降法 这是我们之前得到的更新式 我们利用这个式子 迭代更新 $\theta_j$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193442.png" alt></p>
+<ul>
+<li>这一页幻灯片看起来和上一节课的线性回归问题很像 但是这里我将 $\theta_0$ 的更新公式单独写出来 第一行用来更新 $\theta_0$  第二行用来更新 $\theta_1$ 到 $\theta_n$  ,将 $\theta_0$ 单独处理</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193449.png" alt></p>
+<ul>
+<li>为了按照 正则化代价函数的形式 来修改算法 接下来的推导 非常类似于 上一节学习过的正则化线性回归 只需要将第二个式子 修改成这样</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193459.png" alt></p>
+<ul>
+<li>我们又一次发现 修改后的式子表面上看起来 与上一节的线性回归问题很相似 但是实质上这与 我们上节学过的算法并不一样 因为现在的假设 h(x) 是按照下面式子定义的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193512.png" alt></p>
+<ul>
+<li>这与上一节正则化线性回归算法 中的定义并不一样 由于假设的不同 我写下的迭代公式 只是表面上看起来很像 上一节学过的 正则化线性回归问题中的梯度下降算法</li>
+<li>总结一下 方括号中的这一项是 新的代价函数 $J(\theta)$ 关于 $\theta_j$ 的偏导数  这里的 $J(\theta)$ 是我们在上一页幻灯片中 定义的 使用了正则化的代价函数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193520.png" alt></p>
+<ul>
+<li>以上就是正则化逻辑回归问题的梯度下降算法 接下来我们讨论 如何在更高级的优化算法中 使用同样的 正则化技术 提醒一下 对于这些高级算法 我们需要自己定义 costFuntion 函数 这个函数有一个输入参数 向量 theta 的内容是这样的 我们的参数索引依然从0开始 即 θ0 到 θn 但是由于 Octave 中 向量索引是从1开始 我们的参数是从 θ0 到 θn 在 Octave 里 是从 theta(1) 开始标号的 而 θ1 将被记为 theta(2) 以此类推 直到 θn 被记为</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193631.png" alt></p>
+<ul>
+<li>而我们需要做的 就是将这个自定义代价函数 这个 costFunction 函数  代入到我们之前学过的 fminunc函数中 括号里面是 @costFunction 将 @costFunction 作为参数代进去 等等  fminunc返回的是 函数 costFunction 在无约束条件下的最小值</li>
+<li>因此  这个式子 将求得代价函数的最小值  因此 costFunction 函数 有两个返回值 第一个是 jVal 为此  我们要在这里 补充代码 来计算代价函数 J(θ)</li>
+<li>由于我们在这使用的是正则化逻辑回归 因此 代价函数 J(θ) 也相应需要改变 具体来说 代价函数需要 增加这一正则化项 因此  当你在计算 J(θ) 时 需要确保包含了最后这一项</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193534.png" alt></p>
+<ul>
+<li>另外 代价函数的 另一项返回值是 对应的梯度导数 梯度的第一个元素 gradient(1) 就等于 J(θ) 关于 θ0 的偏导数  梯度的第二个元素按照这个式子计算 剩余元素以此类推 再次强调 向量元素索引是从1开始 这是因为 Octave 的向量索引 就是从1开始的</li>
+<li>再来总结一下 首先看第一个公式 在之前的课程中 我们已经计算过它等于这个式子 这个式子没有变化 因为相比没有正则化的版本 J(θ) 关于 θ0 的偏导数不会改变</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193550.png" alt></p>
+<ul>
+<li>但是其他的公式确实有变化 以 θ1 的偏导数为例 在之前的课程里我们也计算过这一项 它等于这个式子 加上 λ 除以 m  再乘以 θ1 注意要确保这段代码编写正确 建议在这里添加括号 防止求和符号的作用域扩大</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193602.png" alt></p>
+<ul>
+<li>类似的 再来看这个式子 相比于之前的幻灯片 这里多了额外的一项 这就是正则化后的 梯度计算方法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193612.png" alt></p>
+<ul>
+<li>当你自己定义了 costFunction 函数 并将其传递到 fminuc 或者其他类似的高级优化函数中 就可以求出 这个新的正则化代价函数的极小值 而返回的参数值 即是对应的 逻辑回归问题的正则化解 讲到这里  你应该已经学会了 解决正则化逻辑回归问题的方法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190212193620.png" alt></p>
+<ul>
+<li>你知道吗 我住在硅谷 当我在硅谷晃悠时 我看到许多工程师 运用机器学习算法 给他们公司挣来了很多金子 课讲到这里 大家对机器学习算法可能还只是略懂 但是一旦你精通了 线性回归、高级优化算法 和正则化技术 坦率地说 你对机器学习的理解 可能已经比许多工程师深入了 现在  你已经有了 丰富的机器学习知识 目测比那些硅谷工程师还厉害 而那些工程师都混得还不错 给他们公司挣了大钱 你懂的 或者用机器学习算法来做产品 所以 恭喜你 你已经历练得差不多了 已经具备足够的知识 足够将这些算法 用于解决实际问题 所以你可以小小的骄傲一下了 但是 我还是有很多可以教你们的 我还是有很多可以教你们的 接下来的课程中 我们将学习 一个非常强大的非线性分类器 无论是线性回归问题 还是逻辑回归问题 都可以构造多项式来解决 但是 你将逐渐发现还有 更强大的非线性分类器 可以用来解决多项式回归问题 在下一节课 我将向大家介绍它们 你将学会 比你现在解决问题的方法 强大N倍的学习算法</li>
+</ul>
+<h3 id="小小的总结–正则化的逻辑回归模型"><a href="#小小的总结–正则化的逻辑回归模型" class="headerlink" title="小小的总结–正则化的逻辑回归模型"></a>小小的总结–正则化的逻辑回归模型</h3><p>针对逻辑回归问题，我们在之前的课程已经学习过两种优化算法：我们首先学习了使用梯度下降法来优化代价函数$J\left( \theta  \right)$，接下来学习了更高级的优化算法，这些高级优化算法需要你自己设计代价函数$J\left( \theta  \right)$。自己计算导数.</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215145.png" alt></p>
+<p>同样对于逻辑回归，我们也给代价函数增加一个正则化的表达式，得到代价函数：</p>
+$J\left( \theta  \right)=\frac{1}{m}\sum\limits_{i=1}^{m}{[-{{y}^{(i)}}\log \left( {h_\theta}\left( {{x}^{(i)}} \right) \right)-\left( 1-{{y}^{(i)}} \right)\log \left( 1-{h_\theta}\left( {{x}^{(i)}} \right) \right)]}+\frac{\lambda }{2m}\sum\limits_{j=1}^{n}{\theta _{j}^{2}}$
+
+<p>Python代码：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token keyword">def</span> <span class="token function">costReg</span><span class="token punctuation">(</span>theta<span class="token punctuation">,</span> X<span class="token punctuation">,</span> y<span class="token punctuation">,</span> learningRate<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    theta <span class="token operator">=</span> np<span class="token punctuation">.</span>matrix<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
+    X <span class="token operator">=</span> np<span class="token punctuation">.</span>matrix<span class="token punctuation">(</span>X<span class="token punctuation">)</span>
+    y <span class="token operator">=</span> np<span class="token punctuation">.</span>matrix<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+    first <span class="token operator">=</span> np<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span><span class="token operator">-</span>y<span class="token punctuation">,</span> np<span class="token punctuation">.</span>log<span class="token punctuation">(</span>sigmoid<span class="token punctuation">(</span>X<span class="token operator">*</span>theta<span class="token punctuation">.</span>T<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    second <span class="token operator">=</span> np<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> y<span class="token punctuation">)</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>log<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> sigmoid<span class="token punctuation">(</span>X<span class="token operator">*</span>theta<span class="token punctuation">.</span>T<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    reg <span class="token operator">=</span> <span class="token punctuation">(</span>learningRate <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> len<span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">*</span> np<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>np<span class="token punctuation">.</span>power<span class="token punctuation">(</span>theta<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">:</span>theta<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> np<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>first <span class="token operator">-</span> second<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>len<span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> reg</code></pre>
+<p>要最小化该代价函数，通过求导，得出梯度下降算法为：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215157.png" alt></p>
+<p>注：看上去同线性回归一样，但是知道 ${h_\theta}\left( x \right)=g\left( {\theta^T}X \right)$，所以与线性回归不同。<br>Octave 中，我们依旧可以用 <code>fminuc</code> 函数来求解代价函数最小化的参数，值得注意的是参数${\theta_{0}}$的更新规则与其他情况不同。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104215205.png" alt></p>
+<p>注意：</p>
+<ol>
+<li><p>虽然正则化的逻辑回归中的梯度下降和正则化的线性回归中的表达式看起来一样，但由于两者的${h_\theta}\left( x \right)$不同所以还是有很大差别。</p>
+</li>
+<li>${\theta_{0}}$不参与其中的任何一个正则化。
+
+</li>
+</ol>
+<p>目前大家对机器学习算法可能还只是略懂，但是一旦你精通了线性回归、高级优化算法和正则化技术，坦率地说，你对机器学习的理解可能已经比许多工程师深入了。现在，你已经有了丰富的机器学习知识，目测比那些硅谷工程师还厉害，或者用机器学习算法来做产品。</p>
+<p>接下来的课程中，我们将学习一个非常强大的非线性分类器，无论是线性回归问题，还是逻辑回归问题，都可以构造多项式来解决。你将逐渐发现还有更强大的非线性分类器，可以用来解决多项式回归问题。我们接下来将将学会，比现在解决问题的方法强大N倍的学习算法。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2019/02/13/di-qi-zhang-zheng-ze-hua-regularization/">https://www.fengwenhua.top/2019/02/13/di-qi-zhang-zheng-ze-hua-regularization/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/正则化/">
+                                    <span class="chip bg-color">正则化</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Tue Feb 12 2019 20:47:03 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/02/13/di-ba-zhang-shen-jing-wang-luo-biao-shu-neural-networks-representation/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="第八章-神经网络-表述(Neural-Networks-Representation)">
+                        
+                        <span class="card-title">第八章-神经网络-表述(Neural-Networks-Representation)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第八章 神经网络：表述(Neural Networks: Representation)
+8.1 非线性假设（Non-linear Hypotheses）在这节课和接下来的课程中 我将给大家介绍 一种叫“神经网络”(Neural Netwo
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-02-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/神经网络表述/">
+                        <span class="chip bg-color">神经网络表述</span>
+                    </a>
+                    
+                    <a href="/tags/Neural-Networks-Representation/">
+                        <span class="chip bg-color">Neural-Networks-Representation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/02/12/di-liu-zhang-luo-ji-hui-gui-logistic-regression/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="第六章-逻辑回归(Logistic-Regression)">
+                        
+                        <span class="card-title">第六章-逻辑回归(Logistic-Regression)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第六章 逻辑回归(Logistic Regression)
+6.1 Classification(分类问题)
+从现在及未来,我们开始谈论的分类问题，其中要预测的变量$y$是离散的(discreet valued)。我们将学习一个算法叫Log
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-02-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/逻辑回归/">
+                        <span class="chip bg-color">逻辑回归</span>
+                    </a>
+                    
+                    <a href="/tags/Logistic-Regression/">
+                        <span class="chip bg-color">Logistic Regression</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

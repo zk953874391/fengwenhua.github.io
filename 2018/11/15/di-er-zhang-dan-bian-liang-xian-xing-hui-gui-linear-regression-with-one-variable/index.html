@@ -1,0 +1,1363 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="第二章 单变量线性回归(Linear Regression with One Variable), 江南小虫虫的博客">
+    <meta name="description" content="Gradient Descennt
+我们已经定义了代价函数J 而在这段视频中 我想向你们介绍梯度下降这种算法 这种算法可以将代价函数$J$最小化 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>第二章 单变量线性回归(Linear Regression with One Variable) | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">第二章 单变量线性回归(Linear Regression with One Variable)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/单变量线性回归/">
+                                <span class="chip bg-color">单变量线性回归</span>
+                            </a>
+                        
+                            <a href="/tags/Linear-Regression/">
+                                <span class="chip bg-color">Linear-Regression</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/机器学习/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                机器学习入门
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-11-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    27 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Gradient-Descennt"><a href="#Gradient-Descennt" class="headerlink" title="Gradient Descennt"></a>Gradient Descennt</h2><blockquote>
+<p>我们已经定义了<code>代价函数J</code> 而在这段视频中 我想向你们介绍<code>梯度下降</code>这种算法 <strong>这种算法可以将代价函数$J$最小化</strong> 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域 在后面课程中 为了解决其他线性回归问题 我们也<strong>也将使用梯度下降法 最小化其他函数</strong> 而不仅仅是只用在本节课的代价函数$J$ 因此在这个视频中 我将讲解用梯度下降算法最小化函数 $J$在后面的视频中 我们还会将此算法应用于具体的 代价函数J中来解决线性回归问题 下面是问题概述</p>
+</blockquote>
+<ul>
+<li>在这里 我们有一个函数 $J(\theta_0, \theta_1)$ 也许这是一个线性回归的代价函数 也许是一些其他函数 要使其最小化 我们需要用一个算法 来最小化函数$J(\theta_0, \theta_1)$ 就像刚才说的 事实证明 梯度下降算法可应用于 多种多样的函数求解 所以想象一下如果你有一个函数$J(\theta_0, \theta_1,…,\theta_n)$  你希望可以通过最小化 $\theta_0$到$\theta_n$来最小化此代价函数$J(\theta_0, \theta_1,…,\theta_n)$  用n个$\theta$是为了证明梯度下降算法可以解决更一般的问题 但为了简洁起见 为了简化符号 在接下来的视频中 我只用两个参数<a id="more"></a></li>
+<li>下面就是关于梯度下降的构想 我们要做的是 我们<strong>要开始对$\theta_0$和$\theta_1$ 进行一些初步猜测(也就是初始化)</strong> 它们到底是什么其实并不重要 但<strong>通常的选择是将 $\theta_0$设为0 将$\theta_1$也设为0 将它们都初始化为0</strong> 我们在梯度下降算法中要做的 就是<strong>不停地一点点地改变 $\theta_0$和$\theta_1$ 试图通过这种改变使得$J(\theta_0, \theta_1)$变小 直到我们找到 $J$ 的最小值 或许是局部最小值</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560718_677839576_1539945526" alt="_1526560718_677839576_1539945526_1526560718_677839576.png"></p>
+<ul>
+<li>让我们通过一些图片来看看梯度下降法是如何工作的 我在试图让这个函数值最小 注意坐标轴 $\theta_0$和$\theta_1$在水平轴上 而函数 $J$在垂直坐标轴上 图形表面高度则是 $J$的值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560743_1565219096_1539945560" alt="_1526560743_1565219096_1539945560_1526560743_1565219096.png"></p>
+<ul>
+<li>我们希望最小化这个函数 所以我们从 $\theta_0$ 和 $\theta_1$ 的某个值出发 所以想象一下 <strong>对 $\theta_0$和$\theta_1$赋以某个初值 也就是对应于从这个函数表面上的某个起始点出发</strong> 对吧 所以<strong>不管 $\theta_0$和$\theta_1$的取值是多少 我将它们<code>初始化为0</code> 但有时你也可把它初始化为其他值</strong> 现在我希望大家把这个图像想象为一座山 想像类似这样的景色 公园中有两座山 想象一下你正站立在山的这一点上 站立在你想象的公园这座红色山上 在梯度下降算法中 我们<strong>要做的就是旋转360度 看看我们的周围 并问自己 我要在某个方向上 用小碎步尽快下山 这些小碎步需要朝什么方向?</strong></li>
+<li>如果我们站在山坡上的这一点 你看一下周围 你会发现<strong>最佳的下山方向</strong> 大约是那个方向 好的 现在你在山上的新起点上</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560798_666068590_1539945598" alt="_1526560798_666068590_1539945598_1526560798_666068590.png"></p>
+<ul>
+<li>你再看看周围 然后再一次想想 我应该从什么方向迈着小碎步下山? 然后你按照自己的判断又迈出一步 往那个方向走了一步</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560828_2138414653_1539945611" alt="_1526560828_2138414653_1539945611_1526560828_2138414653.png"></p>
+<ul>
+<li><strong>然后重复上面的步骤</strong> 从这个新的点 你环顾四周 并<strong>决定从什么方向将会最快下山</strong> 然后又迈进了一小步 又是一小步 并依此类推 直到你接近这里 <strong>直到局部最低点的位置</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560836_1542066151_1539945624" alt="_1526560836_1542066151_1539945624_1526560836_1542066151.png"></p>
+<ul>
+<li>此外 这种下降有一个有趣的特点 第一次我们是从这个点开始进行梯度下降算法的 是吧 在这一点上从这里开始 现在想象一下 我们在刚才的右边一些的位置 对梯度下降进行初始化 想象我们在右边高一些的这个点 开始使用梯度下降 如果你重复上述步骤 停留在该点 并环顾四周 往下降最快的方向迈出一小步 然后环顾四周 又迈出一步 然后如此往复 如果你从右边不远处开始 梯度下降算法将会带你来到 这个右边的第二个局部最优处</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560853_1272028194_1539945641" alt="_1526560853_1272028194_1539945641_1526560853_1272028194.png"></p>
+<ul>
+<li>如果从刚才的第一个点出发 你会得到这个局部最优解 但如果你的起始点偏移了一些 起始点的位置略有不同 你<strong>会得到一个 非常不同的局部最优解 这就是梯度下降算法的一个特点</strong> 我们会在之后继续探讨这个问题</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560865_949036406_1539945662" alt="_1526560865_949036406_1539945662_1526560865_949036406.png"></p>
+<ul>
+<li>好的 这是我们从图中得到的直观感受 看看这个图 这是梯度下降算法的定义 我们<strong>将会反复做这些 直到收敛</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526560876_637224678_1539945680" alt="_1526560876_637224678_1539945680_1526560876_637224678.png"></p>
+<ul>
+<li>我们要<strong>更新参数 $\theta_j$ 方法是 用 $\theta_j$ 减去 $\alpha$乘以这一部分</strong><ul>
+<li><code>:= 表示赋值</code> 这是一个赋值运算符</li>
+<li><code>等号 =</code> :写出<code>a=b</code> 那么这是一个判断为真的<strong>声明</strong> 如果我<strong>写 a=b 就是在断言 a的值是等于 b的值的</strong> 这是声明 声明 a的值 与b的值相同</li>
+<li><code>α</code> :一个数字 被称为<code>学习速率</code><ul>
+<li>什么是$\alpha$呢? 在梯度下降算法中 它控制了 <strong>我们下山时会迈出多大的步子</strong> 因此如果 $\alpha$值很大 那么相应的梯度下降过程中 我们会试图用大步子下山 如果$\alpha$值很小 那么我们会迈着很小的小碎步下山 关于如何设置 $\alpha$的值等内容 在之后的课程中 我会回到这里并且详细说明 $\frac{\partial}{\partial\theta_j}J(\theta_0,\theta_1)$</li>
+</ul>
+</li>
+<li>最后 是公式的这一部分$\frac{\partial}{\partial\theta_j}J(\theta_0,\theta_1)$ 这是一个<strong>微分项</strong> 我现在不想谈论它 但我会推导出这个微分项 并告诉你到底这要如何计算 你们中有人大概比较熟悉微积分 但即使你不熟悉微积分 也不用担心 我会告诉你 对这一项 你最后需要做什么</li>
+</ul>
+</li>
+<li>现在 在梯度下降算法中 还有一个更微妙的问题 在梯度下降中 我们要更新 $\theta_0$ 和 $\theta_1$ 当 j=0 和 j=1 时 会产生更新 所以你将更新  $\theta_0$ 和 $\theta_1$ 实现梯度下降算法的微妙之处是 在这个表达式中 如果你要更新这个等式 你<strong>需要同时更新 $\theta_0$ 和 $\theta_1$</strong>  实现方法是 <strong>你应该计算公式右边的部分 通过那一部分计算出$\theta_0$ 和 $\theta_1$的值 然后同时更新 $\theta_0$ 和 $\theta_1$</strong> 让我进一步阐述这个过程</li>
+<li>在梯度下降算法中 下图是正确实现同时更新的方法 我要设 temp0等于这些 设temp1等于那些 所以首先计算出公式右边这一部分 然后将计算出的结果 一起存入 temp0和 temp1 之中 然后同时更新 θ0和θ1 因为这才是正确的实现方法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561065_1055239768_1539945798" alt="_1526561065_1055239768_1539945798_1526561065_1055239768.png"></p>
+<ul>
+<li>与此相反 下面是不正确的实现方法 因为它没有做到<strong>同步更新</strong> 在这种不正确的实现方法中 我们计算 temp0 然后我们更新 $\theta_0$ 然后我们计算 temp1 然后我们将 temp1 赋给θ1 右边的方法和左边的区别是 让我们看这里 就是这一步 如果这个时候你已经更新了θ0 那么你会使用 θ0的新的值来计算这个微分项 所以由于你已经在这个公式中使用了新的 θ0的值 那么这会产生一个与左边不同的 temp1的值 所以右边并不是正确地实现梯度下降的做法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561083_1129145205_1539945818" alt="_1526561083_1129145205_1539945818_1526561083_1129145205.png"></p>
+<ul>
+<li>我不打算解释为什么你需要同时更新 <strong>同时更新是梯度下降中的一种常用方法</strong> 我们之后会讲到 <strong>实际上同步更新是更自然的实现方法</strong> 当<strong>人们谈到梯度下降时 他们的意思就是同步更新</strong> 如果用非同步更新去实现算法 代码可能也会正确工作 但是右边的方法并不是人们所指的那个梯度下降算法 而是具有不同性质的其他算法 由于各种原因 这其中会表现出微小的差别 你应该做的是 在梯度下降中真正实现同时更新 这些就是梯度下降算法的梗概</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561100_393689345_1539945882" alt="_1526561100_393689345_1539945882_1526561100_393689345.png"></p>
+<ul>
+<li>在接下来的视频中 我们要进入这个微分项的细节之中 我已经写了出来但没有真正定义 如果你已经修过微积分课程 如果你熟悉偏导数和导数 这其实就是这个微分项 如果你不熟悉微积分 不用担心 即使你之前没有看过微积分 或者没有接触过偏导数 在接下来的视频中 你会得到一切你需要知道的 如何计算这个微分项的知识 下一个视频中 希望我们能够给出 实现梯度下降算法的所有知识</li>
+</ul>
+<h3 id="小小的总结–Gradient-Descennt-梯度下降"><a href="#小小的总结–Gradient-Descennt-梯度下降" class="headerlink" title="小小的总结–Gradient Descennt(梯度下降)"></a>小小的总结–Gradient Descennt(梯度下降)</h3><ul>
+<li><p>在<strong>假设函数</strong>中，我们需要估计<strong>假设函数</strong>中的<strong>参数</strong>。这就是梯度下降的地方。</p>
+</li>
+<li><p>x轴表示$\theta_0$，y轴表示$\theta_1$，z轴上表示$J(\theta_0,\theta_1)$代价函数。我们图上的点是 给定$\theta_0$和$\theta_1$ 代价函数的值。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561137_131391682_1539945928" alt="_1526561137_131391682_1539945928_1526561137_131391682.png"></p>
+<ul>
+<li><p><strong>当我们的代价函数处于图的底部时，即当其值是局部最小时，表示我们已经找到正确的$\theta_0$和$\theta_1$。红色箭头显示图表中的最小点</strong>。</p>
+</li>
+<li><p>我们这样做的方式是<strong>通过获取代价函数的导数（函数的切线）</strong>。<strong>切线的斜率是该点的导数</strong>，它会给我们一个走向的方向。我们逐步降低成本函数的下降速度。每一步的大小由<code>参数α</code>决定，称为<strong>学习率</strong>。</p>
+</li>
+<li><p>例如，<strong>上图中每个“星号”之间的距离代表由我们的参数α确定的一个步骤。 α越小，步长越小，α越大，步长越大。步进的方向取决于$J(\theta_0,\theta_1)$ 的偏导数</strong>。根据图表的起始位置，可能会出现不同的点。上面的图片向我们展示了两个不同的起点，最终在两个不同的地方。</p>
+</li>
+<li><p>梯度下降算法是：<br>重复，直到收敛：<br>  <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561170_2045903942_1539945980" alt="_1526561170_2045903942_1539945980_1526561170_2045903942.png">j = 0,1代表特征索引号。</p>
+</li>
+<li><p>在每次迭代j中，应<strong>同时更新参数$\theta_1,\theta_2,…\theta_n$</strong>。在计算第j次迭代之前更新特定参数会导致错误的实现。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561190_832177929_1539945992" alt="_1526561190_832177929_1539945992_1526561190_832177929.png"></p>
+<h2 id="Gradient-Descent-Intuition"><a href="#Gradient-Descent-Intuition" class="headerlink" title="Gradient Descent Intuition"></a>Gradient Descent Intuition</h2><blockquote>
+<p>在之前的视频中 我们给出了一个数学上关于梯度 下降的定义 本次视频我们更深入研究一下 更直观地感受一下这个 算法是做什么的 以及梯度下降算法的更新过程有什么意义 这是我们上次视频中看到的梯度下降算法 提醒一下 这个<code>参数 α</code> 术语称为<code>学习速率</code> <strong>它控制我们以多大的幅度更新这个参数θj</strong>. 第二部分是导数项 而我在这个视频中要做的就是 给你一个更直观的认识 这两部分有什么用 以及 为什么当把 这两部分放一起时 整个更新过程是有意义的</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561218_1102222000_1539946039" alt="_1526561218_1102222000_1539946039_1526561218_1102222000.png"></p>
+<ul>
+<li>为了更好地让你明白 我要做是用一个稍微简单的例子 比如我们想最小化的那个 函数只有一个参数的情形 所以 <code>假如我们有一个代价函数J 只有一个参数 θ1</code> 就像我们前几次视频中讲的 $\theta_1$是一个实数 对吧？那么我们可以画出一维的曲线 看起来很简单 让我们试着去理解 为什么梯度下降法 会在这个函数上起作用</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561252_904671270_1539946074" alt="_1526561252_904671270_1539946074_1526561252_904671270.png"></p>
+<ul>
+<li>所以 假如这是我的函数 关于$\theta_1$的函数$J(\theta_1)$是一个实数 对吧？ 现在我们已经对这个蓝色点上用于梯度下降法的$\theta_1$ 进行了初始化 想象一下在我的函数图像上 从那个点出发 那么梯度下降 要做的事情是<strong>不断更新 $\theta_1$ 等于$\theta_1$ 减$\alpha$ 倍的 $\frac{d}{d\theta_1}J(\theta_1)$ 这个项</strong> 对吧？哦 顺便插一句 你知道 这个微分项是吧？可能你想问为什么我改变了符号 之前用的是偏导数的符号 如果你不知道偏导数的符号 和$\frac{d}{d\theta}$之间的区别是什么 不用担心 从技术上讲 在数学中 我们称这是一个<code>偏导数</code> 这是一个导数 这取决于函数J的参数数量 但是这是一个 数学上的区别 就本课的目标而言 可以默认为 这些偏导数符号 和$\frac{d}{d\theta}$是完全一样的东西 不用担心 是否存在任何差异 我会尽量使用数学上的 精确的符号 但就我们的目的而言 这些符号是没有区别的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561410_371681908_1539946127" alt="_1526561410_371681908_1539946127_1526561410_371681908.png"></p>
+<ul>
+<li>好的 那么我们来看这个方程 我们要计算 这个导数 求导的目的 基本上可以说 <strong>取红色一点的切线</strong> 就是这样一条红色的直线 刚好与函数相切于这一点 让我们看看这条红色直线的斜率 其实这就是导数 也就是说 直线的斜率 也就是这条 刚好与函数曲线相切的这条直线 这条直线的斜率正好是 这个<strong>高度除以这个水平长度</strong> 现在 这条线有 一个正斜率 也就是说它有正导数 因此 我得到的新的$\theta_1$  <strong>$\theta_1$更新后等于$\theta_1$减去一个正数乘以$\alpha$</strong>. <strong>$\alpha$ 也就是学习速率也是一个正数</strong> 所以 我要使$\theta_1$减去一个东西 所以相当于我将$\theta_1$向左移 使$\theta_1$<strong>变小了</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561401_1069093686_1539946176" alt="_1526561401_1069093686_1539946176_1526561401_1069093686.png"></p>
+<ul>
+<li>我们可以看到 这么做是对的 因为实际上我<strong>往这个方向移动 确实让我更接近那边的最低点</strong> 所以 梯度下降到目前为止似乎 是在做正确的事</li>
+<li>让我们来看看另一个例子 让我们用同样的函数$J$ 同样再画出函数$J(\theta_1)$的图像 而这次 我们把参数初始化到左边红色这点 所以$\theta_1$ 在这里 同样把这点对应到曲线上 现在 导数项$\frac{d}{d\theta_1}J(\theta_1)$ 在这点上计算时 看上去会是红色这条线的斜率 这个导数是这条线的斜率 但是这条线向下倾斜 所以这条线具有<strong>负斜率</strong> 对吧？ 或者说 这个函数有负导数 也就意味着在那一点上有负斜率 因此 这个导数项小于等于零 所以 当我<strong>更新$\theta$时, $\theta$被更新为$\theta$减去$\alpha$乘以一个负数 因此我是在用 $\theta_1$减去一个负数 这意味着我实际上是在增加$\theta_1$</strong> 对不对？因为这是减去一个负数 意味着给$\theta$加上一个数 这就意味着最后我实际上增加了$\theta$的值 因此 我们将 从这里开始 增加$\theta$ 似乎这也是我希望得到的 也就是 让我<strong>更接近最小值</strong>了</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561445_1568980368_1539946208" alt="_1526561445_1568980368_1539946208_1526561445_1568980368.png"></p>
+<ul>
+<li>所以 我希望这样很直观地给你解释了 导数项的意义 让我们接下来再看一看学习速率$\alpha$ 我们来研究一下它有什么用 这就是我梯度下降法的 更新规则 就是这个等式 让我们来看看如果$\alpha$ 太小或 $\alpha$ 太大 会出现什么情况 这第一个例子 $\alpha$太小会发生什么呢 这是我的函数$J(\theta)$ 就从这里开始 <strong>如果$\alpha$太小了 那么我要做的是要去 用一个比较小的数乘以更新的值</strong> 所以最终 它就像一个小宝宝的步伐 这是一步 然后从这个新的起点开始 迈出另一步 但是由于$\alpha$ 太小 因此只能迈出另一个 小碎步 所以如果我的学习速率太小 结果就是 只能这样像小宝宝一样一点点地挪动 去努力接近最低点 这样就需要很多步才能到达最低点 所以<strong>如果$\alpha$ 太小的话 可能会很慢 因为它会一点点挪动 它会需要 很多步才能到达全局最低点</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561464_253805835_1539946231" alt="_1526561464_253805835_1539946231_1526561464_253805835.png"></p>
+<ul>
+<li>那么如果$\alpha$ 太大又会怎样呢 这是我的函数$J(\theta)$ 如果$\alpha$ 太大 那么梯度下降法可能会越过最低点 甚至可能无法收敛 我的意思是 比如我们从这个点开始 实际上这个点已经接近最低点 因此导数指向右侧 但如果$\alpha$ 太大的话 我会迈出很大一步 也许像这样巨大的一步 对吧？所以我最终迈出了一大步 现在 我的代价函数变得更糟 因为离这个最低点越来越远 现在我的导数指向左侧 实际上在减小$\theta$ 但是你看 如果我的学习速率过大 我会移动一大步 从这点一下子又到那点了 对吗？如果我的学习率太大 下一次迭代 又移动了一大步 越过一次 又越过一次 一次次越过最低点 直到你发现 实际上 离最低点越来越远 所以 <strong>如果$\alpha$太大 它会导致无法收敛 甚至发散</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561479_1021372496_1539946255" alt="_1526561479_1021372496_1539946255_1526561479_1021372496.png"></p>
+<ul>
+<li>现在 我还有一个问题 这问题挺狡猾的  如果我们<strong>预先把$\theta_1$ 放在一个局部的最低点</strong> 你认为下一步梯度下降法会怎样工作？ 所以假设你将$\theta_1$初始化在局部最低点 假设这是你的$\theta_1$的初始值 在这儿 它已经在一个局部的 最优处或局部最低点 结果是<strong>局部最优点的导数 将等于零</strong> 因为它是那条切线的斜率 而这条线的斜率将等于零 因此 此导数项等于0 因此 在你的梯度下降更新过程中 你有一个$\theta_1$ 然后用$\theta_1$ 减$\alpha$ 乘以0来更新$\theta_1$ 所以这意味着什么 这意味着你已经在局部最优点 它使得$\theta_1$不再改变 也就是<strong>新的$\theta_1$等于原来的$\theta_1$ 因此 如果你的参数已经处于 局部最低点 那么梯度下降法更新其实什么都没做 它不会改变参数的值</strong> 这也正是你想要的 因为它使你的解始终保持在 局部最优点 这也解释了为什么即使学习速率$\alpha$  保持不变时 梯度下降也可以收敛到局部最低点 我想说的是这个意思</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561493_322597671_1539946286" alt="_1526561493_322597671_1539946286_1526561493_322597671.png"></p>
+<ul>
+<li>我们来看一个例子 这是代价函数$J(\theta)$ 我想找到它的最小值 首先初始化我的梯度下降算法 在那个品红色的点初始化 如果我更新一步梯度下降 也许它会带我到绿色这个点 因为这个点的导数是相当陡的 现在 在这个绿色的点 如果我再更新一步 你会发现我的导数 也即斜率 相比于在品红点 是没那么陡的  对吧？因为随着我接近最低点 我的导数越来越接近零 所以 <strong>梯度下降一步后 新的导数会变小一点点</strong> 然后我想再梯度下降一步 在这个绿点我自然会用一个稍微 跟刚才在那个品红点时比 再小一点的一步  现在到了新的点 红色点 更接近全局最低点了 因此这点的导数会比在绿点时更小 所以  我再进行一步梯度下降时 我的导数项是更小的 $\theta_1$更新的幅度就会更小 所以你会移动更小的一步 像这样 <strong>随着梯度下降法的运行  你移动的幅度会自动变得越来越小 直到最终移动幅度非常小 你会发现 已经收敛到局部极小值</strong> 所以回顾一下 <strong>在梯度下降法中 当我们接近局部最低点时 梯度下降法会自动采取 更小的幅度</strong> 这是因为当我们接近局部最低点时 很显然在<strong>局部最低时导数等于零</strong> 所以当我们 接近局部最低时 导数值会自动变得越来越小 所以梯度下降将自动采取较小的幅度 这就是梯度下降的做法 所以<strong>实际上没有必要再另外减小$\alpha$ 这就是梯度下降算法</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561559_975182746_1539946335" alt="_1526561559_975182746_1539946335_1526561559_975182746.png"></p>
+<ul>
+<li>你可以用它来最小化 最小化任何代价函数$J$ 不只是线性回归中的代价函数$J$ 在接下来的视频中 我们要用代价函数$J$ 回到它的本质 线性回归中的代价函数 也就是我们前面得出的平方误差函数 结合梯度下降法 以及平方代价函数 我们会得出第一个机器学习算法 即线性回归算法</li>
+</ul>
+<h3 id="小小的总结–Gradient-Descent-Intuition"><a href="#小小的总结–Gradient-Descent-Intuition" class="headerlink" title="小小的总结–Gradient Descent Intuition"></a>小小的总结–Gradient Descent Intuition</h3><ul>
+<li>在本视频中，我们探索了使用一个参数$\theta_1$并绘制其代价函数来实现梯度下降的场景。 我们的单一参数公式为：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561584_1088750870_1539946381" alt="_1526561584_1088750870_1539946381_1526561584_1088750870.png"></p>
+<ul>
+<li>无论 $\frac{d}{d\theta_1}J(\theta_1)$ 的斜率符号如何，$\theta_1$最终收敛到其最小值。 下图显示<strong>当斜率为负值时，$\theta_1$的值增加，当为正值时，$\theta_1$的值减小</strong>。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561620_33298999_1539946410" alt="_1526561620_33298999_1539946410_1526561620_33298999.png"></p>
+<ul>
+<li>在附注中，我们应该调整<code>参数α</code>以确保梯度下降算法在合理的时间内收敛。 未能收敛或获得最小值的时间太多意味着我们的步长是错误的。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561636_1697292728_1539946422" alt="_1526561636_1697292728_1539946422_1526561636_1697292728.png"></p>
+<ul>
+<li>梯度下降如何以固定步长$\alpha$收敛？<br>收敛背后的直觉是，当我们逼近我们的凸函数的底部时，$\frac{d}{d\theta_1}J(\theta_1)$接近0。 因此我们得到：</li>
+</ul>
+<p>$\theta_1:=\theta_1-\alpha*0$</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561675_2093920258_1539946481" alt="_1526561675_2093920258_1539946481_1526561675_2093920258.png"></p>
+<h2 id="Gradient-Descent-For-Linear-Regression"><a href="#Gradient-Descent-For-Linear-Regression" class="headerlink" title="Gradient Descent For Linear Regression"></a>Gradient Descent For Linear Regression</h2><blockquote>
+<p>在以前的视频中我们谈到 关于梯度下降算法 梯度下降是很常用的算法 它不仅被用在线性回归上 和线性回归模型、平方误差代价函数 在这段视频中 我们要 <strong>将<code>梯度下降</code> 和<code>代价函数</code>结合</strong> 在后面的视频中 我们将用到此算法 并将其应用于 具体的拟合直线的线性回归算法里 这就是 我们在之前的课程里所做的工作</p>
+</blockquote>
+<ul>
+<li>这是<strong>梯度下降算法</strong> 这个算法你应该很熟悉 这是<strong>线性回归模型</strong> 还有<strong>线性假设</strong>和<strong>平方误差代价函数</strong> 我们将要做的就是 <strong>用梯度下降的方法 来最小化平方误差代价函数</strong> 为了 使梯度下降 为了 写这段代码 我们需要的<strong>关键项 是这里这个微分项</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561743_42538752_1539946555" alt="_1526561743_42538752_1539946555_1526561743_42538752.png"></p>
+<ul>
+<li>所以.我们需要弄清楚 这个偏导数项是什么 并结合这里的 代价函数$J$ 的定义 就是这样 一个求和项 代价函数就是 这个误差平方项 我这样做 只是 <strong>把定义好的代价函数 插入了这个微分式 再简化一下</strong> 这等于是 这一个求和项 $\theta_0+\theta_1x^{(i)}-y{(i)}$</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561818_666946699_1539946612" alt="_1526561818_666946699_1539946612_1526561818_666946699.png"></p>
+<ul>
+<li>实际上我们需要 弄清楚这两个 偏导数项是什么 这两项分别是 j=0 和j=1的情况 因此<strong>我们要弄清楚 $\theta_0$和 $\theta_1$ 对应的 偏导数项是什么</strong> (<strong>将上面的式子平方化开再分别对$\theta_0$和 $\theta_1$求偏导</strong>)</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227171343.png" alt></p>
+<p>最终结果如下:</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561861_322362701_1539946651" alt="_1526561861_322362701_1539946651_1526561861_322362701.png"></p>
+<ul>
+<li>所以 偏导数项 从这个等式 到下面的等式 计算这些偏导数项需要一些多元微积分 如果你掌握了微积分 你可以随便自己推导这些 然后你检查你的微分 你实际上会得到我给出的答案 但如果你 不太熟悉微积分 别担心 你可以直接用这些 已经算出来的结果 你不需要掌握微积分 或者别的东西 来完成作业 你只需要会用梯度下降就可以</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561892_649652808_1539951959" alt="_1526561892_649652808_1539951959_1526561892_649652808.png"></p>
+<ul>
+<li>在定义这些以后 在我们算出 这些微分项以后 <strong>这些微分项 实际上就是代价函数J的斜率</strong> 现在可以将它们放回 我们的梯度下降算法 所以这就是<strong>专用于 线性回归的梯度下降 反复执行括号中的式子直到收敛</strong> <strong>$\theta_0$和$\theta_1$不断被更新 都是加上一个$-\frac{\alpha}{m}$ 乘上后面的求和项</strong> 所以这里这一项 所以这就是我们的<strong>线性回归算法</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561936_996217166_1539952078" alt="_1526561936_996217166_1539952078_1526561936_996217166.png"></p>
+<ul>
+<li>这一项就是<strong>关于$\theta_0$的偏导数</strong> 在上一张幻灯片中推出的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561956_1952955701_1539952499" alt="_1526561956_1952955701_1539952499_1526561956_1952955701.png"></p>
+<ul>
+<li>而第二项 这一项是刚刚的推导出的 <strong>关于$\theta_1$的 偏导数项</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526561971_576823992_1539952519" alt="_1526561971_576823992_1539952519_1526561971_576823992.png"></p>
+<ul>
+<li>提醒一下 <strong>执行梯度下降时 有一个细节要注意 就是必须要 同时更新$\theta_0$和$\theta_1$</strong></li>
+<li>所以 让我们来看看梯度下降是如何工作的 我们用梯度下降解决问题的 一个原因是 <strong>它更容易得到局部最优值</strong> 当我第一次解释梯度下降时 我展示过这幅图</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562028_517004246_1539952542" alt="_1526562028_517004246_1539952542_1526562028_517004246.png"></p>
+<ul>
+<li>在表面上 不断下降 并且我们知道了 根据你的初始化 你会得到不同的局部最优解 你知道.你可以结束了.在这里或这里。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562040_769496498_1539952555" alt="_1526562040_769496498_1539952555_1526562040_769496498.png"></p>
+<ul>
+<li>但是 <strong>事实证明 用于线性回归的 代价函数 总是这样一个 弓形的样子</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562056_1050624241_1539952593" alt="_1526562056_1050624241_1539952593_1526562056_1050624241.png"></p>
+<ul>
+<li>这个函数的专业术语是 这是一个<code>凸函数</code> 我不打算在这门课中 给出凸函数的定义 <code>凸函数(convex function)</code> 但不正式的说法是 它就是一个弓形的函数 因此 <strong>这个函数 没有任何局部最优解 只有一个全局最优解</strong> 并且<strong>无论什么时候 你对这种代价函数 使用线性回归 梯度下降法得到的结果 总是收敛到全局最优值</strong> 因为没有全局最优以外的其他局部最优点</li>
+<li>现在 让我们来看看这个算法的执行过程 像往常一样 这是<code>假设函数</code>的图 还有<code>代价函数J</code>的图</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562070_1456917132_1539952610" alt="_1526562070_1456917132_1539952610_1526562070_1456917132.png"></p>
+<ul>
+<li>让我们来看看如何 初始化参数的值 <strong>通常来说 初始化参数为零 $\theta_0$和$\theta_1$都在零</strong> 但为了展示需要 在这个梯度下降的实现中 我<strong>把$\theta_0$初始化为-900 $\theta_1$初始化为-0.1</strong></li>
+<li>这对应的假设$h(x)$ 就应该是下图左边 $h(x)=-900-0.1x$  代价函数$J(\theta_0,\theta_1)$对应的是下图右边</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562104_573736577_1539952665" alt="_1526562104_573736577_1539952665_1526562104_573736577.png"></p>
+<ul>
+<li>现在 如果我们进行一次梯度下降,从一点开始向左下方移动一小步,然后就得到了第二个点,可以看到,这第二点假设函数的线相对于第一点假设函数的线改变了一点点.</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562122_1863333386_1539952686" alt="_1526562122_1863333386_1539952686_1526562122_1863333386.png"></p>
+<ul>
+<li>然后就是不断的移动代价函数的点,梯度不断下降,假设函数越来越拟合数据,直到收敛到全局最小值.<strong>这个全局最小值对应的假设函数 给出了最拟合数据的解</strong> 这就是梯度下降法</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562131_948800849_1539952693" alt="_1526562131_948800849_1539952693_1526562131_948800849.png"></p>
+<ul>
+<li>我们刚刚运行了一遍 并且最终得到了 房价数据的最好拟合结果 现在你可以用它来预测房价了 比如说 假如你有个朋友 他有一套房子 面积1250平方英尺(约116平米) 现在你可以通过这个数据 然后告诉他们 也许他的房子 可以卖到35万美元</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227173815.png" alt></p>
+<ul>
+<li>最后 我想再给出 另一个名字 实际上 我们刚刚使用的算法  有时也称为<code>批量梯度下降(Batch Gradient Descent)</code>,指的是,在梯度下降的每一步中,我们都用到了所有的训练样本</li>
+<li>在梯度下降中,在计算微分求导项时,我们需要进行求和计算,所以在<strong>每一个单独的梯度计算</strong>中,我们最终都要计算这样一个东西—这个项需要<strong>对所有m个训练样本求和</strong>.</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227174120.png" alt></p>
+<ul>
+<li>有些同学之前 可能已经学过 高等线性代数 你应该知道 有一种计算代价函数J最小值的数值解法 不需要梯度下降这种迭代算法 在后面的课程中 我们也会谈到这个方法 它可以在不需要多步梯度下降的情况下 也能解出代价函数J的最小值 这是另一种称为<code>正规方程(normal equations)</code>的方法</li>
+</ul>
+<h3 id="小小的总结–Gradient-Descent-Fro-Linear-Regression"><a href="#小小的总结–Gradient-Descent-Fro-Linear-Regression" class="headerlink" title="小小的总结–Gradient Descent Fro Linear Regression"></a>小小的总结–Gradient Descent Fro Linear Regression</h3><ul>
+<li>当具体应用于线性回归的情况时，可以导出梯度下降方程的新形式。 我们可以替换我们的代价函数和我们的假设函数，并将方程修改为:</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227220519.png" alt></p>
+<ul>
+<li>其中$m$是训练集的大小,$\theta_0$和$\theta_1$是同时更新的  $x_i,y_i$是给定训练集（数据）的值。</li>
+<li>请注意，我们已将$\theta_j$分成$\theta_0$和$\theta_1$ 对于$\theta_1$来说,最后还有乘以一个$x_i$ 以下是对$\frac{\alpha}{\alpha\theta_j}J(\theta)$的推导:</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227220544.png" alt></p>
+<ul>
+<li>关键点是,我们从猜测假设函数开始,然后重复应用这些梯度下降方程，我们的假设将变得越来越准确。</li>
+<li>因此，这只是原始代价函数J的梯度下降。该方法在每个步骤中用了整个训练集中的每个示例，并称为批量梯度下降。 需要注意的是，虽然梯度下降一般可以对局部最小值敏感，但我们在线性回归中提出的优化问题只有一个全局，而没有其他局部最优; 因此，梯度下降总是收敛（假设学习率α不是太大）到全局最小值。 实际上，J是凸二次函数。 下面是梯度下降的示例，因为它是为了最小化二次函数而运行的。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181227220555.png" alt></p>
+<ul>
+<li>上面显示的椭圆是二次函数的轮廓。 还示出了梯度下降所采用的轨迹，其在（48,30）处初始化。 图中的x（由直线连接）标记了梯度下降经历的θ的连续值，当它收敛到其最小值时。</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2018/11/15/di-er-zhang-dan-bian-liang-xian-xing-hui-gui-linear-regression-with-one-variable/">https://www.fengwenhua.top/2018/11/15/di-er-zhang-dan-bian-liang-xian-xing-hui-gui-linear-regression-with-one-variable/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/单变量线性回归/">
+                                    <span class="chip bg-color">单变量线性回归</span>
+                                </a>
+                            
+                                <a href="/tags/Linear-Regression/">
+                                    <span class="chip bg-color">Linear-Regression</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Wed Nov 14 2018 20:22:59 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/11/15/di-san-zhang-xian-xing-dai-shu-hui-gu-linear-algebra-review/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="第三章 线性代数回顾(Linear Algebra Review)">
+                        
+                        <span class="card-title">第三章 线性代数回顾(Linear Algebra Review)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Matrices and Vectors（矩阵和向量）
+我们先复习一下线性代数的知识 在这段视频中 我会向大家介绍矩阵和向量的概念
+
+
+矩阵是指 由数字组成的矩形阵列 并写在方括号中间 例如 屏幕中所示的一个矩阵 先写一个左括号 然后是一些
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/线性代数/">
+                        <span class="chip bg-color">线性代数</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/11/15/di-yi-zhang-model-and-cost-function/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="第一章: Model and Cost Function">
+                        
+                        <span class="card-title">第一章: Model and Cost Function</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第一章： Model and Cost FunctionModel Representation:模型表示
+我们的第一个学习算法是线性回归算法,了解监督学习过程完整的流程
+
+例子
+这个例子是预测住房价格的 我们要使用一个数据集 数据集包含俄
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Cost-Function/">
+                        <span class="chip bg-color">Cost Function</span>
+                    </a>
+                    
+                    <a href="/tags/代价函数/">
+                        <span class="chip bg-color">代价函数</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

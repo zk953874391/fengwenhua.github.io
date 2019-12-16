@@ -1,0 +1,1602 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="sublime text 3, 江南小虫虫的博客">
+    <meta name="description" content="
+本文来探究一下Ubuntu/Deepin/mac下sublime text 3的安装与配置
+
+安装下载与安装
+点击打开官网
+
+
+终端下运行一下命令即可安装sublime text 3
+
+wget -qO - https://downloa">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>sublime text 3 | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">sublime text 3</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/sublime-text-3/">
+                                <span class="chip bg-color">sublime text 3</span>
+                            </a>
+                        
+                            <a href="/tags/st3/">
+                                <span class="chip bg-color">st3</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/软件配置/" class="post-category">
+                                软件配置
+                            </a>
+                        
+                            <a href="/categories/软件配置/sublime-text-3/" class="post-category">
+                                sublime text 3
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-11-15
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>本文来探究一下Ubuntu/Deepin/mac下sublime text 3的安装与配置</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><blockquote>
+<p><a href="http://www.sublimetext.com/docs/3/linux_repositories.html" target="_blank" rel="noopener">点击打开官网</a></p>
+</blockquote>
+<ul>
+<li>终端下运行一下命令即可安装sublime text 3</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> -qO - https://download.sublimetext.com/sublimehq-pub.gpg <span class="token operator">|</span> <span class="token function">sudo</span> apt-key add -
+
+<span class="token function">sudo</span> apt <span class="token function">install</span> apt-transport-https
+
+<span class="token keyword">echo</span> <span class="token string">"deb https://download.sublimetext.com/ apt/stable/"</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/sublime-text.list
+
+<span class="token function">sudo</span> apt update
+
+<span class="token function">sudo</span> apt <span class="token function">install</span> sublime-text</code></pre>
+<a id="more"></a>
+<h3 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h3><blockquote>
+<p>一般来说,直接输入下方秘钥即可激活成功,但是,sublime text 3会不定时的访问<code>license.sublimehq.com</code>,去检查秘钥的正确性,因此只能将该网址利用<code>hosts</code>屏蔽掉</p>
+</blockquote>
+<blockquote>
+<p>注意:<strong>先增加<code>Host 屏蔽</code>,然后输入秘钥才行</strong>,以下是<code>hosts</code>文件的位置</p>
+</blockquote>
+<pre><code>* Windows : `c:/windows/system32/drivers/etc/hosts`
+* Linux/Mac : `/etc/hosts`</code></pre><ul>
+<li>在<code>hosts</code>文件最下面增加如下一行内容</li>
+</ul>
+<pre><code>127.0.0.1       license.sublimehq.com</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209171310.png" alt></p>
+<ul>
+<li>保存退出<code>hosts</code>文件后,即可在sublime中输入秘钥,如下:</li>
+</ul>
+<pre><code>----- BEGIN LICENSE -----
+sgbteam
+Single User License
+EA7E-1153259
+8891CBB9 F1513E4F 1A3405C1 A865D53F
+115F202E 7B91AB2D 0D2A40ED 352B269B
+76E84F0B CD69BFC7 59F2DFEF E267328F
+215652A3 E88F9D8F 4C38E3BA 5B2DAAE4
+969624E7 DC9CD4D5 717FB40C 1B9738CF
+20B3C4F1 E917B5B3 87C38D9C ACCE7DD8
+5F7EF854 86B9743C FADC04AA FB0DA5C0
+F913BE58 42FEA319 F954EFDD AE881E0B
+------ END LICENSE ------</code></pre><h2 id="ubuntu-deepin下无法输入中文"><a href="#ubuntu-deepin下无法输入中文" class="headerlink" title="ubuntu/deepin下无法输入中文"></a>ubuntu/deepin下无法输入中文</h2><h3 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h3><blockquote>
+<p>以下方法是最快捷有效的方法,然而,可以输入中文了,但是,选择文件-&gt;右键-&gt;用<code>sublime text 3</code>打开,你会发现打不开文件了.但是先打开sublime,然后在里面选择文件又可以打开</p>
+</blockquote>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/jfcherng/my_scripts
+
+<span class="token function">sudo</span> apt <span class="token function">install</span> -y fcitx
+
+<span class="token function">sudo</span> apt update
+
+<span class="token function">sudo</span> apt <span class="token function">install</span> -y build-essential libgtk2.0-dev
+
+<span class="token function">cd</span> my_scripts/sublime_text/sublime_text_fcitx
+
+gcc -Os -shared -o libsublime-imfix.so sublime_imfix.c <span class="token variable"><span class="token variable">$(</span>pkg-config --libs --cflags gtk+-2.0<span class="token variable">)</span></span> -fPIC
+
+<span class="token function">sudo</span> <span class="token function">mv</span> -f libsublime-imfix.so /opt/sublime_text
+
+<span class="token function">sudo</span> <span class="token function">cp</span> -f subl <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">which</span> subl<span class="token variable">)</span></span>"</span>
+
+<span class="token function">sudo</span> <span class="token function">cp</span> -f sublime_text.desktop /usr/share/applications/
+
+<span class="token function">sudo</span> <span class="token function">cp</span> -f sublime_text.desktop /opt/sublime_text</code></pre>
+<h3 id="法二"><a href="#法二" class="headerlink" title="法二:"></a>法二:</h3><pre class=" language-shell"><code class="language-shell">sudo apt update && sudo apt upgrade
+git clone https://github.com/lyfeyaj/sublime-text-imfix.git
+cd sublime-text-imfix && ./sublime-imfix</code></pre>
+<p>完成！<strong>重新启动</strong>后就可以在Sublime Text 3中使用搜狗输入法输入中文了</p>
+<blockquote>
+<p>这里值得一提的是，博主用的是deepin，然后，一旦将st3固定在下面，然后，很快就又不能输入中文了，卸载重装即可</p>
+</blockquote>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="安装package-control"><a href="#安装package-control" class="headerlink" title="安装package control"></a>安装package control</h3><blockquote>
+<p>为了使用众多的插件来扩展 Sublime 的功能，你需要安装一个叫做 <strong>Package Control **的插件管理器,一旦你安装好了以后，你就可以使用 <code>Package Control</code>来安装，</strong>移除<strong>或者</strong>升级**所有的 ST3 插件了。</p>
+</blockquote>
+<ol>
+<li><p>按<code>Ctrl+~</code>打开控制台</p>
+</li>
+<li><p>到 <a href="https://packagecontrol.io/installation#st3" target="_blank" rel="noopener">https://packagecontrol.io/installation#st3</a> 获取安装代码,这里如下</p>
+<pre><code> import urllib.request,os,hashlib; h = &#39;6f4c264a24d933ce70df5dedcf1dcaee&#39; + &#39;ebe013ee18cced0ef93d5f746d80ef60&#39;; pf = &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &#39;http://packagecontrol.io/&#39; + pf.replace(&#39; &#39;, &#39;%20&#39;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&#39;Error validating download (got %s instead of %s), please try manual install&#39; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &#39;wb&#39; ).write(by)</code></pre></li>
+<li><p>输入完了按<code>Enter</code>就行</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530636719.jpg" alt></p>
+</li>
+<li><p>现在你可以通过快捷键 <code>Ctrl+Shift+P</code> 打开 <code>Package Control</code>来安装其他的插件了。输入 <code>install</code> 然后你就能看见屏幕上出现了 <code>Package Control: Install Package</code>，点击回车然后搜索你想要的插件。想装什么直接点击。注意看下面的<code>status bar</code>是显示进度的地方</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530636851.jpg" alt></p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530636877.jpg" alt></p>
+</li>
+</ol>
+<h3 id="安装Anaconda-python插件"><a href="#安装Anaconda-python插件" class="headerlink" title="安装Anaconda python插件"></a>安装<code>Anaconda</code> python插件</h3><blockquote>
+<p><a href="https://sublime.wbond.net/packages/Anaconda" target="_blank" rel="noopener">Anaconda</a> 是一个终极 Python 插件。它为 ST3 增添了多项 IDE 类似的功能，其具体配置文件在 <a href="https://github.com/DamnWidget/anaconda" target="_blank" rel="noopener">https://github.com/DamnWidget/anaconda</a> 例如：</p>
+</blockquote>
+<ul>
+<li><p><code>Autocompletion</code>:自动完成，该选项默认开启,按<code>TAB</code>或<code>Ctrl+Space</code>显示代码提示窗口</p>
+</li>
+<li><p><code>Goto Definitions</code>:能够在你的整个工程中查找并且显示任意一个变量，函数，或者类的定义。,键盘按下:<code>Ctrl+Alt+g</code></p>
+</li>
+<li><p><code>Find Usage</code> 使用此命令，用户可以找到正在使用符号（变量，函数，方法，类或模块）的所有位置。键盘按下:<code>Ctrl+Alt+f</code></p>
+</li>
+<li><p><code>Display Signatures</code>:能够显示一个函数或者类的说明性字符串(当然，是在定义了字符串的情况下)<br><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530639346.jpg" alt></p>
+</li>
+<li><p><code>Show Documentation</code>： 可以查找并向用户显示任何函数，方法，类，模块或包的文档字符串。用户只需将光标放在想要获取文档字符串的符号上（或在括号之后，例如在写入之后<code>sys.exit()</code>),然后键盘按下<code>Ctrl+Alt+d</code></p>
+</li>
+<li><p><code>Code linting</code>:使用支持 pep8 标准的 PyLint 或者 PyFlakes。因为我个人使用的是另外的 linting 工具，所以我会在 Anaconda 的配置文件 Anaconda.sublime-settings中将 linting 完全禁用。操作如下: <code>Sublime &gt; Preferences &gt; Package Settings &gt; Anaconda &gt; Settings – User： {&quot;anaconda_linting&quot;: false}</code></p>
+</li>
+<li><p>最后,配置一下Anaconda</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530639847.jpg" alt></p>
+<pre><code>{
+
+&quot;python_interpreter&quot;:&quot;/usr/bin/python3&quot;,
+
+&quot;anaconda_linting&quot;: false,
+
+//保存文件后自动pep8格式化
+
+&quot;auto_formatting&quot;: true,
+
+// st3自动补全
+&quot;suppress_word_completions&quot;: true,
+&quot;suppress_explicit_completions&quot;: true,
+//&quot;complete_parameters&quot;: true
+}
+</code></pre><h3 id="SublimeREPL插件"><a href="#SublimeREPL插件" class="headerlink" title="SublimeREPL插件"></a>SublimeREPL插件</h3><blockquote>
+<p><code>SublimeREPL</code>会新建一个交互式命令行界面,让你的py可以有输入</p>
+</blockquote>
+<h4 id="配置python3环境"><a href="#配置python3环境" class="headerlink" title="配置python3环境"></a>配置python3环境</h4><ol>
+<li><p><code>Preferences</code>-&gt;<code>Browse Packages</code>,找到<code>SublimeREPL</code>的文件夹，再进入<code>config</code>文件夹，可以看到许多语言的配置文件，<code>Python</code>也在里面</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530640242.jpg" alt></p>
+</li>
+<li><p>在<code>config</code>文件夹下新建<code>python3</code>文件夹,在里面新建<code>Default.sublime-commands</code>和<code>Menu.sublime-menu</code>两个文件(模仿Python文件夹),因为我们Python3目前只要<strong>能打开shell运行，和运行这个脚本</strong>，两个功能，因此就只要包含<code>Python3</code>和 <code>Python3 – Run current file</code>两项就好了</p>
+</li>
+<li><p><code>Default.sublime-commands</code>配置如下：</p>
+<pre><code> [
+     {
+         &quot;caption&quot;: &quot;SublimeREPL: Python3&quot;,
+         &quot;command&quot;: &quot;run_existing_window_command&quot;, &quot;args&quot;:
+         {
+             &quot;id&quot;: &quot;repl_python3&quot;,
+             &quot;file&quot;: &quot;config/Python3/Main.sublime-menu&quot;
+         }
+     },
+
+     {
+         &quot;caption&quot;: &quot;SublimeREPL: Python3 - RUN current file&quot;,
+         &quot;command&quot;: &quot;run_existing_window_command&quot;, &quot;args&quot;:
+         {
+             &quot;id&quot;: &quot;repl_python3_run&quot;,
+             &quot;file&quot;: &quot;config/Python3/Main.sublime-menu&quot;
+         }
+     }
+
+ ]</code></pre></li>
+<li><p><code>Menu.sublime-menu</code>配置如下：</p>
+<pre><code> [
+     {
+         &quot;id&quot;: &quot;tools&quot;,
+         &quot;children&quot;:
+         [{
+             &quot;caption&quot;: &quot;SublimeREPL&quot;,
+             &quot;mnemonic&quot;: &quot;R&quot;,
+             &quot;id&quot;: &quot;SublimeREPL&quot;,
+             &quot;children&quot;:
+             [
+                 {&quot;caption&quot;: &quot;Python3&quot;,
+                 &quot;id&quot;: &quot;Python3&quot;,
+
+                 &quot;children&quot;:[
+                     {&quot;command&quot;: &quot;repl_open&quot;,
+                     &quot;caption&quot;: &quot;Python3&quot;,
+                     &quot;id&quot;: &quot;repl_python3&quot;,
+                     &quot;mnemonic&quot;: &quot;P&quot;,
+                     &quot;args&quot;: {
+                         &quot;type&quot;: &quot;subprocess&quot;,
+                         &quot;encoding&quot;: &quot;utf8&quot;,
+                         &quot;cmd&quot;: [&quot;python3&quot;, &quot;-i&quot;, &quot;-u&quot;],
+                         &quot;cwd&quot;: &quot;$file_path&quot;,
+                         &quot;syntax&quot;: &quot;Packages/Python/Python.tmLanguage&quot;,
+                         &quot;external_id&quot;: &quot;python3&quot;,
+                         &quot;extend_env&quot;: {&quot;PYTHONIOENCODING&quot;: &quot;utf-8&quot;}
+                         }
+                     },
+                     {&quot;command&quot;: &quot;repl_open&quot;,
+                     &quot;caption&quot;: &quot;Python3 - RUN current file&quot;,
+                     &quot;id&quot;: &quot;repl_python3_run&quot;,
+                     &quot;mnemonic&quot;: &quot;R&quot;,
+                     &quot;args&quot;: {
+                         &quot;type&quot;: &quot;subprocess&quot;,
+                         &quot;encoding&quot;: &quot;utf8&quot;,
+                         &quot;cmd&quot;: [&quot;python3&quot;, &quot;-u&quot;, &quot;$file_basename&quot;],
+                         &quot;cwd&quot;: &quot;$file_path&quot;,
+                         &quot;syntax&quot;: &quot;Packages/Python/Python.tmLanguage&quot;,
+                         &quot;external_id&quot;: &quot;python3&quot;,
+                         &quot;extend_env&quot;: {&quot;PYTHONIOENCODING&quot;: &quot;utf-8&quot;}
+                         }
+                     }
+                 ]}
+             ]
+         }]
+     }
+ ]</code></pre></li>
+<li><p>保存文件后,就可以<code>Tools</code>-&gt;<code>SublimeREPL</code>-&gt;<code>Python3</code>运行命令了</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530640916.jpg" alt></p>
+</li>
+<li><p>为了好看,采取和<code>Ctr+B</code>同样的上下布局</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530641055.jpg" alt></p>
+</li>
+</ol>
+<h4 id="设置key-binding"><a href="#设置key-binding" class="headerlink" title="设置key binding"></a>设置key binding</h4><p>每次这样到菜单栏里去找，太慢，能不能像<code>ctrl+B</code>一样直接运行呢？可以的，只要设置快捷键就好了，在<code>Preference</code>-&gt;<code>key Bindings-User</code>里</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530641287.jpg" alt></p>
+<p>写入如下配置,即可<code>F4</code>运行<code>python2.7 repl</code>, <code>F5</code> 运行<code>python 3 repl</code>,<strong>注意<code>id</code>还是要和<code>Menu.sublime-menu</code>文件里的<code>id</code>要一致，</strong></p>
+<pre><code>[
+    {
+        &quot;keys&quot;:[&quot;f4&quot;],
+
+        &quot;caption&quot;: &quot;SublimeREPL: Python - RUN current file&quot;,
+
+        &quot;command&quot;: &quot;run_existing_window_command&quot;, &quot;args&quot;:
+
+        {
+
+            &quot;id&quot;: &quot;repl_python_run&quot;,
+
+            &quot;file&quot;: &quot;config/Python/Main.sublime-menu&quot;
+
+        }
+
+    },
+
+    {
+        &quot;keys&quot;:[&quot;f5&quot;],
+
+        &quot;caption&quot;: &quot;SublimeREPL: Python3 - RUN current file&quot;,
+
+        &quot;command&quot;: &quot;run_existing_window_command&quot;, &quot;args&quot;:
+
+        {
+
+            &quot;id&quot;: &quot;repl_python3_run&quot;,
+
+            &quot;file&quot;: &quot;config/Python3/Main.sublime-menu&quot;
+
+        }
+
+    }
+]
+</code></pre><h4 id="can’t-open-file-‘-file-basename’-Errno-2-No-such-file-or-directory"><a href="#can’t-open-file-‘-file-basename’-Errno-2-No-such-file-or-directory" class="headerlink" title="can’t open file ‘$file_basename’: [Errno 2] No such file or directory"></a>can’t open file ‘$file_basename’: [Errno 2] No such file or directory</h4><p>这个只要再次用鼠标点击一下<code>test.py</code>就好了，就可以获取运行的文件了</p>
+<h3 id="SublimeTmpl"><a href="#SublimeTmpl" class="headerlink" title="SublimeTmpl"></a>SublimeTmpl</h3><blockquote>
+<p>新建文件模板</p>
+</blockquote>
+<ol>
+<li><p>在<code>settings-user</code>写入以下信息</p>
+<pre><code> {
+     &quot;disable_keymap_actions&quot;: false, // &quot;all&quot;; &quot;html,css&quot;
+     &quot;date_format&quot; : &quot;%Y-%m-%d %H:%M:%S&quot;,
+     &quot;attr&quot;: {
+         &quot;author&quot;: &quot;江南小虫虫&quot;,
+         &quot;email&quot;: &quot;fwh13612265462@gmail.com&quot;,
+         &quot;link&quot;: &quot;http://www.fengwenhua.top&quot;
+     }
+ }</code></pre></li>
+<li><p><code>Ctlr+Alt+Shift+P</code>:默认创建python文件,这里进行修改.在<code>key bindings-user</code>中添加了以下信息，意思<code>ctrl+alt+n</code>就可以创建一个新的Python模板</p>
+<pre><code>     {
+         &quot;caption&quot;: &quot;Tmpl: Create python&quot;, &quot;command&quot;: &quot;sublime_tmpl&quot;,
+         &quot;keys&quot;: [&quot;ctrl+alt+n&quot;], &quot;args&quot;: {&quot;type&quot;: &quot;python&quot;}
+     },</code></pre><p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1532966184.jpg" alt></p>
+</li>
+</ol>
+<h3 id="SideBarEnhancements"><a href="#SideBarEnhancements" class="headerlink" title="SideBarEnhancements"></a>SideBarEnhancements</h3><ul>
+<li>安装完后,可以在<code>View</code>-&gt;<code>Side Bar</code>-&gt;<code>Show Side Bar</code>打开</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209171421.png" alt></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="隐藏mipmap和打开packages所在目录"><a href="#隐藏mipmap和打开packages所在目录" class="headerlink" title="隐藏mipmap和打开packages所在目录"></a>隐藏mipmap和打开packages所在目录</h3><ol>
+<li><p><code>View</code>-&gt;<code>Hide minimap</code>:隐藏minimap</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637060.jpg" alt></p>
+</li>
+<li><p><code>Preferences</code>-&gt;<code>Browse Packages</code>:打开packages所在目录</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637090.jpg" alt></p>
+</li>
+</ol>
+<h3 id="设置运行python3"><a href="#设置运行python3" class="headerlink" title="设置运行python3"></a>设置运行python3</h3><blockquote>
+<p>sublime默认的是python2.7如果我想让他运行python3，怎么办呢?</p>
+</blockquote>
+<ol>
+<li><p>运行<code>which</code>命令找到<code>python3</code>的路径</p>
+<pre class=" language-bash"><code class="language-bash"> <span class="token function">which</span> python3</code></pre>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637554.jpg" alt></p>
+</li>
+<li><p>自定义环境:<code>Tools</code>-&gt;<code>Build System</code>-&gt;<code>New Build System</code>,会弹出一个后缀为<code>sublime-build</code>的文件。</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637688.jpg" alt></p>
+<p> (1) ubuntu/deepin粘贴如下配置,如果发现pyqt5运行的时候啥也不显示，可将<code>&quot;shell&quot;:&quot;true&quot;</code>删掉</p>
+<pre><code> {
+     &quot;cmd&quot;: [&quot;/usr/bin/python3&quot;, &quot;-u&quot;, &quot;$file&quot;],
+     &quot;file_regex&quot;: &quot;^[ ]*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot;,
+     &quot;selector&quot;: &quot;source.python&quot;,
+     &quot;shell&quot;:&quot;true&quot;
+ }</code></pre><p> (2) windows粘贴下面的:</p>
+<pre><code> {
+     &quot;cmd&quot;:[&quot;E:\\Python\\Python36-32\\python.exe&quot;,&quot;-u&quot;,&quot;$file&quot;],
+     &quot;file_regex&quot;: &quot;^[ ]*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot;,
+     &quot;selector&quot;: &quot;source.python&quot;,
+     &quot;encoding&quot;: &quot;utf-8&quot; ,
+     &quot;env&quot;: {&quot;PYTHONIOENCODING&quot;: &quot;utf8&quot;},
+     &quot;shell&quot;:&quot;true&quot;
+ }</code></pre><p> (3) mac粘贴下面的:</p>
+<pre><code> {
+     &quot;cmd&quot;: [&quot;/usr/local/bin/python3&quot;, &quot;-u&quot;, &quot;$file&quot;],
+     &quot;file_regex&quot;: &quot;^[ ]*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot;,
+     &quot;selector&quot;: &quot;source.python&quot;,
+ }</code></pre></li>
+</ol>
+<p>记住,其中的python3运行路径要和你系统中的路径一致,然后按<code>Ctlr+S</code>保存文件,文件名改为为<code>python3.sublime-build</code>，<strong>保存的路径就是<code>Crtl+S</code>后默认的路径</strong>,然后你在<code>Tools</code>-&gt;<code>Build System</code>,可以看到<code>python3</code>了,选择它再运行python,就会使用python3而不是python2.7了</p>
+<h3 id="一些常用的配置"><a href="#一些常用的配置" class="headerlink" title="一些常用的配置"></a>一些常用的配置</h3><p>打开<code>Preferences</code>-&gt;<code>Settings</code>,可以看到右边有个<code>settings-User</code>,我们修改这个文件就行</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530638088.jpg" alt></p>
+<ul>
+<li>将一下配置粘贴进去就行<blockquote>
+<p>当然,这里本人是安装了<code>Boxy</code>主题的</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>{
+    &quot;font_size&quot;: 13,
+    &quot;ignored_packages&quot;:
+    [
+        &quot;Vintage&quot;
+    ],
+    &quot;theme&quot;: &quot;Boxy Monokai.sublime-theme&quot;,
+    // 使用空格代替tab
+    &quot;translate_tabs_to_spaces&quot;: true,
+    // 高亮未保存文件
+    &quot;highlight_modified_tabs&quot;: true,
+    // 默认编码格式
+    &quot;default_encoding&quot;: &quot;UTF-8&quot;,
+    // 窗口失焦立即保存文件
+    &quot;save_on_focus_lost&quot;: true,
+    // 保存时自动去除行末空白
+    &quot;trim_trailing_white_space_on_save&quot;: true,
+    // 保存时自动增加文件末尾换行,这样 git 提交时不会生产额外的 diff
+    &quot;ensure_newline_at_eof_on_save&quot;: true,
+    // 当前行高亮
+    &quot;highlight_line&quot;: true,
+    // 设置行间距，看起来不那么&quot;挤&quot;
+    &quot;line_padding_bottom&quot;: 1,
+    &quot;line_padding_top&quot;: 1
+}</code></pre><ul>
+<li>另一种的配置</li>
+</ul>
+<pre><code>{
+    &quot;color_scheme&quot;: &quot;Packages/Boxy Theme/schemes/Boxy Monokai.tmTheme&quot;,
+    &quot;default_encoding&quot;: &quot;UTF-8&quot;,
+    &quot;ensure_newline_at_eof_on_save&quot;: true,
+    &quot;font_size&quot;: 12,
+    &quot;highlight_line&quot;: true,
+    &quot;highlight_modified_tabs&quot;: true,
+    &quot;ignored_packages&quot;:
+    [
+        &quot;Vintage&quot;
+    ],
+    &quot;line_padding_bottom&quot;: 1,
+    &quot;line_padding_top&quot;: 1,
+    &quot;save_on_focus_lost&quot;: true,
+    &quot;theme&quot;: &quot;Boxy Monokai.sublime-theme&quot;,
+    &quot;translate_tabs_to_spaces&quot;: true,
+    &quot;trim_trailing_white_space_on_save&quot;: true,
+    &quot;update_check&quot;: false
+}</code></pre><h3 id="Sublime常用快捷键"><a href="#Sublime常用快捷键" class="headerlink" title="Sublime常用快捷键"></a>Sublime常用快捷键</h3><pre><code>Ctrl+] 向右缩进
+Ctrl+[ 向左缩进
+Ctrl+Z 撤销。
+Ctrl+Y 恢复撤销。
+Ctrl+F 打开底部搜索框，查找关键字。
+Ctrl+A 选中全文
+Ctrl+B 运行python
+Ctrl+Shift+P 调出命令窗
+Ctrl+shift+R 格式化
+Ctrl+shift+V 格式化粘贴 这个很有用，可以把网上的代码按照我的格式粘到我的文档里
+Ctrl+//注释 这个比较厉害，如果是python,就是加#号的，想取消再弄一次就好了</code></pre><h3 id="mac-sublime-text-3快捷键"><a href="#mac-sublime-text-3快捷键" class="headerlink" title="mac sublime text 3快捷键"></a>mac sublime text 3快捷键</h3><pre><code>[
+    {
+         &quot;caption&quot;: &quot;Tmpl: Create python&quot;, &quot;command&quot;: &quot;sublime_tmpl&quot;,
+         &quot;keys&quot;: [&quot;ctrl+alt+n&quot;], &quot;args&quot;: {&quot;type&quot;: &quot;python&quot;}
+     },
+
+    { &quot;keys&quot;: [&quot;ctrl+b&quot;], &quot;command&quot;: &quot;build&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+shift+b&quot;], &quot;command&quot;: &quot;build&quot;, &quot;args&quot;: {&quot;select&quot;: true} },
+    { &quot;keys&quot;: [&quot;ctrl+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;find&quot;, &quot;reverse&quot;: false} },
+    { &quot;keys&quot;: [&quot;ctrl+s&quot;], &quot;command&quot;: &quot;save&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+x&quot;], &quot;command&quot;: &quot;cut&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+c&quot;], &quot;command&quot;: &quot;copy&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+v&quot;], &quot;command&quot;: &quot;paste&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+z&quot;], &quot;command&quot;: &quot;undo&quot; },
+    { &quot;keys&quot;: [&quot;ctrl+shift+p&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;command_palette&quot;} },
+    { &quot;keys&quot;: [&quot;ctrl+a&quot;], &quot;command&quot;: &quot;select_all&quot; },
+    { &quot;keys&quot;: [&quot;home&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;bol&quot;} },
+    { &quot;keys&quot;: [&quot;end&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;eol&quot;} },
+    { &quot;keys&quot;: [&quot;shift+end&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;eol&quot;, &quot;extend&quot;: true} },
+    { &quot;keys&quot;: [&quot;shift+home&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;bol&quot;, &quot;extend&quot;: true } }
+]
+
+</code></pre><h3 id="mac-sublime-text-C-C"><a href="#mac-sublime-text-C-C" class="headerlink" title="mac sublime text C/C++"></a>mac sublime text C/C++</h3><pre><code>{
+    &quot;cmd&quot;: [&quot;bash&quot;, &quot;-c&quot;, &quot;g++ &#39;${file}&#39; -std=c++11 -stdlib=libc++ -o &#39;${file_path}/${file_base_name}&#39;&quot;],
+    &quot;file_regex&quot;: &quot;^(..{FNXX==XXFN}*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+    &quot;working_dir&quot;: &quot;${file_path}&quot;,
+    &quot;selector&quot;: &quot;source.c, source.c++&quot;,
+    &quot;variants&quot;:
+    [
+        {
+        &quot;name&quot;: &quot;Run&quot;,
+        &quot;cmd&quot;: [&quot;bash&quot;, &quot;-c&quot;, &quot;g++ &#39;${file}&#39; -std=c++11 -stdlib=libc++ -o &#39;${file_path}/${file_base_name}&#39; &amp;&amp; open -a Terminal.app &#39;${file_path}/${file_base_name}&#39;&quot;]
+        }
+    ]
+}
+</code></pre><h3 id="mac-php"><a href="#mac-php" class="headerlink" title="mac php"></a>mac php</h3><h3 id="终端运行"><a href="#终端运行" class="headerlink" title="终端运行"></a>终端运行</h3><pre><code>{
+    &quot;cmd&quot;: [&quot;php&quot;, &quot;$file&quot;],
+    &quot;file_regex&quot;: &quot;php$&quot;,
+    &quot;selector&quot;: &quot;source.php&quot;
+}
+</code></pre><h3 id="浏览器打开"><a href="#浏览器打开" class="headerlink" title="浏览器打开"></a>浏览器打开</h3><blockquote>
+<p>前提mac要开启php</p>
+</blockquote>
+<ol>
+<li><p>安装<code>SidebarEnhancement</code></p>
+</li>
+<li><p>如下图</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181205211354.png" alt></p>
+</li>
+<li><p>输入以下代码</p>
+<pre><code> {
+     &quot;/Library/WebServer/Documents/&quot;:{
+         &quot;url_testing&quot;:&quot;http://localhost/&quot;,
+         &quot;url_production&quot;:&quot;&quot;
+     }
+ }</code></pre></li>
+<li><p><strong>将你要编辑的php文件放在该目录下</strong>:<code>/Library/WebServer/Documents/</code>编辑</p>
+</li>
+<li><p>设置快捷键:</p>
+<p> <img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181205211635.png" alt></p>
+</li>
+<li><p>输入以下代码,以后按<code>Ctrl+R</code>即可运行</p>
+<pre><code> { &quot;keys&quot;:[&quot;ctrl+r&quot;],&quot;command&quot;:&quot;side_bar_open_in_browser&quot;,&quot;args&quot;:{&quot;paths&quot;:[],&quot;type&quot;:&quot;testing&quot;,&quot;browser&quot;:&quot;chrome&quot;}},</code></pre></li>
+</ol>
+<h3 id="安装boxy主题"><a href="#安装boxy主题" class="headerlink" title="安装boxy主题"></a>安装boxy主题</h3><ul>
+<li>复制附件两个文件到指定目录即可</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209201301.png" alt></p>
+<h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><ul>
+<li>Markdown Editing</li>
+<li>MarkdownPreview<blockquote>
+<p>在<code>Preferences</code> -&gt; <code>Key Bindings</code>打开的文件的右侧栏的中括号中添加一行代码,然后用<code>Alt+M</code>就可以用浏览器打开了</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>{ &quot;keys&quot;: [&quot;alt+m&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: {&quot;target&quot;: &quot;browser&quot;, &quot;parser&quot;:&quot;markdown&quot;}  }</code></pre><ul>
+<li><p>LiveReload</p>
+<blockquote>
+<p>安装成功后, 再次Ctrl+shift+p, 输入<code>LiveReload: Enable/disable plug-ins</code>, 回车, 选择 <code>Simple Reload with delay (400ms)</code>或者<code>Simple Reload</code>，两者的区别仅仅在于后者没有延迟。<br>只要你的sublime保存一次，网页那边就会自动刷新预览</p>
+</blockquote>
+</li>
+<li><p>AdvanceNewFile</p>
+<blockquote>
+<p>找到<code>&quot;default_root&quot;: &quot;project_folder&quot;,</code>，把<code>project_folder</code>改为<code>current</code></p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181209202442.png" alt></p>
+<h2 id="5-插件源被墙了"><a href="#5-插件源被墙了" class="headerlink" title="5. 插件源被墙了"></a>5. 插件源被墙了</h2><ul>
+<li>国内 <a href="https://packagecontrol.io" target="_blank" rel="noopener">https://packagecontrol.io</a> 无法访问</li>
+<li>解决办法链接: <a href="https://github.com/HBLong/channel_v3_daily" target="_blank" rel="noopener">https://github.com/HBLong/channel_v3_daily</a></li>
+<li>如下</li>
+</ul>
+<pre><code>1. 点击 Preferences &gt; Package Settings &gt; Package Control &gt; Settings - User
+2. 添加 &quot;channels&quot;: [&quot;https://raw.githubusercontent.com/HBLong/channel_v3_daily/master/channel_v3.json&quot;],</code></pre>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2018/11/15/sublime-text-3/">https://www.fengwenhua.top/2018/11/15/sublime-text-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/sublime-text-3/">
+                                    <span class="chip bg-color">sublime text 3</span>
+                                </a>
+                            
+                                <a href="/tags/st3/">
+                                    <span class="chip bg-color">st3</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Thu Nov 15 2018 15:01:57 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/11/15/qt-da-bao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Qt打包">
+                        
+                        <span class="card-title">Qt打包</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Windows打包
+首先我们是生成Release离线文件
+
+
+
+找到项目文件夹下生成的exe文件,如我的是MarkdownPic.exe,将该exe文件复制到一个新的文件夹,比如我将其复制到C:\Users\13612\Dropbox\HM
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-11-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Qt/" class="post-category">
+                                    Qt
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Qt打包/">
+                        <span class="chip bg-color">Qt打包</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/11/15/ubuntu18-04-an-zhuang-ss-qt5/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="ubuntu18.04安装ss-qt5">
+                        
+                        <span class="card-title">ubuntu18.04安装ss-qt5</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+今天ubuntu18.04正式版终于出来了,笔者等了好久了,于是马上官网下载下来安装一波.界面确实比16.04好看好多
+
+
+安装18.04系统之后,当然少不了ss梯子了,然而,在安装shadowsocks-qt5的时候,安装16.04的安
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            <a href="/categories/Linux/Ubuntu/" class="post-category">
+                                    Ubuntu
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ss-qt5/">
+                        <span class="chip bg-color">ss-qt5</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

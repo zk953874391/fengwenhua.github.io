@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>江南小虫虫的博客</title>
+  
+  <subtitle>江南小虫虫</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://www.fengwenhua.top/"/>
+  <updated>2019-11-30T04:02:44.528Z</updated>
+  <id>https://www.fengwenhua.top/</id>
+  
+  <author>
+    <name>冯文华</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-lab之第一章 基础知识</title>
+    <link href="https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-yi-zhang-ji-chu-zhi-shi/"/>
+    <id>https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-yi-zhang-ji-chu-zhi-shi/</id>
+    <published>2019-05-22T22:15:04.000Z</published>
+    <updated>2019-11-30T04:02:44.528Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;声明&quot;&gt;&lt;a href=&quot;#声明&quot; class=&quot;headerlink&quot; title=&quot;声明&quot;&gt;&lt;/a&gt;声明&lt;/h2&gt;&lt;p&gt;本文内容参考了lcamry的mysql注入天书: &lt;a href=&quot;http://www.cnblogs.com/lcamry/category/846064.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cnblogs.com/lcamry/category/846064.html&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在我们的应用系统使用 sql 语句进行管理应用数据库时，往往采用&lt;code&gt;拼接&lt;/code&gt;的方式形成一条完整的数据库语言，而危险的是，在拼接 sql 语句的 时候，我们可以&lt;strong&gt;改变 sql 语句。从而让数据执行我们想要执行的语句，这就是我们常说的 &lt;code&gt;sql 注入&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本章将介绍一些 mysql 注入的一些基础知识, 可能知识有点多, 希望大家认真看一遍, 实操一遍.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;学习篇&quot;&gt;&lt;a href=&quot;#学习篇&quot; class=&quot;headerlink&quot; title=&quot;学习篇&quot;&gt;&lt;/a&gt;学习篇&lt;/h2&gt;&lt;h3 id=&quot;0x01-注入的分类&quot;&gt;&lt;a href=&quot;#0x01-注入的分类&quot; class=&quot;headerlink&quot; title=&quot;0x01 注入的分类&quot;&gt;&lt;/a&gt;0x01 注入的分类&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;下面这个是阿德玛表哥的总结的，现在理解不了可以跳过&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="sqli-lab" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/sqli-lab/"/>
+    
+    
+      <category term="sqli-lab环境搭建" scheme="https://www.fengwenhua.top/tags/sqli-lab%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-lab之第零章 环境搭建</title>
+    <link href="https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-ling-zhang-huan-jing-da-jian/"/>
+    <id>https://www.fengwenhua.top/2019/05/23/sqli-lab-zhi-di-ling-zhang-huan-jing-da-jian/</id>
+    <published>2019-05-22T22:13:35.000Z</published>
+    <updated>2019-11-30T04:02:44.528Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本系列教程的试验靶场为&lt;code&gt;sqli-labs&lt;/code&gt; ,该靶场的下载地址为 &lt;a href=&quot;https://github.com/Audi-1/sqli-labs&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/Audi-1/sqli-labs&lt;/a&gt; ,可以自行去下载,而装了&lt;code&gt;git&lt;/code&gt;的童鞋也可以直接用下面的命令clone到随意的目录&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/Audi-1/sqli-labs&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;因为写这个靶场的印度程序猿当年的php的版本小于7,用的是类似于&lt;code&gt;mysql_&lt;/code&gt;的语句,而现在的php都是用类似于&lt;code&gt;mysqli_&lt;/code&gt;.因此,如果现在搭建的环境使用的php版本大于7就会报错&lt;/p&gt;
+&lt;p&gt;接下来会从win10, docker下讨论该环境怎么搭建&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="sqli-lab" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/sqli-lab/"/>
+    
+    
+      <category term="sqli-lab环境搭建" scheme="https://www.fengwenhua.top/tags/sqli-lab%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智慧树网课考试</title>
+    <link href="https://www.fengwenhua.top/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/"/>
+    <id>https://www.fengwenhua.top/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/</id>
+    <published>2019-05-14T17:56:25.000Z</published>
+    <updated>2019-11-30T04:02:44.531Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;前两天博主网络通识课要期末考试啦, 不想百度谷歌, 于是找了一波接口, 还真被我发现有大佬已经写好接口了, 不说话, 上py&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="杂项" scheme="https://www.fengwenhua.top/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+      <category term="生活技巧" scheme="https://www.fengwenhua.top/categories/%E6%9D%82%E9%A1%B9/%E7%94%9F%E6%B4%BB%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="智慧树答案" scheme="https://www.fengwenhua.top/tags/%E6%99%BA%E6%85%A7%E6%A0%91%E7%AD%94%E6%A1%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dell 7559 10 14 4 黑苹果</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/dell-7559-10-14-4-hei-ping-guo/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/dell-7559-10-14-4-hei-ping-guo/</id>
+    <published>2019-04-28T16:21:50.000Z</published>
+    <updated>2019-11-30T04:02:44.527Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;参考链接: &lt;a href=&quot;http://bbs.pcbeta.com/viewthread-1794485-1-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Dell 7559 安装10.14GM教程（i5+UEFI）&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;安装10.14.3链接: &lt;a href=&quot;https://fengwenhua.top/2019/02/14/dell-7559-10-14-3-黑苹果/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Dell-7559-10.14.3&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;最近出了10.14.4, 忍不住升级了一波,结果黑屏….好吧,一怒之下,直接重装,就是这么霸气!&lt;/li&gt;
+&lt;li&gt;好吧,废话少说,先看看效果然后再决定往下看&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190330171111.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://www.fengwenhua.top/categories/Linux/"/>
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/categories/Linux/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+      <category term="hackintosh" scheme="https://www.fengwenhua.top/tags/hackintosh/"/>
+    
+      <category term="dell-7559" scheme="https://www.fengwenhua.top/tags/dell-7559/"/>
+    
+      <category term="10.14.4" scheme="https://www.fengwenhua.top/tags/10-14-4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>010Editor V9.01学习版</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/010editor-v9-01-xue-xi-ban/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/010editor-v9-01-xue-xi-ban/</id>
+    <published>2019-04-28T16:17:06.000Z</published>
+    <updated>2019-11-30T04:02:44.524Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;V9-01&quot;&gt;&lt;a href=&quot;#V9-01&quot; class=&quot;headerlink&quot; title=&quot;V9.01&quot;&gt;&lt;/a&gt;V9.01&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;原文链接: &lt;a href=&quot;https://www.52pojie.cn/thread-861486-1-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.52pojie.cn/thread-861486-1-1.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;将下面代码粘贴到 python在线运行 &lt;a href=&quot;https://tool.lu/coderunner/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://tool.lu/coderunner/&lt;/a&gt; 上面运行&lt;/li&gt;
+&lt;li&gt;注意, &lt;code&gt;username&lt;/code&gt;随便填就行&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="010Editor" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/010Editor/"/>
+    
+    
+      <category term="010Editor破解" scheme="https://www.fengwenhua.top/tags/010Editor%E7%A0%B4%E8%A7%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sublime text 3 常用插件</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/sublime-text-3-chang-yong-cha-jian/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/sublime-text-3-chang-yong-cha-jian/</id>
+    <published>2019-04-28T16:13:17.000Z</published>
+    <updated>2019-11-30T04:02:44.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;0x01-安装package-control&quot;&gt;&lt;a href=&quot;#0x01-安装package-control&quot; class=&quot;headerlink&quot; title=&quot;0x01. 安装package control&quot;&gt;&lt;/a&gt;0x01. 安装package control&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;为了使用众多的插件来扩展 Sublime 的功能，你需要安装一个叫做 &lt;strong&gt;Package Control **的插件管理器,一旦你安装好了以后，你就可以使用 &lt;code&gt;Package Control&lt;/code&gt;来安装，&lt;/strong&gt;移除&lt;strong&gt;或者&lt;/strong&gt;升级**所有的 ST3 插件了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;按&lt;code&gt;Ctrl+~&lt;/code&gt;打开控制台&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;到 &lt;a href=&quot;https://packagecontrol.io/installation#st3&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://packagecontrol.io/installation#st3&lt;/a&gt; 获取安装代码,这里如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; import urllib.request,os,hashlib; h = &amp;#39;6f4c264a24d933ce70df5dedcf1dcaee&amp;#39; + &amp;#39;ebe013ee18cced0ef93d5f746d80ef60&amp;#39;; pf = &amp;#39;Package Control.sublime-package&amp;#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &amp;#39;http://packagecontrol.io/&amp;#39; + pf.replace(&amp;#39; &amp;#39;, &amp;#39;%20&amp;#39;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&amp;#39;Error validating download (got %s instead of %s), please try manual install&amp;#39; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &amp;#39;wb&amp;#39; ).write(by)&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="sublime text 3" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/sublime-text-3/"/>
+    
+    
+      <category term="sublime text 3 常用插件" scheme="https://www.fengwenhua.top/tags/sublime-text-3-%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sublime text 3 运行C-C++</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/sublime-text-3-yun-xing-c-c/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/sublime-text-3-yun-xing-c-c/</id>
+    <published>2019-04-28T16:11:10.000Z</published>
+    <updated>2019-11-30T04:02:44.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;点击&lt;code&gt;Tools&lt;/code&gt;-&amp;gt;&lt;code&gt;Build System&lt;/code&gt;-&amp;gt;&lt;code&gt;Build New System&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190318114255.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="sublime text 3" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/sublime-text-3/"/>
+    
+    
+      <category term="sublime text 3 运行C++" scheme="https://www.fengwenhua.top/tags/sublime-text-3-%E8%BF%90%E8%A1%8CC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sublime text 3 Package Control被墙了</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/sublime-text-3-package-control-bei-qiang-liao/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/sublime-text-3-package-control-bei-qiang-liao/</id>
+    <published>2019-04-28T16:09:29.000Z</published>
+    <updated>2019-11-30T04:02:44.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;国内 &lt;a href=&quot;https://packagecontrol.io&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://packagecontrol.io&lt;/a&gt; 无法访问&lt;/li&gt;
+&lt;li&gt;解决办法链接: &lt;a href=&quot;https://github.com/HBLong/channel_v3_daily&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/HBLong/channel_v3_daily&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;1-1-安装Package-Control&quot;&gt;&lt;a href=&quot;#1-1-安装Package-Control&quot; class=&quot;headerlink&quot; title=&quot;1.1. 安装Package Control&quot;&gt;&lt;/a&gt;1.1. 安装&lt;code&gt;Package Control&lt;/code&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载&lt;code&gt;Package Control.sublime-package&lt;/code&gt;,放到&lt;code&gt;/Users/用户名/Library/Application Support/Sublime Text 3/Installed Packages&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; &lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190328001858.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="sublime text 3" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/sublime-text-3/"/>
+    
+    
+      <category term="Package Control被墙了" scheme="https://www.fengwenhua.top/tags/Package-Control%E8%A2%AB%E5%A2%99%E4%BA%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sublime text 3 运行python3</title>
+    <link href="https://www.fengwenhua.top/2019/04/29/sublime-text-3-yun-xing-python3/"/>
+    <id>https://www.fengwenhua.top/2019/04/29/sublime-text-3-yun-xing-python3/</id>
+    <published>2019-04-28T16:07:50.000Z</published>
+    <updated>2019-11-30T04:02:44.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;sublime默认的是python2.7如果我想让他运行python3，怎么办呢?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;运行&lt;code&gt;which&lt;/code&gt;命令找到&lt;code&gt;python3&lt;/code&gt;的路径&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt; which python3&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt; &lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/1530637554.jpg&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="sublime text 3" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/sublime-text-3/"/>
+    
+    
+      <category term="sublime text 3 激活" scheme="https://www.fengwenhua.top/tags/sublime-text-3-%E6%BF%80%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sublime text 3 激活</title>
+    <link href="https://www.fengwenhua.top/2019/04/28/sublime-text-3-ji-huo/"/>
+    <id>https://www.fengwenhua.top/2019/04/28/sublime-text-3-ji-huo/</id>
+    <published>2019-04-28T15:55:58.000Z</published>
+    <updated>2019-11-30T04:02:44.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-原文链接&quot;&gt;&lt;a href=&quot;#1-原文链接&quot; class=&quot;headerlink&quot; title=&quot;1. 原文链接&quot;&gt;&lt;/a&gt;1. 原文链接&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.52pojie.cn/thread-925256-1-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.52pojie.cn/thread-925256-1-1.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-修改trigger&quot;&gt;&lt;a href=&quot;#2-修改trigger&quot; class=&quot;headerlink&quot; title=&quot;2. 修改trigger&quot;&gt;&lt;/a&gt;2. 修改trigger&lt;/h2&gt;&lt;h3 id=&quot;2-1-Windows&quot;&gt;&lt;a href=&quot;#2-1-Windows&quot; class=&quot;headerlink&quot; title=&quot;2.1. Windows&quot;&gt;&lt;/a&gt;2.1. Windows&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;利用&lt;code&gt;010Editor&lt;/code&gt;打开软件根目录下的&lt;code&gt;sublime_text.exe&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;搜索16进制 &lt;code&gt;97 94 0D 00&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;改为  &lt;code&gt;00 00 00 00&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;保存
+    
+    </summary>
+    
+      <category term="软件配置" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="sublime text 3" scheme="https://www.fengwenhua.top/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/sublime-text-3/"/>
+    
+    
+      <category term="st3激活" scheme="https://www.fengwenhua.top/tags/st3%E6%BF%80%E6%B4%BB/"/>
+    
+      <category term="sublime text 3 激活" scheme="https://www.fengwenhua.top/tags/sublime-text-3-%E6%BF%80%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web Server解析漏洞</title>
+    <link href="https://www.fengwenhua.top/2019/04/28/web-server-jie-xi-lou-dong/"/>
+    <id>https://www.fengwenhua.top/2019/04/28/web-server-jie-xi-lou-dong/</id>
+    <published>2019-04-27T22:12:07.000Z</published>
+    <updated>2019-11-30T04:02:44.526Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-Apache解析漏洞&quot;&gt;&lt;a href=&quot;#1-Apache解析漏洞&quot; class=&quot;headerlink&quot; title=&quot;1. Apache解析漏洞&quot;&gt;&lt;/a&gt;1. Apache解析漏洞&lt;/h2&gt;&lt;h3 id=&quot;1-1-未知后缀解析漏洞&quot;&gt;&lt;a href=&quot;#1-1-未知后缀解析漏洞&quot; class=&quot;headerlink&quot; title=&quot;1.1. 未知后缀解析漏洞&quot;&gt;&lt;/a&gt;1.1. 未知后缀解析漏洞&lt;/h3&gt;&lt;h4 id=&quot;1-1-1-影响版本&quot;&gt;&lt;a href=&quot;#1-1-1-影响版本&quot; class=&quot;headerlink&quot; title=&quot;1.1.1. 影响版本&quot;&gt;&lt;/a&gt;1.1.1. 影响版本&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Apache 1.x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Apache 2.x&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;1-1-2-原理&quot;&gt;&lt;a href=&quot;#1-1-2-原理&quot; class=&quot;headerlink&quot; title=&quot;1.1.2. 原理&quot;&gt;&lt;/a&gt;1.1.2. 原理&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Apache对于⽂件名的解析是&lt;strong&gt;从后往前解析&lt;/strong&gt;的, 直到遇⻅⼀个Apache认识的⽂件类型为⽌.&lt;/li&gt;
+&lt;li&gt;比如一个文件名为&lt;code&gt;xxx.x1.x2.x3&lt;/code&gt;的文件, Apache会从&lt;code&gt;x3&lt;/code&gt;的位置往&lt;code&gt;x1&lt;/code&gt;的位置开始尝试解析, 如果&lt;code&gt;x3&lt;/code&gt;不属于Apache能解析的扩展名, 那么Apache会尝试去解析&lt;code&gt;x2&lt;/code&gt;的位置, 这样&lt;strong&gt;一直从后往前尝试, 直到遇到一个能解析的扩展名为止, 如果都不认识,则会暴露其源代码&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;具体来说, 例如：&lt;code&gt;Phpshell.php.abc.abc&lt;/code&gt;, 因为Apache不认识&lt;code&gt;.abc&lt;/code&gt;这个⽂件类型，所以会⼀直遍历后缀到&lt;code&gt;.php&lt;/code&gt;, 然后认为这是⼀个PHP类型的⽂件.
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="文件上传" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    
+    
+      <category term="Apache解析漏洞" scheme="https://www.fengwenhua.top/tags/Apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"/>
+    
+      <category term="IIS解析漏洞" scheme="https://www.fengwenhua.top/tags/IIS%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"/>
+    
+      <category term="Nginx解析漏洞" scheme="https://www.fengwenhua.top/tags/Nginx%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"/>
+    
+      <category term="PHP CGI路径解析问题" scheme="https://www.fengwenhua.top/tags/PHP-CGI%E8%B7%AF%E5%BE%84%E8%A7%A3%E6%9E%90%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP弱类型</title>
+    <link href="https://www.fengwenhua.top/2019/03/11/php-ruo-lei-xing/"/>
+    <id>https://www.fengwenhua.top/2019/03/11/php-ruo-lei-xing/</id>
+    <published>2019-03-10T22:16:20.000Z</published>
+    <updated>2019-11-30T04:02:44.525Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;参考：&quot;&gt;&lt;a href=&quot;#参考：&quot; class=&quot;headerlink&quot; title=&quot;参考：&quot;&gt;&lt;/a&gt;参考：&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.spoock.com/2016/06/25/weakly-typed-security/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;PHP弱类型安全问题总结 | 乘物游心&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;PHP弱类型简介&quot;&gt;&lt;a href=&quot;#PHP弱类型简介&quot; class=&quot;headerlink&quot; title=&quot;PHP弱类型简介&quot;&gt;&lt;/a&gt;PHP弱类型简介&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;在PHP中，可以进行以下的操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;php&quot;&gt;$param = 1;
+$param = array();
+$param = &amp;quot;stringg&amp;quot;;&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="php弱类型" scheme="https://www.fengwenhua.top/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web源码泄露总结</title>
+    <link href="https://www.fengwenhua.top/2019/03/11/web-yuan-ma-xie-lu-zong-jie/"/>
+    <id>https://www.fengwenhua.top/2019/03/11/web-yuan-ma-xie-lu-zong-jie/</id>
+    <published>2019-03-10T21:38:21.000Z</published>
+    <updated>2019-11-30T04:02:44.530Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.xmanblog.net/2017/04/03/web-code-leakage/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.xmanblog.net/2017/04/03/web-code-leakage/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;寻找源代码备份&quot;&gt;&lt;a href=&quot;#寻找源代码备份&quot; class=&quot;headerlink&quot; title=&quot;寻找源代码备份&quot;&gt;&lt;/a&gt;寻找源代码备份&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在打ctf的时候,有时候页面什么提示都没有,这时候就要考虑一下是不是源代码泄露了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;hg-源码泄露&quot;&gt;&lt;a href=&quot;#hg-源码泄露&quot; class=&quot;headerlink&quot; title=&quot;hg 源码泄露&quot;&gt;&lt;/a&gt;hg 源码泄露&lt;/h3&gt;&lt;p&gt;&lt;code&gt;hg init&lt;/code&gt; 时会产生 &lt;code&gt;.hg&lt;/code&gt; 文件。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 可以通过以下链接访问
+http://www.example.com/.hg/&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kost/dvcs-ripper&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;利用工具 dvcs-ripper&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rip-hg.pl -v -u http://www.example.com/.hg/&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="web源码泄露" scheme="https://www.fengwenhua.top/tags/web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文件包含总结</title>
+    <link href="https://www.fengwenhua.top/2019/03/11/wen-jian-bao-han-zong-jie/"/>
+    <id>https://www.fengwenhua.top/2019/03/11/wen-jian-bao-han-zong-jie/</id>
+    <published>2019-03-10T21:32:39.000Z</published>
+    <updated>2019-11-30T04:02:44.530Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;实验环境：phpstudy，在&lt;code&gt;D:\phpStudy\PHPTutorial\WWW\&lt;/code&gt;目录下新建&lt;code&gt;fileinclude&lt;/code&gt;,然后新建&lt;code&gt;index.php&lt;/code&gt;,内容如下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&quot;php&quot;&gt;&amp;lt;?php
+    $file = $_GET[&amp;#39;file&amp;#39;];
+    include $file;
+?&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="文件包含" scheme="https://www.fengwenhua.top/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文件上传解析总结</title>
+    <link href="https://www.fengwenhua.top/2019/03/11/wen-jian-shang-chuan-jie-xi-zong-jie/"/>
+    <id>https://www.fengwenhua.top/2019/03/11/wen-jian-shang-chuan-jie-xi-zong-jie/</id>
+    <published>2019-03-10T21:12:29.000Z</published>
+    <updated>2019-11-30T04:02:44.530Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;本文参考如下链接: &lt;a href=&quot;https://github.com/CHYbeta/Web-Security-Learning&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/CHYbeta/Web-Security-Learning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;Web站点一般会有&lt;strong&gt;用户注册&lt;/strong&gt;的功能，当用户注册之后，大多数情况下都会存在类似&lt;strong&gt;头像上传&lt;/strong&gt;等个性化的设置，这些功能点往往存在上传验证方式不严格的安全缺陷，这些安全缺陷在Web渗透中是非常关键的突破口，只要经过仔细测试分析上传验证机制，往往就能找到绕过验证的方法，进而上传恶意代码获取整个Web业务控制权，复杂一点的情况是配合 Web Server的解析漏洞来获取控制权。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="渗透测试" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="文件上传" scheme="https://www.fengwenhua.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    
+    
+      <category term="文件上传" scheme="https://www.fengwenhua.top/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>dell-7559-10.14.3-黑苹果</title>
+    <link href="https://www.fengwenhua.top/2019/02/14/dell-7559-10-14-3-hei-ping-guo/"/>
+    <id>https://www.fengwenhua.top/2019/02/14/dell-7559-10-14-3-hei-ping-guo/</id>
+    <published>2019-02-13T22:16:17.000Z</published>
+    <updated>2019-11-30T04:02:44.527Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h1 id=&quot;7559黑苹果&quot;&gt;&lt;a href=&quot;#7559黑苹果&quot; class=&quot;headerlink&quot; title=&quot;7559黑苹果&quot;&gt;&lt;/a&gt;7559黑苹果&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;参考链接: &lt;a href=&quot;http://bbs.pcbeta.com/viewthread-1794485-1-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Dell 7559 安装10.14GM教程（i5+UEFI）&lt;/a&gt;&lt;br&gt;这位大佬的教程已经很完善了,只不过本人是小白,所以对这位大佬的教程进行了一些补充,如果你已经按照他的教程安装完成了,现在是10.14或者10.14.1,你需要做的就是 &lt;strong&gt;升级到现在最新的10.14.3,然后跳到 0x05蓝牙不可关闭修复开始&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;好吧,废话少说,先看看效果然后再决定往下看&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190128210751.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://www.fengwenhua.top/categories/Linux/"/>
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/categories/Linux/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+      <category term="hackintosh" scheme="https://www.fengwenhua.top/tags/hackintosh/"/>
+    
+      <category term="dell-7559" scheme="https://www.fengwenhua.top/tags/dell-7559/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第八章-神经网络-表述(Neural-Networks-Representation)</title>
+    <link href="https://www.fengwenhua.top/2019/02/13/di-ba-zhang-shen-jing-wang-luo-biao-shu-neural-networks-representation/"/>
+    <id>https://www.fengwenhua.top/2019/02/13/di-ba-zhang-shen-jing-wang-luo-biao-shu-neural-networks-representation/</id>
+    <published>2019-02-12T21:59:18.000Z</published>
+    <updated>2019-11-30T04:02:44.539Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;第八章-神经网络：表述-Neural-Networks-Representation&quot;&gt;&lt;a href=&quot;#第八章-神经网络：表述-Neural-Networks-Representation&quot; class=&quot;headerlink&quot; title=&quot;第八章 神经网络：表述(Neural Networks: Representation)&quot;&gt;&lt;/a&gt;第八章 神经网络：表述(Neural Networks: Representation)&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&quot;8-1-非线性假设（Non-linear-Hypotheses）&quot;&gt;&lt;a href=&quot;#8-1-非线性假设（Non-linear-Hypotheses）&quot; class=&quot;headerlink&quot; title=&quot;8.1 非线性假设（Non-linear Hypotheses）&quot;&gt;&lt;/a&gt;8.1 非线性假设（Non-linear Hypotheses）&lt;/h2&gt;&lt;p&gt;在这节课和接下来的课程中 我将给大家介绍 一种叫&lt;code&gt;“神经网络”(Neural Network)&lt;/code&gt; 的机器学习算法&lt;/p&gt;
+&lt;p&gt;我们将首先讨论 神经网络的&lt;strong&gt;表层结构&lt;/strong&gt; 在后续课程中 再来具体讨论的学习算法 神经网络实际上是一个 相对古老的算法 并且后来沉寂了一段时间 不过到了现在 它又成为许多机器学习问题 的首选技术&lt;/p&gt;
+&lt;p&gt;不过我们为什么还需要这个学习算法？ 我们已经有线性回归和逻辑回归算法了 为什么还要研究神经网络？&lt;/p&gt;
+&lt;p&gt;为了阐述研究&lt;strong&gt;神经网络算法的目的&lt;/strong&gt; 我们首先来看几个机器学习问题作为例子 这几个问题的解决 都依赖于研究复杂的&lt;code&gt;非线性分类器&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;考虑这个监督学习分类的问题 我们已经有了对应的训练集 如果利用&lt;code&gt;逻辑回归算法&lt;/code&gt; 来解决这个问题 首先需要构造 一个包含很多&lt;strong&gt;非线性项&lt;/strong&gt;的逻辑回归函数 这里g仍是&lt;code&gt;s型函数 (即f(x)=1/(1+e^-x) )&lt;/code&gt; 我们能让函数 包含很多像这样的多项式项 事实上 当多项式项数足够多时 那么可能 你能够得到一个 分开正样本和负样本的分界线&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
+    
+    
+      <category term="神经网络表述" scheme="https://www.fengwenhua.top/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A8%E8%BF%B0/"/>
+    
+      <category term="Neural-Networks-Representation" scheme="https://www.fengwenhua.top/tags/Neural-Networks-Representation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第七章-正则化-Regularization</title>
+    <link href="https://www.fengwenhua.top/2019/02/13/di-qi-zhang-zheng-ze-hua-regularization/"/>
+    <id>https://www.fengwenhua.top/2019/02/13/di-qi-zhang-zheng-ze-hua-regularization/</id>
+    <published>2019-02-12T20:47:03.000Z</published>
+    <updated>2019-11-30T04:02:44.537Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;第七章-正则化-Regularization&quot;&gt;&lt;a href=&quot;#第七章-正则化-Regularization&quot; class=&quot;headerlink&quot; title=&quot;第七章 正则化(Regularization)&quot;&gt;&lt;/a&gt;第七章 正则化(Regularization)&lt;/h1&gt;&lt;h2 id=&quot;7-1-过拟合的问题&quot;&gt;&lt;a href=&quot;#7-1-过拟合的问题&quot; class=&quot;headerlink&quot; title=&quot;7.1 过拟合的问题&quot;&gt;&lt;/a&gt;7.1 过拟合的问题&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;到现在为止 你已经见识了 几种不同的学习算法 包括线性回归和逻辑回归 它们能够有效地解决许多问题 但是当将它们应用到 某些特定的机器学习应用时 会遇到&lt;code&gt;过度拟合(over-fitting)&lt;/code&gt;的问题 可能会导致它们效果很差&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在这段视频中 我将为你解释 什么是过度拟合问题 并且 在此之后接下来的几个视频中 我们将谈论一种 称为&lt;code&gt;正则化(regularization)&lt;/code&gt;的技术 它可以改善或者 减少过度拟合问题 以使学习算法更好实现 那么什么是过度拟合呢？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;让我们继续使用 那个用线性回归 来预测房价的例子 我们通过建立 以住房面积为自变量的函数来预测房价 我们可以 对该数据做线性回归 如果这么做 我们也许能够获得 拟合数据的这样一条直线 但是 这不是一个很好的模型 我们看看这些数据 很明显 随着房子面积增大 住房价格的变化趋于稳定 或者越往右越平缓 因此该算法 没有很好拟合训练数据 我们把这个问题称为&lt;code&gt;欠拟合(underfitting)&lt;/code&gt; 这个问题的另一个术语叫做 &lt;code&gt;高偏差(High bias)&lt;/code&gt; 这两种说法大致相似 意思是它只是没有很好地拟合训练数据 这个词是 过去传下来的一个专业名词 它的意思是 如果拟合一条直线 到训练数据 就好像算法 有一个很强的偏见 或者说非常大的偏差 因为该算法认为房子价格与面积仅仅线性相关 尽管与该数据的事实相反 尽管相反的证据 被事前定义为 偏差 它还是接近于 拟合一条直线 而此法最终导致拟合数据效果很差&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
+    
+    
+      <category term="正则化" scheme="https://www.fengwenhua.top/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第六章-逻辑回归(Logistic-Regression)</title>
+    <link href="https://www.fengwenhua.top/2019/02/12/di-liu-zhang-luo-ji-hui-gui-logistic-regression/"/>
+    <id>https://www.fengwenhua.top/2019/02/12/di-liu-zhang-luo-ji-hui-gui-logistic-regression/</id>
+    <published>2019-02-11T19:44:29.000Z</published>
+    <updated>2019-11-30T04:02:44.540Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;第六章-逻辑回归-Logistic-Regression&quot;&gt;&lt;a href=&quot;#第六章-逻辑回归-Logistic-Regression&quot; class=&quot;headerlink&quot; title=&quot;第六章 逻辑回归(Logistic Regression)&quot;&gt;&lt;/a&gt;第六章 逻辑回归(Logistic Regression)&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&quot;6-1-Classification-分类问题&quot;&gt;&lt;a href=&quot;#6-1-Classification-分类问题&quot; class=&quot;headerlink&quot; title=&quot;6.1 Classification(分类问题)&quot;&gt;&lt;/a&gt;6.1 Classification(分类问题)&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;从现在及未来,我们开始谈论的分类问题，其中要预测的变量$y$是&lt;code&gt;离散的(discreet valued)&lt;/code&gt;。我们将学习一个算法叫&lt;code&gt;Logistic回归&lt;/code&gt;，这是当今最流行和最广泛使用的学习算法之一。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下面是分类问题的一些例子。之前，我们谈到了&lt;code&gt;电子垃圾邮件分类&lt;/code&gt;就是一个分类问题。另一个例子是&lt;code&gt;网上交易的分类&lt;/code&gt;问题。如果你有一个卖东西的网站，然后你想知道一次实物的交易是不是欺诈，或者某人是否在使用偷来的信用卡或者是盗用了别的用户的密码。这是另一种分类问题，之前我们也谈到肿瘤分类问题的例子,区别一个肿瘤是恶性的还是良性的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181128101228.png&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
+    
+    
+      <category term="逻辑回归" scheme="https://www.fengwenhua.top/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
+    
+      <category term="Logistic Regression" scheme="https://www.fengwenhua.top/tags/Logistic-Regression/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第五章-Octave教程</title>
+    <link href="https://www.fengwenhua.top/2019/02/12/di-wu-zhang-octave-jiao-cheng/"/>
+    <id>https://www.fengwenhua.top/2019/02/12/di-wu-zhang-octave-jiao-cheng/</id>
+    <published>2019-02-11T19:33:35.000Z</published>
+    <updated>2019-11-30T04:02:44.538Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;第五章-Octave教程&quot;&gt;&lt;a href=&quot;#第五章-Octave教程&quot; class=&quot;headerlink&quot; title=&quot;第五章 Octave教程&quot;&gt;&lt;/a&gt;第五章 Octave教程&lt;/h1&gt;&lt;h3 id=&quot;1-基本操作&quot;&gt;&lt;a href=&quot;#1-基本操作&quot; class=&quot;headerlink&quot; title=&quot;1. 基本操作&quot;&gt;&lt;/a&gt;1. 基本操作&lt;/h3&gt;&lt;p&gt;启动Octave：&lt;/p&gt;
+&lt;p&gt;现在打开Octave，这是Octave命令行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104211208.png&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;现在让我示范最基本的Octave代码：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
+    
+    
+      <category term="octave" scheme="https://www.fengwenhua.top/tags/octave/"/>
+    
+  </entry>
+  
+</feed>

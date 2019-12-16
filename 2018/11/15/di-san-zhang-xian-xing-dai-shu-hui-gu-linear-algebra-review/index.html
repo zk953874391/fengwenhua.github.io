@@ -1,0 +1,1348 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="第三章 线性代数回顾(Linear Algebra Review), 江南小虫虫的博客">
+    <meta name="description" content="Matrices and Vectors（矩阵和向量）
+我们先复习一下线性代数的知识 在这段视频中 我会向大家介绍矩阵和向量的概念
+
+
+矩阵是指 由数字组成的矩形阵列 并写在方括号中间 例如 屏幕中所示的一个矩阵 先写一个左括号 然后是一些">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>第三章 线性代数回顾(Linear Algebra Review) | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">第三章 线性代数回顾(Linear Algebra Review)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/线性代数/">
+                                <span class="chip bg-color">线性代数</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/机器学习/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                机器学习入门
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-11-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    25 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Matrices-and-Vectors（矩阵和向量）"><a href="#Matrices-and-Vectors（矩阵和向量）" class="headerlink" title="Matrices and Vectors（矩阵和向量）"></a>Matrices and Vectors（矩阵和向量）</h2><blockquote>
+<p>我们先复习一下线性代数的知识 在这段视频中 我会向大家介绍矩阵和向量的概念</p>
+</blockquote>
+<ul>
+<li><code>矩阵</code>是指 <strong>由数字组成的矩形阵列 并写在方括号中间</strong> 例如 屏幕中所示的一个矩阵 先写一个左括号 然后是一些数字 这些数字可能是 机器学习问题的特征值 也可能表示其他意思 不过现在不用管具体的数字 然后我用右方括号将其括起来 这样就得到了一个矩阵 接下来 看一下其他矩阵的例子 依次写下1 2 3 4 5 6 因此实际上矩阵 可以说是二维数组的 另一个名字</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562400_1378345848_1539953128" alt="_1526562400_1378345848_1539953128_1526562400_1378345848.png"></p>
+<ul>
+<li><p>另外 我们还需要知道的是 <code>矩阵的维度</code>=<strong>矩阵的行数乘以列数</strong> 具体到这个例子 看左边 包括1 2 3 4共4行 以及2列 因此 这个例子是一个 4 × 2的矩阵 即行数乘以列数 4行乘2列</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562414_1674067162_1539953152" alt="_1526562414_1674067162_1539953152_1526562414_1674067162.png"></p>
+</li>
+<li><p>右边的矩阵有两行 这是第一行 这是第二行 此外包括三列 这是第一列 第二列 第三列 因此 我们把 这个矩阵称为一个 2 × 3维的矩阵 所以我们说这个矩阵的维度是2 × 3维</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562425_1017138353_1539953170" alt="_1526562425_1017138353_1539953170_1526562425_1017138353.png"></p>
+<ul>
+<li>有时候大家会发现 书写有些不同 比如左边的矩阵 写成了<code>R4 × 2</code> 具体而言 大家会将该矩阵称作 是集合R4×2的元素 因此 也就是说 这个<strong>矩阵 R4×2代表所有4×2的矩阵的集合</strong> 而右边的这个矩阵 有时候也写作一个<code>R2×3</code>的矩阵 因此 如果你看到2×3 如果你看到 有些地方表达为 4×2的或者2×3的 <strong>一般都是指 一个特定维度的矩阵</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562469_2073201965_1539953199" alt="_1526562469_2073201965_1539953199_1526562469_2073201965.png"></p>
+<ul>
+<li>接下来 让我们来谈谈<strong>如何表达矩阵的某个特定元素</strong> 这里我说矩阵元素 而不是矩阵 我的意思是 矩阵的条目数 也就是<strong>矩阵内部的某个数</strong></li>
+<li>所以 标准的表达是 <strong>如果A是 这个矩阵 那么A下标 ij 表示的是 i j对应的那个数字 意思是矩阵的第i行和第j列 对应的那个数</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562486_126334539_1539953234" alt="_1526562486_126334539_1539953234_1526562486_126334539.png"></p>
+<ul>
+<li>例如 <code>A11</code> 表示的是<code>第1行 第1列</code>所对应的那个元素 所以这是 第一行和第一列 因此<strong>A11 就等于 1402</strong> 另一个例子<code>A12</code> 表示的是<code>第一行第二列</code> 对应的那个数 所以<strong>A12 将等于191</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562514_858056936_1539953253" alt="_1526562514_858056936_1539953253_1526562514_858056936.png"></p>
+<ul>
+<li>我希望你不会犯下面的错误 但如果你这么写的话 如果你写出了<code>A43</code> 这应该表示的是 <code>第四行第三列</code> 而你知道 这个矩阵没有第三列 因此<strong>这是未定义的</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562526_1857626394_1539953574" alt="_1526562526_1857626394_1539953574_1526562526_1857626394.png"></p>
+<ul>
+<li>接下来让我们来谈谈<strong>什么是向量</strong> 一个<code>向量</code>是一种特殊的矩阵 <strong>向量是只有一列的矩阵</strong> 所以 你有一个 <code>n×1</code> 矩阵 还记得吗 <strong>N是行数 而这里的1 表示的是列数</strong> 所以 <strong>只有一列的矩阵 就是我们所说的向量</strong></li>
+<li>因此 这里是一个向量的 例子 比如说 我有 n = 4 个元素</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562579_388138141_1539953600" alt="_1526562579_388138141_1539953600_1526562579_388138141.png"></p>
+<ul>
+<li>所以我们也把这个称为 另一个术语是 这是一个<strong>四维的向量</strong> 也就意味着 <strong>这是一个含有 4个元素的向量</strong> 而且 前面我们讲 矩阵的时候提到过 这个符号<code>R3×2</code> 表示的是<code>一个3行2列的矩阵</code> 而对于这个向量 我们也同样可以 表示为集合<code>R4</code> 因此 这个<strong>R4是指 一个四维向量的集合</strong></li>
+<li>接下来让我们来谈谈<strong>如何引用向量的元素</strong> 我们将使用符号 <code>yi</code>来代表 <code>向量y的第i个元素</code> 所以 如果这个向量是y 那么<code>y下标i</code> 则表示<code>它的第i个元素</code> 所以y1表示第一个元素 460 y2表示第二个元素 232 这是第二个元素 还有y3等于 315 等等 只有y1至y4是有意义的 因为这定义的是一个四维向量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562604_140050420_1539953644" alt="_1526562604_140050420_1539953644_1526562604_140050420.png"></p>
+<ul>
+<li>此外 事实上 有两种方法来表达 某个向量中某个索引 是这两种</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562615_528774851_1539953673" alt="_1526562615_528774851_1539953673_1526562615_528774851.png"></p>
+<ul>
+<li>有时候 人们会使用 <code>1-索引</code> 有时候用<code>0-索引</code> 因此 左边这个例子 是一个<code>1-索引向量</code> 它的元素写作<code>y1 y2 y3 y4</code> 而右边这个向量 是<code>0-索引</code>的一个例子 我们的索引 <code>从下标0开始</code> 因此 元素从<code>y0至y3</code></li>
+<li><strong>对于很多机器学习的应用问题来说 0-索引向量为我们提供了一个更方便的符号表达</strong>  所以你通常应该 做的是 除非特别指定 你应该<strong>默认我们使用的是<code>1-索引法</code>表示向量</strong> 在本课程的后面所有 <strong>关于线性代数的视频中 我都将使用<code>1-索引法</code>表示向量</strong></li>
+<li>按照惯例 通常在书写矩阵和向量时 大多数人会使用<code>大写字母</code> 来表示<code>矩阵</code> 因此 我们要<strong>使用 大写字母 如 A B C X 来表示矩阵</strong> 而通常我们会使用<code>小写字母</code> 像<code>a b x y</code> 来表示<code>数字 或是原始的数字 或标量 或向量</code> 这是实际的使用习惯 我们也经常看到 <strong>使用小写字母y 来表示向量 但我们平时 是用大写字母来表示矩阵</strong></li>
+</ul>
+<h3 id="Matrices-and-Vectors笔记"><a href="#Matrices-and-Vectors笔记" class="headerlink" title="Matrices and Vectors笔记"></a>Matrices and Vectors笔记</h3><ul>
+<li>矩阵是二维数组</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562640_1052555579_1539953704" alt="_1526562640_1052555579_1539953704_1526562640_1052555579.png"></p>
+<p>上面的矩阵有四行三列，所以它是一个4 x 3的矩阵</p>
+<ul>
+<li>向量是·一列和许多行·的矩阵：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526562653_1211280669_1539953713" alt="_1526562653_1211280669_1539953713_1526562653_1211280669.png"></p>
+<p>所以向量是矩阵的一个子集。上述向量是一个4×1矩阵。</p>
+<ul>
+<li>表示法和条款：</li>
+<li>$A_{ij}$引用矩阵A的第i行和第j列中的元素。</li>
+<li>具有’n’行的矢量被称为’n’维矢量。</li>
+<li>$v_i$指矢量的第i行中的元素。</li>
+<li>一般来说，我们所有的向量和矩阵都是1索引的。请注意，对于某些编程语言，这些数组是0索引的。</li>
+<li>矩阵通常用大写字母表示，而向量则用小写字母表示。</li>
+<li>“标量”表示对象是单个值，而不是矢量或矩阵。</li>
+<li><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563183_300594797_1539953734" alt="_1526563183_300594797_1539953734_1526563183_300594797.png">是指一组标量实数。</li>
+<li><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563193_1988191010_1539953742" alt="_1526563193_1988191010_1539953742_1526563193_1988191010.png">是指实数的n维向量的集合。</li>
+</ul>
+<h2 id="Addition-and-Scalar-Multiplication"><a href="#Addition-and-Scalar-Multiplication" class="headerlink" title="Addition and Scalar Multiplication"></a>Addition and Scalar Multiplication</h2><blockquote>
+<p>在这段视频中 我们要讲 我们将讨论矩阵的加法和减法运算 以及如何进行 数和矩阵的乘法 也就是标量乘法 让我们从下面这个例子开始</p>
+</blockquote>
+<ul>
+<li>假设有这样两个矩阵 如果想对它们做<strong>求和运算</strong> 应该怎么做呢？ 或者说 矩阵的加法到底是如何进行的？ 答案是 如果你想将两个矩阵相加 你<strong>只需要将这两个矩阵的 每一个元素都逐个相加</strong> 因此 两个矩阵相加 所得到的结果 就是一个新的矩阵 它的第一个元素 是1和4相加的结果 因此我们得到5 接下来是第二个元素 用2和2相加 因此得到4 然后是3加0得到3 以此类推 这里我用不同颜色区别一下 接下来右边这一列元素 就是0.5 10和2</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563239_390601298_1539953757" alt="_1526563239_390601298_1539953757_1526563239_390601298.png"></p>
+<ul>
+<li>这里大家不难发现 <strong>只有相同维度的两个矩阵才能相加</strong> 对于这个例子而言 一個3 x 2的矩陣 也就是说矩阵的行数为3 列数是2 因此是3行2列 第二个矩阵 也是一个3行2列的矩阵 因此这两个矩阵相加的结果 也是一个3行2列的矩阵 所以你只能将相同维度的矩阵 进行相加运算 同时 所得到的结果 将会是一个新的矩阵 <strong>这个矩阵与相加的两个矩阵维度相同</strong></li>
+<li>反过来 如果你想将这样两个矩阵相加 这是一个3行2列的矩阵 行数为3 列数为2 而这一个是2行2列的矩阵 那么由于这两个矩阵 维度是不相同的 这就出现错误了 所以我们不能将它们相加 也就是说 <strong>这两个矩阵的和是没有意义的</strong> 这就是矩阵的加法运算</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563246_1151303969_1539953785" alt="_1526563246_1151303969_1539953785_1526563246_1151303969.png"></p>
+<ul>
+<li>接下来 我们讨论<strong>矩阵和标量的乘法运算</strong> 这里所说的<code>标量</code> 可能是一个复杂的结构 或者只是一个简单的数字 或者说实数 <strong>标量在这里指的就是实数</strong> 如果我们用数字3来和这个矩阵相乘 那么结果是显而易见的 你只需要将矩阵中的所有元素 都和3相乘 每一个都逐一与3相乘 因此 1和3相乘 结果是3 2和3相乘 结果是6 最后3乘以3得9 我再换一下颜色 0乘以3得0 3乘以5得15 最后3乘以1得3 这样得到的这个矩阵 就是左边这个矩阵和3相乘的结果 我们再次注意到 这是一个3行2列的矩阵 得到的结果矩阵 维度也是相同的 也就是说这两个矩阵 都是3行2列 这也是3行2列</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563253_1190942378_1539953799" alt="_1526563253_1190942378_1539953799_1526563253_1190942378.png"></p>
+<ul>
+<li>另外 你也可以写成另一种方式 这里是3和这个矩阵相乘 你也可以把这个矩阵写在前面 把左边这个矩阵照抄过来 我们也可以用这个矩阵乘以3 也就是说 3乘以这个矩阵 和这个矩阵乘以3 结果都是一回事 都是中间的这个矩阵</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563264_1347157564_1539953811" alt="_1526563264_1347157564_1539953811_1526563264_1347157564.png"></p>
+<ul>
+<li>你也可以用矩阵除以一个数 那么 我们可以看到 用这个矩阵除以4 实际上就是 用四分之一 来和这个矩阵相乘 4 0 6 3 不难发现 相乘的结果是 1/4和4相乘为1 1/4和0相乘得0 1/4乘以6 结果是3/2 6/4也就是3/2 最后1/4乘以3得3/4 这样我们就得到了 这个矩阵除以4的结果 结果就是是右边这个矩阵</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563275_475609234_1539953825" alt="_1526563275_475609234_1539953825_1526563275_475609234.png"></p>
+<ul>
+<li>最后 我们来看一个稍微复杂一点的例子 我们可以把所有这些运算结合起来 在这个运算中 需要用3来乘以这个向量 然后加上一个向量 再减去另一个向量除以3的结果 让我们先来整理一下这几项运算 首先第一个运算 很明显这是标量乘法的例子 因为这里是用3来乘以一个矩阵 然后这一项 很显然这是另一个标量乘法 或者可以叫标量除法 其实也就是1/3乘以这个矩阵 因此 如果我们先考虑这两项运算</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563285_884588442_1539953837" alt="_1526563285_884588442_1539953837_1526563285_884588442.png"></p>
+<ul>
+<li>那么我们将得到的是 我们看一下 3乘以这个矩阵 结果是3 12 6 然后和中间的矩阵相加 也就是0 0 5 最后再减去1 0 2/3 同样地 为了便于理解 我们再来梳理一下这几项 这里的这个加号 表明这是一个矩阵加法 对吧？ 当然这里是向量 别忘了 向量是特殊的矩阵 对吧？ 或者你也可以称之为 向量加法运算 同样 这里的减号表明 这是一个矩阵减法运算 但由于这是一个n行1列的矩阵 实际上是3行1列 因此这个矩阵 实际上是也一个向量 一个列向量 因此也可以把它称作<strong>向量的减法运算</strong> 明白了吗</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563297_1736936881_1539953857" alt="_1526563297_1736936881_1539953857_1526563297_1736936881.png"></p>
+<ul>
+<li>最后再整理一下 最终的结果依然是一个向量 向量的第一个元素 是3+0-1 就是3-1 也就是2 第二个元素是12+0-0 也就是12 最后第三个元素 6+5-(2/3) 也就是11-(2/3) 结果是10又三分之一 关闭右括号 我们得到了最终的结果 这是一个3行1列的矩阵 或者也可以说是 一个维度为3的向量 这就是这个运算式的计算结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563308_1386235624_1539953868" alt="_1526563308_1386235624_1539953868_1526563308_1386235624.png"></p>
+<ul>
+<li>所以 你学会了矩阵或向量的加减运算 以及矩阵或向量跟标量 或者说实数 的乘法运算 到目前为止 我只介绍了如何进行 矩阵或向量与数的乘法运算 在下一讲中 我们将讨论一个更有趣的话题 那就是如何进行 两个矩阵的乘法运算<h3 id="加法和标量乘法笔记"><a href="#加法和标量乘法笔记" class="headerlink" title="加法和标量乘法笔记"></a>加法和标量乘法笔记</h3></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563322_945561965_1539953878" alt="_1526563322_945561965_1539953878_1526563322_945561965.png"></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563328_710017541_1539953883" alt="_1526563328_710017541_1539953883_1526563328_710017541.png"></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563335_879312404_1539953887" alt="_1526563335_879312404_1539953887_1526563335_879312404.png"></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563343_57921380_1539953892" alt="_1526563343_57921380_1539953892_1526563343_57921380.png"></p>
+<h2 id="Matrix-Vector-Multiplication"><a href="#Matrix-Vector-Multiplication" class="headerlink" title="Matrix Vector Multiplication"></a>Matrix Vector Multiplication</h2><blockquote>
+<p>在本节课的视频中 讨论<strong>如何 将两个矩阵相乘</strong> 我们将从矩阵相乘的 特例 向量相乘开始 即 一个矩阵与一个向量相乘</p>
+</blockquote>
+<ul>
+<li>让我们从一个例子开始 左边是一个矩阵 右边是一个向量 假如我们 将这个矩阵 与这个向量相乘 结果会怎样呢？ 我先快速计算出结果 然后我们再 退回去 查看每一个步骤 很明显 相乘的结果 将是 一个向量 我先将这部分完成 然后再来解释 我刚刚是怎么做的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563414_2041992383_1539953906" alt="_1526563414_2041992383_1539953906_1526563414_2041992383.png"></p>
+<ul>
+<li>要计算出结果向量的第一个元素 我将会 <strong>取这两个数字 并把他们 把矩阵 A 的 然后把对应相乘的结果加起来</strong> 取1乘以1 同时取3 乘以 5 计算得到1和15 相加得16 我将在这儿写上16 要计算第二行 的第二个元素 我需要将第二行 与这个向量相乘 所以我得到 4乘以1 加上0乘以5 结果等于4 因此在这里写上4 对于最后一个元素 我需要计算(2, 1) 乘以 (1, 5) 所以先计算2乘以1 再加上 1乘以5 最后结果为7 所以我在这儿写上7</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563424_2094856845_1539953936" alt="_1526563424_2094856845_1539953936_1526563424_2094856845.png"></p>
+<ul>
+<li>事实证明 3x2的矩阵 和一个2x1的矩阵 即一个二维向量 相乘的结果 我们得到的 将是一个3×1 的矩阵 这个3×1的矩阵 就是这么得来的 也就是一个三维向量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563438_1477954396_1539953945" alt="_1526563438_1477954396_1539953945_1526563438_1477954396.png"></p>
+<ul>
+<li>我想 我可能计算时做得很快 你们并不一定能够 自己重复这个过程 下面让我们更加仔细的看一下 刚刚我做了些什么以及一个向量 和一个矩阵相乘的计算过程是怎样的 下面详细介绍了如何 计算一个矩阵与一个向量相乘 假设这是一个矩阵A 我希望将它乘以 一个向量x 结果记为 向量y 所以 矩阵A是一个 m×n维矩阵 有m行和n列 我们让它与一个 n×1的矩阵相乘 换言之 一个n维向量 明显地 这里的两个n是相等的 也就是说 <strong>这个矩阵的列数 有n列 必须要与 另一个相乘矩阵的行数相同</strong> 即必须匹配这个向量的维数。 这样相乘的结果 将会是一个n维 向量y m 将与 矩阵A的行数 相同</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563449_1514757581_1539953956" alt="_1526563449_1514757581_1539953956_1526563449_1514757581.png"></p>
+<ul>
+<li>那么如何计算这个向量y呢？ 事实上 计算y的过程可以分解为 计算 yi 的值 让 A 的第 i 行元素 分别乘以向量 x 中的元素 并且相加 就是这样子 为了得到 y 的第一个元素 无论是多少 我们将会 把矩阵 A 的 第一行元素 每次同一个向量 x 的元素 相乘 我取第一个数 与第一个数相乘 然后取第二个数同第二个数相乘 取第三个数 与第三个数相乘 直到全部乘完 最后 将这些相乘的结果 加起来 这样我们就得到了 y 的第一个元素</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563458_960937756_1539954008" alt="_1526563458_960937756_1539954008_1526563458_960937756.png"></p>
+<ul>
+<li>然后我们 来计算 y 的第二个元素 接下来我们 取A的第二行 然后重复整个过程 现在 我们取A的第二行 将它 与其他元素相乘 也就是 x 的元素 将结果相加 这样我们就得到了 y 的第二个元素 依次计算下去 我们取A得第三行 逐行地与 向量x相乘 将结果加起来 然后得到第三个元素 以此类推 直到最后一行</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563471_8553957_1539954029" alt="_1526563471_8553957_1539954029_1526563471_8553957.png"></p>
+<ul>
+<li>所以 上述就是具体步骤 让我们再举一个例子 在这个例子中 我们先看一下矩阵的维度 左边是一个 3×4矩阵 右边是一个四维向量 也就是4×1矩阵 所以这样相乘的结果 将是 一个三维向量 我们在写的时候要给这个向量 留三个元素的空间</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563479_2071501370_1539954037" alt="_1526563479_2071501370_1539954037_1526563479_2071501370.png"></p>
+<ul>
+<li>现在让我们一起来算一下 首先是第一个元素 我将会取这四个数 并将它们与向量x相乘 所以我需要计算 1×1 加上2×3 加1×2 加5×1 等于 1 +6 再加上2 +6 也就是14 而对边距来说 第二个元素 我要 取这一行 然后与向量 (0×1)+3相乘 我们将得到 0×1 + 3×3 0×2 + 4×1 等于 9 + 4 也就是13 最后 对最后一个元素 我将取最后一行 所以我得到了-1×1 -2×3 加上0×2 加上0×1 所以 我们将得到-1和-6 相加得 -7 明白? 所以我最后的答案是 一个向量 其中的元素为 14 我将不给这些字涂上颜色 13 -7</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563488_238534241_1539954070" alt="_1526563488_238534241_1539954070_1526563488_238534241.png"></p>
+<ul>
+<li>如前面说的 计算结果是一个3×1的矩阵 上述就是矩阵和向量相乘的方法 我知道 这张幻灯片上内容很多 如果你在看的过程中 不是很确定这些数字怎么来的 你可以随时暂停视频 慢慢地 仔细琢磨 整个计算过程 尽量 确保自己理解了 得到14 13 11 这些结果的每一个步骤</li>
+<li>最后 我将教你们一个<code>小技巧</code> 假设我 有四间房子 这些房子有四种大小 我有一个 假设函数 用于预测房子的价格 我需要计算 四间房子的大小作为 h(x) 的大小即预测的房价 这里有一种简单的方法 <strong>可以同时计算四间房子的预测价格</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563507_1294767834_1539954092" alt="_1526563507_1294767834_1539954092_1526563507_1294767834.png"></p>
+<ul>
+<li>我可以将它简单地 利用 矩阵向量相乘的思想来计算 所以 对于这个问题我会这么计算 首先我要构建一个 如下所示的矩阵 元素是1 1 1 1 然后我把四个房子的大小 写在这儿 我还需要构造一个向量 我的向量 它将是一个 二维向量 即 40 和 0.25 这是预测函数的两个系数 θ0 和 θ1 接下来</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563536_1519908066_1539954138" alt="_1526563536_1519908066_1539954138_1526563536_1519908066.png"></p>
+<ul>
+<li>我要做的就是 将我构造好的矩阵和向量相乘 这是相乘符号 我将得到什么结果呢？ 左边是一个 4×2 矩阵 右边是一个 2×1 矩阵 所以结果 将是一个4×1向量 对吧 所以 让我在幻灯片上写上 结果将是 一个4×1的矩阵 输出结果也就是 一个四维向量 让我来把它写出来 用四个实数表示我的四个元素 事实上 结果的第一个元素 我的计算方式 是 将这一行同我的向量相乘 结果将是 -40×1 + 4.25×2104 顺便说一下 在先前的幻灯片中 我写的是 1× (-40) + 2104 × 0.25 但是顺序无关紧要 对吧？ -40×1 和 1×(-40)是一样的 这第一个元素 就是当x为2104时的 h 值 因此 这是我的第一个房子的预测价格 那么 第二个元素呢？ 你应该已经想到了 我要怎么计算第二个元素了 对吧? 我要把这个乘以我的向量 所以就是 -40×1 + 0.25×1416 这就是x为1416的 h 对吧? 这是第三个 和第四个 后面就依次计算这个4×1矩阵的第三和第四个元素 得出结果 这里 我画了绿色边框的部分 是一个实数 对吧？ 它是一个实数 这里 我画了洋红色边框的部分 紫色 洋红色 边框 是一个实数 对吧？ 所以右边 最右边 就是一个 4×1矩阵 是一个4维向量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563587_1184137581_1539954167" alt="_1526563587_1184137581_1539954167_1526563587_1184137581.png"></p>
+<ul>
+<li>这个例子的一个小技巧是 当你 在程序中实现这个过程的时候 当你有四间房子 你想使用自己的预测函数 来预测房子的价格 完成这些工作 你可以用一行代码搞定 我们后面会谈到Octave 以及编程语言 你可以只写一行代码就完成整个过程 你可以这样写 <code>prediction = DataMatrix × Parameters</code> 对吧 数据矩阵是这一部分 参数 是这一部分 这就是一个<code>矩阵向量乘法</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563599_1602442101_1539954208" alt="_1526563599_1602442101_1539954208_1526563599_1602442101.png"></p>
+<ul>
+<li>如果你这么做了 这个变量prediction 抱歉 我的字写得很潦草 只需要实现 这一行代码 如果你有一个做矩阵向量相乘的函数库的话 如果你这样做的话 右侧的prediction变量就会形成 一个4维向量 给你所有的预测价格 另一种计算方式是 作为一种矩阵向量相乘的方式 实际上就是一种 通过for循环 for 1 to 4 对吧？ 如果说你有一千间房子 就将是 for 1 to 1000 或者别的任何数 然后如果i等于的话 你必须写一个 有一个假设条件 I相等 然后需要做 比矩阵向量相乘多得多的工作 当你有 大量的房子的时候 如果你试图预测 不只是四座 或许是一千座房子的时候 事实证明 当你使用矩阵向量相乘的方法时 在计算机中 使用任何语言 不仅仅是Octave 还有C++ Java Python 等高级语言 以及其他语言 都可以很快的实现 事实证明 像左边这样子写代码 不仅可以 简化你的代码 现在你只需要 写一行代码 而不是一堆代码 而且 还有一个微妙的好处 我们后面将会了解到 就是基于你所有的房子 这样做计算效率将会更高 比你像右边那样 用代码实现公式 的方式效率 将会高很多 我后面在讨论向量化的时候 会详细地 讨论这个问题 所以 通过这种方式计算预测值 不仅代码更加简洁 而且效率更高 基本用不上 我们在后面 在其他模型中 计算实例的回归的时候 将会有效地利用到这一讲的内容 在接下来的视频中 我将会从特殊到一般 讲讲矩阵与矩阵相乘的情况</li>
+</ul>
+<h3 id="矩阵向量乘法笔记"><a href="#矩阵向量乘法笔记" class="headerlink" title="矩阵向量乘法笔记"></a>矩阵向量乘法笔记</h3><ul>
+<li>矩阵和向量的乘法如图：m×n 的矩阵乘以 n×1 的向量，得到的是 m×1 的向量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563623_126184414_1539954234" alt="_1526563623_126184414_1539954234_1526563623_126184414.png"></p>
+<ul>
+<li>举例</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563631_819280345_1539954242" alt="_1526563631_819280345_1539954242_1526563631_819280345.png"></p>
+<h2 id="Matrix-Matrix"><a href="#Matrix-Matrix" class="headerlink" title="Matrix Matrix"></a>Matrix Matrix</h2><blockquote>
+<p>在这段视频中我们将会讨论 矩阵 <strong>矩阵的乘法以及 如何将两个矩阵相乘</strong> 我们会使用这样一种方法 在线性回归中用以解决 参数计算的问题 <strong>这种方法会把θ0、θ1等参数都放在一起来计算</strong> 也就是说 <strong>我们不需要一个迭代的梯度下降算法</strong></p>
+</blockquote>
+<ul>
+<li>当我们谈到这个算法的时候 就会发现矩阵以及矩阵间的乘法运算 是你必须理解的关键步骤之一 所以让我们像往常那样 从一个例子开始 比方说 我有两个矩阵 我想将它们相乘 让我先只是按照这个例子做一遍（乘法） 然后告诉你这其中运算的细节</li>
+<li>那么 我要做的第一件事是 我先把 右边这个矩阵的第一列 提取出来 然后我将会把 左边的这个矩阵和 之前取出来的这一列（前面提过的，向量）相乘 这只是第一列 是吧？ 然后我们可以看到 如果我 这么做 我就会得到向量（11,9） 所以这是与上个视频的矩阵 和向量的乘法是一样的 我已经提前算出了这个结果 是（11,9） 那么 之后的第二件事 我要做的就是 我将把第二列再单独提出出来 右边这个矩阵的第二列 然后我将要把它和 左边这个矩阵相乘 是的吧 所以 这就是那个矩阵 用右边的第二列 来乘以这个矩阵 因此 同样的 这是一个矩阵和 向量的乘法运算 这 就是你从上一个视频所学到的 如果你这么做 把这个矩阵和这个向量相乘 你会得到 （10,14）这个结果 顺便说一下 如果你想练习 矩阵和向量的乘法运算 那么就先暂停下视频 自己算一算结果对不对 好吧 现在我仅仅需要 将得到的这两个结果放在一起 那么这就是我的答案了 那么 我们可以看到 计算结果是 一个2 x 2的矩阵 我用来填充这个矩阵的方法 就是 把我的（11,9） 填在这里 把（10，14）填在 第二列 是的吧？ 所以 这就是如何 将两个矩阵相乘的 详细方法与过程 每次你只需要看 第二个矩阵的一列 然后把你的答案拼凑起来</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563661_226179955_1539954253" alt="_1526563661_226179955_1539954253_1526563661_226179955.png"></p>
+<ul>
+<li>再次强调下 我们将一步步的来计算 几秒中的时间里需要非常仔细 但我也要指出 我也要指出的是 第一个例子是一个2X3矩阵 乘以一个 3x2的矩阵 他们相乘 得到的结果 是一个2x2的 矩阵 我们将很快知道为什么是这个结果 好的 这是计算的技巧 让我们再看看 这其中的细节 看看究竟发生了什么</li>
+<li>下面就是详细的过程 我有一个矩阵A 我要把它乘以 矩阵B 其结果 会是一个新的矩阵C 并且你会发现你只能 相乘那些维度 匹配的矩阵 因此如果A是一个<code>m×n</code>的矩阵 就是说m行n列 我将要用它与 一个<code>n×o</code>的矩阵相乘 并且实际上这里的n 必须匹配这里的这个n 所以<strong>第一个矩阵的列的数目 必须等于第二矩阵中的行的数目</strong> 并且相乘得到的结果 结果会是一个<code>m×o</code>的矩阵 就像这个矩阵C这样</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563670_496687926_1539954288" alt="_1526563670_496687926_1539954288_1526563670_496687926.png"></p>
+<ul>
+<li>并且 在前面的视频中 我们所做的一切都符合这个规则 这是一种当矩阵B的o值 等于1的特殊情况（指的是矩阵和向量相乘） 明白了吗？ 这是在B是一个向量的情况下 但是现在 我们要处理 O的值大于1的情况</li>
+<li>所以 这里就是你怎样 把两个矩阵相乘 为了得到结果 我要做的就是 我将要取 B矩阵的第一列 把取出的这列看成一个向量 并乘以矩阵A 用B矩阵的第一列 这个计算结果将是 m×1的矩阵（也就是一个向量） 我们把结果先放在这里</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563690_1096939048_1539954295" alt="_1526563690_1096939048_1539954295_1526563690_1096939048.png"></p>
+<ul>
+<li>然后 我将要取 B矩阵的 第二列 那么我会又得到一个n×1的向量 也就是 这里的这一列 这是正确的 n×1的矩阵 也就是n维的向量 我将要把这个矩阵 和这些n乘1的向量相乘 其结果将是 一个m维的向量 然后我会把结果先放在那里 依此类推 对吧？</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563701_1971649980_1539954309" alt="_1526563701_1971649980_1539954309_1526563701_1971649980.png"></p>
+<ul>
+<li>那么 你知道的 我开始取第三列 把它和这个矩阵相乘 我又得到了一个M维向量 依此类推 直到你计算到了 最后一列 矩阵乘以 你取到的最后一列 就是C的最后一列 再说一遍 矩阵C的第i列 是根据把 矩阵A与 矩阵B的第i列 相乘得到的 结果 依次相加 从1,2到o依次相加的 对吧？</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563712_1758839025_1539954330" alt="_1526563712_1758839025_1539954330_1526563712_1758839025.png"></p>
+<ul>
+<li>那么 我们在这里做一个总结 我们总结了我们为了 计算矩阵C所做的步骤 让我们再看一个例子 比方说我想把这两个矩阵相乘</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563727_676793122_1539954340" alt="_1526563727_676793122_1539954340_1526563727_676793122.png"></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563734_828514080_1539954344" alt="_1526563734_828514080_1539954344_1526563734_828514080.png"></p>
+<h3 id="矩阵乘法笔记"><a href="#矩阵乘法笔记" class="headerlink" title="矩阵乘法笔记"></a>矩阵乘法笔记</h3><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563746_251656436_1539954349" alt="_1526563746_251656436_1539954349_1526563746_251656436.png"></p>
+<h2 id="Matrix-Multiplication-Properties"><a href="#Matrix-Multiplication-Properties" class="headerlink" title="Matrix Multiplication Properties"></a>Matrix Multiplication Properties</h2><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563766_2059918306_1539954356" alt="_1526563766_2059918306_1539954356_1526563766_2059918306.png"></p>
+<h3 id="矩阵乘法的性质笔记"><a href="#矩阵乘法的性质笔记" class="headerlink" title="矩阵乘法的性质笔记"></a>矩阵乘法的性质笔记</h3><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563800_776821059_1539954362" alt="_1526563800_776821059_1539954362_1526563800_776821059.png"></p>
+<h2 id="Inverse-adn-Transpose"><a href="#Inverse-adn-Transpose" class="headerlink" title="Inverse adn Transpose"></a>Inverse adn Transpose</h2><ul>
+<li>只有方阵才有<code>逆阵</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563816_1312285084_1539954375" alt="_1526563816_1312285084_1539954375_1526563816_1312285084.png"></p>
+<ul>
+<li>Octave求逆阵</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563829_456329215_1539954391" alt="_1526563829_456329215_1539954391_1526563829_456329215.png"></p>
+<h3 id="矩阵的逆和转置笔记"><a href="#矩阵的逆和转置笔记" class="headerlink" title="矩阵的逆和转置笔记"></a>矩阵的逆和转置笔记</h3><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1526563839_527465345_1539954398" alt="_1526563839_527465345_1539954398_1526563839_527465345.png"></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2018/11/15/di-san-zhang-xian-xing-dai-shu-hui-gu-linear-algebra-review/">https://www.fengwenhua.top/2018/11/15/di-san-zhang-xian-xing-dai-shu-hui-gu-linear-algebra-review/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/线性代数/">
+                                    <span class="chip bg-color">线性代数</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Wed Nov 14 2018 22:33:11 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/11/15/di-si-zhang-duo-bian-liang-xian-xing-hui-gui-linear-regression-with-multiple-variables/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="第四章 多变量线性回归(Linear Regression with Multiple Variables)">
+                        
+                        <span class="card-title">第四章 多变量线性回归(Linear Regression with Multiple Variables)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Multiple Features（多维特征）
+ 在这段视频中 我们将开始 介绍一种新的 更为有效的线性回归形式 这种形式适用于多个变量或者多特征量的情况
+
+
+在之前我们学习过的 线性回归中 我们只有一个单一特征量 房屋面积 x 我们希望用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linear-Regression/">
+                        <span class="chip bg-color">Linear-Regression</span>
+                    </a>
+                    
+                    <a href="/tags/多变量线性回归/">
+                        <span class="chip bg-color">多变量线性回归</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/11/15/di-er-zhang-dan-bian-liang-xian-xing-hui-gui-linear-regression-with-one-variable/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="第二章 单变量线性回归(Linear Regression with One Variable)">
+                        
+                        <span class="card-title">第二章 单变量线性回归(Linear Regression with One Variable)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Gradient Descennt
+我们已经定义了代价函数J 而在这段视频中 我想向你们介绍梯度下降这种算法 这种算法可以将代价函数$J$最小化 梯度下降是很常用的算法 它不仅被用在线性回归上 它实际上被广泛的应用于机器学习领域中的众多领域
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/机器学习/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/机器学习/机器学习入门/" class="post-category">
+                                    机器学习入门
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/单变量线性回归/">
+                        <span class="chip bg-color">单变量线性回归</span>
+                    </a>
+                    
+                    <a href="/tags/Linear-Regression/">
+                        <span class="chip bg-color">Linear-Regression</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

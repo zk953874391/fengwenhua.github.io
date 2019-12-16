@@ -1,0 +1,1370 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="PHP弱类型, 江南小虫虫的博客">
+    <meta name="description" content="参考：PHP弱类型安全问题总结 | 乘物游心
+PHP弱类型简介
+在PHP中，可以进行以下的操作。
+
+$param = 1;
+$param = array();
+$param = &#34;stringg&#34;;
+
+
+弱类型的语言对变量的数据类型没有限制">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>PHP弱类型 | 江南小虫虫的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">江南小虫虫的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/biaobai/表白.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-heart" style="zoom: 0.6;"></i>
+      
+      <span>给亲爱的老婆仔</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">江南小虫虫的博客</div>
+        <div class="logo-desc">
+            
+            尽力就行~~~
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/biaobai/表白.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heart"></i>
+			
+			给亲爱的老婆仔
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">PHP弱类型</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/php弱类型/">
+                                <span class="chip bg-color">php弱类型</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/渗透测试/" class="post-category">
+                                渗透测试
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-03-10
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-11-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+				
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.spoock.com/2016/06/25/weakly-typed-security/" target="_blank" rel="noopener">PHP弱类型安全问题总结 | 乘物游心</a></p>
+<h3 id="PHP弱类型简介"><a href="#PHP弱类型简介" class="headerlink" title="PHP弱类型简介"></a>PHP弱类型简介</h3><ul>
+<li>在PHP中，可以进行以下的操作。</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$param</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token variable">$param</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$param</span> <span class="token operator">=</span> <span class="token string">"stringg"</span><span class="token punctuation">;</span></code></pre>
+<a id="more"></a>
+<ul>
+<li><strong>弱类型的语言对变量的数据类型没有限制</strong>，你可以在任何地时候将变量赋值给任意的其他类型的变量，同时变量也可以转换成任意地其他类型的数据。</li>
+</ul>
+<h3 id="类型转换问题"><a href="#类型转换问题" class="headerlink" title="类型转换问题"></a>类型转换问题</h3><ul>
+<li>类型转换是无法避免的问题。例如<strong>需要将GET或者是POST的参数转换为int类型，或者是两个变量不匹配的时候，PHP会自动地进行变量转换</strong>。但是PHP是一个弱类型的语言，导致在进行类型转换的时候会存在很多意想不到的问题。</li>
+</ul>
+<h4 id="比较操作符"><a href="#比较操作符" class="headerlink" title="比较操作符"></a>比较操作符</h4><h5 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h5><ul>
+<li>在<code>$a==$b</code>的比较中</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310215030.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310215053.png" alt></p>
+<ul>
+<li>这样的例子还有很多，这种比较都是相等。<strong>PHP会把<code>类数值</code>(如含有数字的字符串等)的字符串转换为数值进行比较，如果参数是字符串，则返回字符串中第一个不是数字的字符之前的数字串所代表的整数值</strong></li>
+<li>使用<strong>比较操作符</strong>的时候也存在类型转换的问题，如下：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310221503.png" alt></p>
+<ul>
+<li><p>当<strong>不同类型的变量进行比较的时候就会存在<code>变量转换</code>的问题</strong>，在转换之后就有可能会存在问题。</p>
+</li>
+<li><p><strong>当一个字符串当作一个数值来取值</strong>，其结果和类型如下:</p>
+<ul>
+<li>如果该字符串没有包含<code>.</code>，<code>e</code>，<code>E</code>并且其数值值在<code>整型</code>的范围之内，该字符串被当作<code>int</code>来取值，其他所有情况下都被作为<code>float</code>来取值，该<strong>字符串的<code>开始部分</code>决定了它的值</strong></li>
+<li>如果该字符串以合法的数值开始，则使用该数值，否则其值为0<br><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310221523.png" alt></li>
+</ul>
+</li>
+<li><p>这里需要注意一下，第二个条件是<code>===</code>，和<code>==</code>是有点区别的：</p>
+<ul>
+<li><code>===</code>是恒等计算符 同时检查表达式的值与类型,可以理解为<strong>先检查类型再检查值</strong></li>
+<li><code>==</code>是比较运算符号 不会检查条件式的表达式的类型,<strong>如果类型不同的进行比较，其会将类型转换成相同的再进行比较</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="Hash比较"><a href="#Hash比较" class="headerlink" title="Hash比较"></a>Hash比较</h5><blockquote>
+<p>kali中输入如下代码验证：<code>php -r &#39;var_dump(&quot;00e0345&quot; == &quot;0&quot;);&#39;</code><br><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190310221542.png" alt></p>
+</blockquote>
+<ul>
+<li>除了以上的这种方式之外在进行hash比较的时候也会存在问题。php在处理hash字符串的时候会用到<code>!=</code>,<code>==</code>来进行hash比较，<strong>如果hash值以<code>0e</code>开头，后边都是<code>数字</code>，再与数字比较，就会被解释成    <code>科学记数法</code>:<code>0*10^n</code>还是为<code>0</code>，就会被判断相等</strong>,如下：</li>
+</ul>
+<pre><code>&quot;0e132456789&quot;==&quot;0e7124511451155&quot; // true
+&quot;0e123456abc&quot;==&quot;0e1dddada&quot;           // false
+&quot;0e1234abc&quot;==&quot;0&quot;                       // false</code></pre><ul>
+<li>当全是数字的时候，宽松的比较会执行<strong>尽力模式</strong>，如<code>0e12345678</code>会被解释成<code>0*10^12345678</code>, <strong>除了<code>e</code>外不全是数字的时候就不会相等</strong></li>
+</ul>
+<h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token string">'flag{test}'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span>  <span class="token punctuation">(</span><span class="token string">"POST"</span> <span class="token operator">==</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_METHOD'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$password</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">>=</span> <span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^[[:graph:]]{12,}$/'</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token keyword">echo</span> <span class="token string">'Wrong Format'</span><span class="token punctuation">;</span>
+        exit<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token constant">TRUE</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token variable">$reg</span> <span class="token operator">=</span> <span class="token string">'/([[:punct:]]+|[[:digit:]]+|[[:upper:]]+|[[:lower:]]+)/'</span><span class="token punctuation">;</span> 
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">6</span> <span class="token operator">></span> <span class="token function">preg_match_all</span><span class="token punctuation">(</span><span class="token variable">$reg</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">,</span> <span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token variable">$c</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token variable">$ps</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'punct'</span><span class="token punctuation">,</span> <span class="token string">'digit'</span><span class="token punctuation">,</span> <span class="token string">'upper'</span><span class="token punctuation">,</span> <span class="token string">'lower'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$ps</span> <span class="token keyword">as</span> <span class="token variable">$pt</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">"/[[:$pt:]]+/"</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+                <span class="token variable">$c</span> <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$c</span> <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"42"</span> <span class="token operator">==</span> <span class="token variable">$password</span><span class="token punctuation">)</span> <span class="token keyword">echo</span> <span class="token variable">$flag</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">echo</span> <span class="token string">'Wrong password'</span><span class="token punctuation">;</span>
+        exit<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li>这里的意思就是：接收post参数password的值，必须满足12位以上字符，必须是非空格非TAB之外的内容，然后就是你的password要有大小写数字，字符内容，而且匹配到的次数要大于6次，最后才是这里的考点：</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"42"</span> <span class="token operator">==</span> <span class="token variable">$password</span><span class="token punctuation">)</span> <span class="token keyword">echo</span> <span class="token variable">$flag</span><span class="token punctuation">;</span> 
+<span class="token keyword">else</span> <span class="token keyword">echo</span> <span class="token string">'Wrong password'</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>最后的答案就是：<code>42.00e+00000000000</code> , 当然也可以这样：<code>420.000000000e-1</code></li>
+<li>42.00e+0000000000，10的00000次方。。等于42.000000…. 结果其实就是42</li>
+</ul>
+<h5 id="十六进制转换"><a href="#十六进制转换" class="headerlink" title="十六进制转换"></a>十六进制转换</h5><ul>
+<li>还存在一种十六进制余字符串进行比较运算时的问题。例子如下：</li>
+</ul>
+<pre><code>&quot;0x1e240&quot;==&quot;123456&quot;        // true
+&quot;0x1e240&quot;==123456           // true
+&quot;0x1e240&quot;==&quot;1e240&quot;        // false</code></pre><ul>
+<li>当其中的一个字符串是<code>0x</code>开头的时候，PHP会<strong>将此字符串解析成为<code>十进制</code>然后再进行比较</strong>，<code>0x1240</code>解析成为十进制就是<code>123456</code>，所以与<strong>int类型和string类型的123456比较都是相等</strong>。</li>
+</ul>
+<h4 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h4><p>常见的转换主要就是<code>int转换为string</code>，<code>string转换为int</code>。</p>
+<h5 id="int转string："><a href="#int转string：" class="headerlink" title="int转string："></a>int转string：</h5><pre><code>$var = 5;
+方式1：$item = (string)$var;
+方式2：$item = strval($var);</code></pre><h5 id="string转int：intval-函数。"><a href="#string转int：intval-函数。" class="headerlink" title="string转int：intval()函数。"></a>string转int：<code>intval()</code>函数。</h5><ul>
+<li>对于这个函数，可以先看2个例子。</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token string">'2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">//2</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token string">'3abcd'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">//3</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token string">'abcd'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">//0</span></code></pre>
+<ul>
+<li>说明<code>intval()</code>转换的时候，会将<strong>从字符串的开始进行转换直到遇到一个<code>非数字</code>的字符</strong>。即使出现无法转换的字符串，<code>intval()</code>不会报错而是<strong>返回0</strong>。</li>
+<li>同时，程序员在编程的时候也不应该使用如下的这段代码：</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token number">1000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">mysql_query</span><span class="token punctuation">(</span><span class="token string">"select * from news where id="</span><span class="token punctuation">.</span><span class="token variable">$a</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+<p>这个时候<code>$a</code>的值有可能是<code>1002 union…..</code></p>
+<h6 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h6><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token string">"flag{test}"</span><span class="token punctuation">;</span>
+<span class="token variable">$temp</span> <span class="token operator">=</span> <span class="token string">"1337a"</span><span class="token punctuation">;</span>
+<span class="token function">is_numeric</span><span class="token punctuation">(</span><span class="token variable">$temp</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"nope"</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token keyword">NULL</span><span class="token punctuation">;</span>    
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$temp</span><span class="token operator">></span><span class="token number">1336</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token variable">$flag</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> 
+<span class="token delimiter">?></span></code></pre>
+<ul>
+<li>代码中先将变量放到<code>is_numeric</code>函数中判断，如果数字或数字字符串则返回true，否咋返回false。然后一个判断，如果temp大于1336则显示flag。这里用到了PHP弱类型的一个特性，<strong>当一个整型和一个其他类型行比较的时候，会先把其他类型<code>intval</code>再比</strong>。如果输入一个<code>1337a</code>这样的字符串，在is_numeric中返回true，然后在比较时被转换成数字1337，这样就绕过判断输出flag。</li>
+</ul>
+<h4 id="bool欺骗"><a href="#bool欺骗" class="headerlink" title="bool欺骗"></a>bool欺骗</h4><blockquote>
+<p>当存在<code>json_decode</code>和<code>unserialize</code>的时候，部分结构会被解释成<code>bool类型</code>，也会造成欺骗。</p>
+</blockquote>
+<h5 id="json-decode"><a href="#json-decode" class="headerlink" title="json_decode"></a><code>json_decode</code></h5><pre class=" language-php"><code class="language-php"><span class="token variable">$json_str</span> <span class="token operator">=</span> <span class="token string">'{"user":true,"pass":true}'</span><span class="token punctuation">;</span>
+<span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$json_str</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'user'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'admin'</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'pass'</span><span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'secirity'</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">print_r</span><span class="token punctuation">(</span><span class="token string">'logined in as bool'</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>运行结果：</p>
+<pre><code>root@kali:/var/www# php /root/php/hash.php
+logined in as bool</code></pre><h5 id="unserialize"><a href="#unserialize" class="headerlink" title="unserialize"></a><code>unserialize</code></h5><pre class=" language-php"><code class="language-php"><span class="token variable">$unserialize_str</span> <span class="token operator">=</span> <span class="token string">'a:2:{s:4:"user";b:1;s:4:"pass";b:1;}'</span><span class="token punctuation">;</span>
+<span class="token variable">$data_unserialize</span> <span class="token operator">=</span> <span class="token function">unserialize</span><span class="token punctuation">(</span><span class="token variable">$unserialize_str</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$data_unserialize</span><span class="token punctuation">[</span><span class="token string">'user'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'admin'</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$data_unserialize</span><span class="token punctuation">[</span><span class="token string">'pass'</span><span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'secirity'</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">print_r</span><span class="token punctuation">(</span><span class="token string">'logined in unserialize'</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>运行结果如下：</p>
+<pre><code>root@kali:/var/www# php /root/php/hash.php
+logined in unserialize</code></pre><p><strong>bool类型的true跟任意字符串可以弱类型相等</strong>。因此我们可以构造bool类型的序列化数据 ，无论比较的值是什么，结果都为true。（<code>a</code>代表<code>array</code>，<code>s</code>代表<code>string</code>，<code>b</code>代表<code>bool</code>，而<code>数字</code>代表个数/长度）</p>
+<h4 id="数字转换欺骗"><a href="#数字转换欺骗" class="headerlink" title="数字转换欺骗"></a>数字转换欺骗</h4><pre class=" language-php"><code class="language-php"><span class="token variable">$user_id</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'user_id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$user_id</span> <span class="token operator">==</span> <span class="token string">"1"</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$user_id</span> <span class="token operator">=</span> <span class="token punctuation">(</span>int<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token variable">$user_id</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token shell-comment comment">#$user_id = intval($user_id);</span>
+    <span class="token variable">$qry</span> <span class="token operator">=</span> <span class="token string">"SELECT * FROM `users` WHERE user_id='$user_id';"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">mysql_query</span><span class="token punctuation">(</span><span class="token variable">$qry</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'&lt;pre>'</span> <span class="token punctuation">.</span> <span class="token function">mysql_error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'&lt;/pre>'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">print_r</span><span class="token punctuation">(</span><span class="token function">mysql_fetch_row</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>将<code>user_id=0.999999999999999999999</code>发送出去得到结果如下：</p>
+<pre><code>Array
+(
+    [0] =&gt; 0
+    [1] =&gt; lxx&#39;
+    [2] =&gt; 
+    [3] =&gt; 
+    [4] =&gt; 
+    [5] =&gt; 
+)</code></pre><p>本来是要查询user_id的数据，结果却是<code>user_id=0</code>的数据。<strong><code>int</code>和<code>intval</code>在转换数字的时候都是<code>就低</code>的</strong>，再如下代码:</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'uid'</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token variable">$res</span> <span class="token operator">=</span> <span class="token variable">$db</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"SELECT * FROM user WHERE uid=%d"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>int<span class="token punctuation">)</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'uid'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token function">mail</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+ <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Cannot reset password of admin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>假如传入<code>1.1</code>，就绕过了<code>$_POST[&#39;uid&#39;]！=1</code>的判断，就能对<code>uid=1</code>的用户进行操作了。另外<code>intval</code>还有个<strong>尽力模式</strong>，就是<strong>转换所有数字直到遇到非数字为止</strong>，如果采用:</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">intval</span><span class="token punctuation">(</span><span class="token variable">$qq</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'123456'</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$db</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"select * from user where qq = $qq"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+<p>攻击者传入<code>123456 union select version()</code>进行攻击。</p>
+<h3 id="内置函数的参数的松散性"><a href="#内置函数的参数的松散性" class="headerlink" title="内置函数的参数的松散性"></a>内置函数的参数的松散性</h3><p><code>内置函数的松散性</code>说的是，<strong>调用函数时给函数传递函数无法接受的参数类型</strong>。解释起来有点拗口，还是直接通过实际的例子来说明问题，下面会重点介绍几个这种函数。</p>
+<h4 id="md5"><a href="#md5" class="headerlink" title="md5()"></a>md5()</h4><pre class=" language-php"><code class="language-php"><span class="token variable">$array1</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+    <span class="token string">"foo"</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
+    <span class="token string">"bar"</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"foo"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$array2</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">,</span> <span class="token string">"bar"</span><span class="token punctuation">,</span> <span class="token string">"hello"</span><span class="token punctuation">,</span> <span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token variable">$array1</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$array2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//true</span></code></pre>
+<p>PHP手册中的<code>md5()</code>函数的描述是<code>string md5 ( string $str [, bool $raw_output = false ] )</code>，<code>md5()</code>中的需要是一个<code>string</code>类型的参数。但是当你传递一个<code>array</code>时，<code>md5()</code>不会报错，只是会无法正确地求出array的md5值，md5的结果都是<code>null</code>这样就<strong>会导致任意2个array的md5值都会相等</strong>。</p>
+<h5 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h5><p>注意以下代码,需要判断username和password的md5运算相等才会显示flag</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token string">'flag{test}'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">'Your password can not be your username.'</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'Flag: '</span><span class="token punctuation">.</span><span class="token variable">$flag</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token keyword">print</span> <span class="token string">'Invalid password'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>这时候给<code>username</code>和<code>passwor</code>d传入<code>数组</code>,即可拿到flag</p>
+<pre><code>http://www.example.com/index.php?username[]=1&amp;password[]=2</code></pre><h4 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h4><p><code>strcmp()</code>函数在PHP官方手册中的描述是<code>int strcmp ( string $str1 , string $str2 )</code>,需要给<code>strcmp()</code>传递2个string类型的参数。如果str1小于str2,返回-1，相等返回0，否则返回1。strcmp函数比较字符串的<code>本质</code>是<strong>将两个变量转换为ascii，然后进行减法运算，然后根据运算结果来决定返回值</strong>。<br>如果传入给出<code>strcmp()</code>的参数是<code>数组</code>呢？</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$array</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span><span class="token variable">$array</span><span class="token punctuation">,</span><span class="token string">'123'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//结果是null</span></code></pre>
+<p>在某种意义上<code>null</code>也就是相当于<code>false</code></p>
+<h5 id="例题-3"><a href="#例题-3" class="headerlink" title="例题"></a>例题</h5><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> 
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token variable">$flag</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>  
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'Flag: '</span><span class="token punctuation">.</span><span class="token variable">$flag</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token keyword">else</span>  
+        <span class="token keyword">print</span> <span class="token string">'Invalid password'</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>使用<code>strcmp</code>去比较password和flag，如果<code>==0</code>的话，就给出flag，但是<code>strcmp</code>比较，<strong>只有相等才会返回0，如果不相等的 话，要么大于0，要么小于0</strong>，但是strcmp只会处理字符串参数，如果<strong>给个数组的话呢，就会返回NULL,而判断使用的是<code>==</code>，<code>NULL==0</code>是 <code>bool(true)</code>的</strong></p>
+<h4 id="switch"><a href="#switch" class="headerlink" title="switch()"></a>switch()</h4><ul>
+<li><strong>如果switch是数字类型的case的判断时，switch会将其中的参数转换为int类型</strong>。如下：</li>
+</ul>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$i</span> <span class="token operator">=</span><span class="token string">"2abc"</span><span class="token punctuation">;</span>
+<span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">case</span> <span class="token number">0</span><span class="token punctuation">:</span>
+<span class="token keyword">case</span> <span class="token number">1</span><span class="token punctuation">:</span>
+<span class="token keyword">case</span> <span class="token number">2</span><span class="token punctuation">:</span>
+    <span class="token keyword">echo</span> <span class="token string">"i is less than 3 but not negative"</span><span class="token punctuation">;</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span>
+<span class="token keyword">case</span> <span class="token number">3</span><span class="token punctuation">:</span>
+    <span class="token keyword">echo</span> <span class="token string">"i is 3"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>这个时候程序输出的是<code>i is less than 3 but not negative</code>，是由于<code>switch()</code>函数将<code>$i</code>进行了类型转换，转换结果为<code>2</code>。</p>
+<h4 id="in-array"><a href="#in-array" class="headerlink" title="in_array()"></a>in_array()</h4><p>在PHP手册中，<code>in_array()</code>函数的解释是<code>bool in_array ( mixed $needle , array $haystack [, bool $strict = FALSE ] )</code>,如果<code>strict</code>参数没有提供，那么in_array就会使用松散比较来判断<code>$needle</code>是否在<code>$haystack</code>中。当strince的值为true时，<code>in_array()</code>会比较<code>needle</code>的类型和<code>haystack</code>中的<strong>类型是否相同</strong>。</p>
+<pre><code>in_array — 检查数组中是否存在某个值 参数
+needle 待搜索的值。
+注意: 如果 needle 是字符串，则比较是区分大小写的。
+haystack 这个数组。
+strict 如果第三个参数 strict 的值为 TRUE 则 in_array() 函数还会检查 needle 的类型是否和 haystack 中的相同。
+可以看到，只有加了strict才会对类型进行严格比较</code></pre><pre class=" language-php"><code class="language-php"><span class="token variable">$array</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">,</span> <span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//true</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token string">'1bc'</span><span class="token punctuation">,</span> <span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//true</span>
+<span class="token comment" spellcheck="true">// 它遍历了array的每个值，并且作"=="比较（“当设置了strict 用===”）</span></code></pre>
+<p>可以看到上面的情况返回的都是true,<strong>因为’abc’会转换为0(<code>intval(&#39;abc&#39;)=0</code>)，’1bc’转换为1(<code>intval(&#39;1bc&#39;)=1</code>)</strong>。<br><code>array_search()</code>与<code>in_array()</code>也是一样的问题。</p>
+<p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/_1527742998_24616_1536892885" alt></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top" rel="external nofollow noreferrer">冯文华</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.fengwenhua.top/2019/03/11/php-ruo-lei-xing/">https://www.fengwenhua.top/2019/03/11/php-ruo-lei-xing/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/php弱类型/">
+                                    <span class="chip bg-color">php弱类型</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechatpay.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Sun Mar 10 2019 22:16:20 GMT+0000',
+    owner: 'fengwenhua',
+    repo: 'fengwenhua.github.io',
+    oauth: {
+        client_id: '487b675438c149b5818b',
+        client_secret: '501477eec1e2ed9f27751d02281b5834021d6c7b'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/04/28/web-server-jie-xi-lou-dong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Web Server解析漏洞">
+                        
+                        <span class="card-title">Web Server解析漏洞</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. Apache解析漏洞1.1. 未知后缀解析漏洞1.1.1. 影响版本
+Apache 1.x
+Apache 2.x
+
+1.1.2. 原理
+Apache对于⽂件名的解析是从后往前解析的, 直到遇⻅⼀个Apache认识的⽂件类型为⽌.
+比如
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            <a href="/categories/渗透测试/文件上传/" class="post-category">
+                                    文件上传
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Apache解析漏洞/">
+                        <span class="chip bg-color">Apache解析漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/IIS解析漏洞/">
+                        <span class="chip bg-color">IIS解析漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/Nginx解析漏洞/">
+                        <span class="chip bg-color">Nginx解析漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/PHP-CGI路径解析问题/">
+                        <span class="chip bg-color">PHP CGI路径解析问题</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/03/11/web-yuan-ma-xie-lu-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="web源码泄露总结">
+                        
+                        <span class="card-title">web源码泄露总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            参考https://www.xmanblog.net/2017/04/03/web-code-leakage/
+寻找源代码备份
+在打ctf的时候,有时候页面什么提示都没有,这时候就要考虑一下是不是源代码泄露了
+
+hg 源码泄露hg init
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/渗透测试/" class="post-category">
+                                    渗透测试
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web源码泄露/">
+                        <span class="chip bg-color">web源码泄露</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="https://www.fengwenhua.top" target="_blank">冯文华</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">141.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/fengwenhua" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:807296772@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=807296772" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 807296772" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140817753-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-140817753-1');
+</script>
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
