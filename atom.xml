@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.fengwenhua.top/"/>
-  <updated>2019-11-30T04:02:44.528Z</updated>
+  <updated>2020-01-26T04:40:28.109Z</updated>
   <id>https://www.fengwenhua.top/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>dell 7559 10 15 2 黑苹果</title>
+    <link href="https://www.fengwenhua.top/2020/01/26/dell-7559-10-15-2-hei-ping-guo/"/>
+    <id>https://www.fengwenhua.top/2020/01/26/dell-7559-10-15-2-hei-ping-guo/</id>
+    <published>2020-01-26T12:39:50.000Z</published>
+    <updated>2020-01-26T04:40:28.109Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;0x16-双显黑屏&quot;&gt;&lt;a href=&quot;#0x16-双显黑屏&quot; class=&quot;headerlink&quot; title=&quot;0x16 双显黑屏&quot;&gt;&lt;/a&gt;0x16 双显黑屏&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;带着我的笔记本高高兴兴的回家, 结果发现,
+        
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://www.fengwenhua.top/categories/Linux/"/>
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/categories/Linux/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+    
+      <category term="黑苹果" scheme="https://www.fengwenhua.top/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/"/>
+    
+      <category term="hackintosh" scheme="https://www.fengwenhua.top/tags/hackintosh/"/>
+    
+      <category term="dell-7559" scheme="https://www.fengwenhua.top/tags/dell-7559/"/>
+    
+      <category term="10.15.2" scheme="https://www.fengwenhua.top/tags/10-15-2/"/>
+    
+  </entry>
   
   <entry>
     <title>sqli-lab之第一章 基础知识</title>
@@ -556,31 +591,6 @@ http://www.example.com/.hg/&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&quot;ht
       <category term="逻辑回归" scheme="https://www.fengwenhua.top/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
     
       <category term="Logistic Regression" scheme="https://www.fengwenhua.top/tags/Logistic-Regression/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第五章-Octave教程</title>
-    <link href="https://www.fengwenhua.top/2019/02/12/di-wu-zhang-octave-jiao-cheng/"/>
-    <id>https://www.fengwenhua.top/2019/02/12/di-wu-zhang-octave-jiao-cheng/</id>
-    <published>2019-02-11T19:33:35.000Z</published>
-    <updated>2019-11-30T04:02:44.538Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;第五章-Octave教程&quot;&gt;&lt;a href=&quot;#第五章-Octave教程&quot; class=&quot;headerlink&quot; title=&quot;第五章 Octave教程&quot;&gt;&lt;/a&gt;第五章 Octave教程&lt;/h1&gt;&lt;h3 id=&quot;1-基本操作&quot;&gt;&lt;a href=&quot;#1-基本操作&quot; class=&quot;headerlink&quot; title=&quot;1. 基本操作&quot;&gt;&lt;/a&gt;1. 基本操作&lt;/h3&gt;&lt;p&gt;启动Octave：&lt;/p&gt;
-&lt;p&gt;现在打开Octave，这是Octave命令行。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181104211208.png&quot; alt&gt;&lt;/p&gt;
-&lt;p&gt;现在让我示范最基本的Octave代码：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
-    
-    
-      <category term="octave" scheme="https://www.fengwenhua.top/tags/octave/"/>
     
   </entry>
   
