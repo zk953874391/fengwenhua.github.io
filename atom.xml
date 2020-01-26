@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.fengwenhua.top/"/>
-  <updated>2020-01-26T04:40:28.109Z</updated>
+  <updated>2020-01-26T11:15:15.819Z</updated>
   <id>https://www.fengwenhua.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kali 安装 v2ray</title>
+    <link href="https://www.fengwenhua.top/2020/01/27/kali-an-zhuang-v2ray/"/>
+    <id>https://www.fengwenhua.top/2020/01/27/kali-an-zhuang-v2ray/</id>
+    <published>2020-01-26T18:47:20.000Z</published>
+    <updated>2020-01-26T11:15:15.819Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;bash &amp;lt;(curl -L -s https://install.direct/go.sh)&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;开机自启&quot;&gt;&lt;a href=&quot;#开机自启&quot; class=&quot;headerlink&quot; title=&quot;开机自启&quot;&gt;&lt;/a&gt;开机自启&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;gedit /etc/systemd/system/v2ray.service&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://www.fengwenhua.top/categories/Linux/"/>
+    
+      <category term="Kali" scheme="https://www.fengwenhua.top/categories/Linux/Kali/"/>
+    
+    
+      <category term="v2ray" scheme="https://www.fengwenhua.top/tags/v2ray/"/>
+    
+      <category term="proxychains4" scheme="https://www.fengwenhua.top/tags/proxychains4/"/>
+    
+  </entry>
   
   <entry>
     <title>dell 7559 10 15 2 黑苹果</title>
@@ -111,11 +136,11 @@
     <link href="https://www.fengwenhua.top/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/"/>
     <id>https://www.fengwenhua.top/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/</id>
     <published>2019-05-14T17:56:25.000Z</published>
-    <updated>2019-11-30T04:02:44.531Z</updated>
+    <updated>2020-01-26T04:47:00.867Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
+      &lt;h1 id=&quot;接口没了-脚本失效&quot;&gt;&lt;a href=&quot;#接口没了-脚本失效&quot; class=&quot;headerlink&quot; title=&quot;接口没了, 脚本失效&quot;&gt;&lt;/a&gt;接口没了, 脚本失效&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;前两天博主网络通识课要期末考试啦, 不想百度谷歌, 于是找了一波接口, 还真被我发现有大佬已经写好接口了, 不说话, 上py&lt;/p&gt;
 &lt;/blockquote&gt;
     
@@ -560,37 +585,6 @@ http://www.example.com/.hg/&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&quot;ht
     
     
       <category term="正则化" scheme="https://www.fengwenhua.top/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第六章-逻辑回归(Logistic-Regression)</title>
-    <link href="https://www.fengwenhua.top/2019/02/12/di-liu-zhang-luo-ji-hui-gui-logistic-regression/"/>
-    <id>https://www.fengwenhua.top/2019/02/12/di-liu-zhang-luo-ji-hui-gui-logistic-regression/</id>
-    <published>2019-02-11T19:44:29.000Z</published>
-    <updated>2019-11-30T04:02:44.540Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;第六章-逻辑回归-Logistic-Regression&quot;&gt;&lt;a href=&quot;#第六章-逻辑回归-Logistic-Regression&quot; class=&quot;headerlink&quot; title=&quot;第六章 逻辑回归(Logistic Regression)&quot;&gt;&lt;/a&gt;第六章 逻辑回归(Logistic Regression)&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;6-1-Classification-分类问题&quot;&gt;&lt;a href=&quot;#6-1-Classification-分类问题&quot; class=&quot;headerlink&quot; title=&quot;6.1 Classification(分类问题)&quot;&gt;&lt;/a&gt;6.1 Classification(分类问题)&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;从现在及未来,我们开始谈论的分类问题，其中要预测的变量$y$是&lt;code&gt;离散的(discreet valued)&lt;/code&gt;。我们将学习一个算法叫&lt;code&gt;Logistic回归&lt;/code&gt;，这是当今最流行和最广泛使用的学习算法之一。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;下面是分类问题的一些例子。之前，我们谈到了&lt;code&gt;电子垃圾邮件分类&lt;/code&gt;就是一个分类问题。另一个例子是&lt;code&gt;网上交易的分类&lt;/code&gt;问题。如果你有一个卖东西的网站，然后你想知道一次实物的交易是不是欺诈，或者某人是否在使用偷来的信用卡或者是盗用了别的用户的密码。这是另一种分类问题，之前我们也谈到肿瘤分类问题的例子,区别一个肿瘤是恶性的还是良性的。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20181128101228.png&quot; alt&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="机器学习入门" scheme="https://www.fengwenhua.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
-    
-    
-      <category term="逻辑回归" scheme="https://www.fengwenhua.top/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
-    
-      <category term="Logistic Regression" scheme="https://www.fengwenhua.top/tags/Logistic-Regression/"/>
     
   </entry>
   

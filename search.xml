@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Kali 安装 v2ray</title>
+      <link href="/2020/01/27/kali-an-zhuang-v2ray/"/>
+      <url>/2020/01/27/kali-an-zhuang-v2ray/</url>
+      
+        <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">bash</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>curl -L -s https://install.direct/go.sh<span class="token punctuation">)</span></code></pre><h2 id="开机自启"><a href="#开机自启" class="headerlink" title="开机自启"></a>开机自启</h2><pre><code>gedit /etc/systemd/system/v2ray.service</code></pre><a id="more"></a><p>在里面填写如下内容：</p><pre class=" language-service"><code class="language-service">[Unit]Description=V2Ray ServiceAfter=network.targetWants=network.target[Service]# This service runs as root. You may consider to run it as another user for security concerns.# By uncommenting the following two lines, this service will run as user v2ray/v2ray.# More discussion at https://github.com/v2ray/v2ray-core/issues/1011# User=v2ray# Group=v2rayType=simplePIDFile=/run/v2ray.pidExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.jsonRestart=on-failure# Don't restart in the case of configuration errorRestartPreventExitStatus=23[Install]WantedBy=multi-user.target</code></pre><p>配置生效：</p><pre class=" language-bash"><code class="language-bash">systemctl <span class="token function">enable</span> /etc/systemd/system/v2ray.service</code></pre><h2 id="配置-ProxyChain"><a href="#配置-ProxyChain" class="headerlink" title="配置 ProxyChain"></a>配置 ProxyChain</h2><p>ProxyChain 不用安装，它是 Kali 自带的一个工具，作用在于可以配置任何一个应用的代理。配置文件在 <code>/etc/proxychains.conf</code></p><pre class=" language-bash"><code class="language-bash">gedit /etc/proxychains.conf</code></pre><p>取消注释<code>dynamic_chain</code>,去掉<code>#</code>即可, 然后在文件最后一行把 <code>socks4 127.0.0.1 9050</code> 注释掉，换成自己的配置，对应上文这里是 <code>socks5 127.0.0.1 1081</code>.</p><pre class=" language-conf"><code class="language-conf">dynamic_chain#socks4     127.0.0.1 9050socks5 127.0.0.1 1081</code></pre><h2 id="测试服务器"><a href="#测试服务器" class="headerlink" title="测试服务器"></a>测试服务器</h2><p>测试需要使用 <code>proxyresolv</code> 命令，翻译过来就是代理解析器，用来解析目标地址是否连通。格式例如：<code>proxyresolv www.google.com</code>，第一次使用时会提示命令未找到，需要将其复制到 <code>/usr/bin</code> 下，命令如下：</p><pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span> /usr/lib/proxychains3/proxyresolv /usr/bin/</code></pre><p>然后再执行 proxyresolv <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 命令当返回 ok 时则证明配置没问题，如下图：</p><p><img src="https://gitee.com/fengwenhua/ImageBed/raw/master/1580037275_20200126190943963_475169139.png" alt></p><h2 id="ProxyChains-代理"><a href="#ProxyChains-代理" class="headerlink" title="ProxyChains 代理"></a>ProxyChains 代理</h2><p>以上配置好后，就可以通过 ProxyChains 来代理任何一个应用，格式为：<code>proxychains 应用名称</code>，例如 <code>proxychains firefox，proxychains sqlmap，proxychains msfconsole</code> 等。</p><p><img src="https://gitee.com/fengwenhua/ImageBed/raw/master/1580037276_20200126191205507_1823519627.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> Kali </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> v2ray </tag>
+            
+            <tag> proxychains4 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>dell 7559 10 15 2 黑苹果</title>
       <link href="/2020/01/26/dell-7559-10-15-2-hei-ping-guo/"/>
       <url>/2020/01/26/dell-7559-10-15-2-hei-ping-guo/</url>
@@ -95,7 +124,7 @@
       <link href="/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/"/>
       <url>/2019/05/15/zhi-hui-shu-wang-ke-kao-shi/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>前两天博主网络通识课要期末考试啦, 不想百度谷歌, 于是找了一波接口, 还真被我发现有大佬已经写好接口了, 不说话, 上py</p></blockquote><a id="more"></a><pre class=" language-python3"><code class="language-python3">#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date    : 2019-05-13 14:55:01# @Link    : https://www.fengwenhua.topimport requestsfrom urllib.parse import urlencodefrom random import choicefrom requests.exceptions import ConnectionError, ReadTimeoutdef get_answer(question):    User_Agents_List = [        'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',        'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',        'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0',        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1',        'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11',        'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11',        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',    ]    headers = {        'User-Agent': choice(User_Agents_List),        'Accept-Encoding': 'gzip, deflate, sdch',        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7'    }    params = {        'w': question,    }    url = "http://api.fm210.cn/wangke/cx.php?" + urlencode(params)    try:        r = requests.get(url, headers=headers, timeout=5)        if r.status_code == 200:            return r.text    except ConnectionError:        print('访问失败', url)    except ReadTimeout:        print('访问超时', url)if __name__ == '__main__':    # 将问题粘贴到这里, 然后直接运行即可    question = "3200K—5500K范围的色温，都适用于灯光彩色胶片的拍摄。"    print(get_answer(question))</code></pre><blockquote><p>由于本人用st3运行, 没有装可以输入的插件, 因此只能粘贴一下运行一下喽<del>~</del><br>最后, 靠着这个代码, 本人在智慧树中那门摄影基础期末考了100分!!!</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="接口没了-脚本失效"><a href="#接口没了-脚本失效" class="headerlink" title="接口没了, 脚本失效"></a>接口没了, 脚本失效</h1><blockquote><p>前两天博主网络通识课要期末考试啦, 不想百度谷歌, 于是找了一波接口, 还真被我发现有大佬已经写好接口了, 不说话, 上py</p></blockquote><a id="more"></a><pre class=" language-python3"><code class="language-python3">#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date    : 2019-05-13 14:55:01# @Link    : https://www.fengwenhua.topimport requestsfrom urllib.parse import urlencodefrom random import choicefrom requests.exceptions import ConnectionError, ReadTimeoutdef get_answer(question):    User_Agents_List = [        'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',        'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',        'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0',        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1',        'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11',        'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11',        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',    ]    headers = {        'User-Agent': choice(User_Agents_List),        'Accept-Encoding': 'gzip, deflate, sdch',        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7'    }    params = {        'w': question,    }    url = "http://api.fm210.cn/wangke/cx.php?" + urlencode(params)    try:        r = requests.get(url, headers=headers, timeout=5)        if r.status_code == 200:            return r.text    except ConnectionError:        print('访问失败', url)    except ReadTimeout:        print('访问超时', url)if __name__ == '__main__':    # 将问题粘贴到这里, 然后直接运行即可    question = "3200K—5500K范围的色温，都适用于灯光彩色胶片的拍摄。"    print(get_answer(question))</code></pre><blockquote><p>由于本人用st3运行, 没有装可以输入的插件, 因此只能粘贴一下运行一下喽<del>~</del><br>最后, 靠着这个代码, 本人在智慧树中那门摄影基础期末考了100分!!!</p></blockquote>]]></content>
       
       
       <categories>
@@ -675,7 +704,7 @@
             
             <tag> kali系统安装 </tag>
             
-            <tag> kali安装ss-qt5 </tag>
+            <tag> kali安装 ss-qt5 </tag>
             
         </tags>
       
