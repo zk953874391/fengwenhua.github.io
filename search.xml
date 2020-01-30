@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Kali 安装 jdk</title>
+      <link href="/2020/01/27/kali-an-zhuang-jdk/"/>
+      <url>/2020/01/27/kali-an-zhuang-jdk/</url>
+      
+        <content type="html"><![CDATA[<ol><li><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">官网</a>下载<code>jdk-linux-x64.tar.gz</code></p></li><li><p><code>tar -xvzf jdk-linux-x64.tar.gz</code>解压到当前目录</p></li><li><p>然后复制到<code>/usr/jdk</code></p></li></ol><pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span> -r jdk1.8.0_201/ /usr/jdk</code></pre><ol start="4"><li>编辑<code>/etc/profile</code>，加入如下命令以配置java的环境变量</li></ol><p>复制以下内容追加到文件末尾</p><pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> JAVA_HOME<span class="token operator">=</span>/usr/jdk<span class="token function">export</span> CLASSPATH<span class="token operator">=</span>.:<span class="token variable">$JAVA_HOME</span>/lib:<span class="token variable">$JAVA_HOME</span>/jre/lib:<span class="token variable">$CLASSPATH</span><span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$JAVA_HOME</span>/jre/bin:<span class="token variable">$PATH</span></code></pre><ol start="5"><li>告诉系统JDK的位置，最后2行代码不是重复，是要执行2次</li></ol><pre><code>update-alternatives --install &quot;/usr/bin/java&quot; &quot;java&quot; &quot;/usr/jdk/bin/java&quot; 1update-alternatives --install &quot;/usr/bin/javac&quot; &quot;javac&quot; &quot;/usr/jdk/bin/javac&quot; 1update-alternatives --install &quot;/usr/bin/javaws&quot; &quot;javaws&quot; &quot;/usr/jdk/bin/javaws&quot; 1update-alternatives --install &quot;/usr/bin/javaws&quot; &quot;javaws&quot; &quot;/usr/jdk/bin/javaws&quot; 1</code></pre><ol start="6"><li>设置新的JDK为默认,代码也是执行2次</li></ol><pre><code>update-alternatives --set java /usr/jdk/bin/javaupdate-alternatives --set java /usr/jdk/bin/javaupdate-alternatives --set javac /usr/jdk/bin/javacupdate-alternatives --set javac /usr/jdk/bin/javacupdate-alternatives --set javaws /usr/jdk/bin/javawsupdate-alternatives --set javaws /usr/jdk/bin/javaws</code></pre><ol start="7"><li><code>source /etc/profile</code>: 重载Profile文件</li><li>输入<code>java -version</code>，看到如下图则说明配置成功</li></ol><p><img src="https://raw.githubusercontent.com/fengwenhua/ImageBed/master/20190228121814.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> Kali </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> jdk </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kali 安装 v2ray</title>
       <link href="/2020/01/27/kali-an-zhuang-v2ray/"/>
       <url>/2020/01/27/kali-an-zhuang-v2ray/</url>
