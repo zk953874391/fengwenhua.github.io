@@ -5,7 +5,7 @@ mathjax: true
 tags:
 - kali显卡
 - kali系统安装
-- kali安装ss-qt5
+- kali安装 ss-qt5
 categories:
 - Linux
 - Kali
